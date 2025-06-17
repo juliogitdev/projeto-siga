@@ -1,0 +1,34 @@
+ # Arquivos de IDE (NetBeans)
+nbproject/
+build/
+dist/
+nbbuild/
+nbdist/
+.nbattrs
+
+# Arquivos de compilação
+*.class
+*.jar
+*.war
+target/ # Para projetos Maven/Gradle
+
+# Diretórios de log
+logs/
+*.log
+
+# Dependências de IDE
+.idea/ # IntelliJ IDEA
+.gradle/ # Gradle
+.classpath
+.project
+.settings/
+bin/
+
+# Arquivos temporários
+*.tmp
+*~
+*.bak
+
+# Arquivos de sistema operacional
+.DS_Store # macOS
+Thumbs.db # Windows
