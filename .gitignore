@@ -32,3 +32,4 @@ bin/
 # Arquivos de sistema operacional
 .DS_Store # macOS
 Thumbs.db # Windows
+/target/
