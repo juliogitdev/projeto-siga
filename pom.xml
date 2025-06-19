@@ -10,4 +10,13 @@
         <maven.compiler.release>21</maven.compiler.release>
         <exec.mainClass>com.siga.Main</exec.mainClass>
     </properties>
+    
+    <dependencies>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.25</version>
+        </dependency>
+    </dependencies>
+    
 </project>
