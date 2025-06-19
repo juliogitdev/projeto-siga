@@ -3,16 +3,16 @@ package com.siga.model;
 
 
 public class Movimentacao {
-    int id_movimentacao;
+    private int id_movimentacao;
     String data_hora;
     String tipo;
     int quantidade;
     Produto produto;
     Usuario usuario;
-    Entidade entidade;
+    private Entidade entidade;
     
     
-    public Movimentacao(String data_hora, String tipo, int quantidade, Produto produto, Usuario usuario) {
+    public Movimentacao(String data_hora, String tipo, int quantidade, Produto produto, Usuario usuario, Entidade entidade) {
         this.data_hora = data_hora;
         this.tipo = tipo;
         this.quantidade = quantidade;
@@ -20,7 +20,9 @@ public class Movimentacao {
         this.usuario = usuario;
         this.entidade = entidade;
     }
-
+    
+     
+    
     public Movimentacao() {
     }
 
@@ -62,6 +64,22 @@ public class Movimentacao {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    public int getId_movimentacao() {
+        return id_movimentacao;
+    }
+
+    public void setId_movimentacao(int id_movimentacao) {
+        this.id_movimentacao = id_movimentacao;
+    }
+
+    public Entidade getEntidade() {
+        return entidade;
+    }
+
+    public void setEntidade(Entidade entidade) {
+        this.entidade = entidade;
     }
     
     
