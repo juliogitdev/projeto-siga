@@ -1,18 +1,20 @@
 
 package com.siga.model;
 
+import java.time.LocalDateTime;
+
 
 public class Movimentacao {
     private int id_movimentacao;
-    String data_hora;
-    String tipo;
-    int quantidade;
-    Produto produto;
-    Usuario usuario;
+    private LocalDateTime data_hora;
+    private String tipo;
+    private int quantidade;
+    private Produto produto;
+    private Usuario usuario;
     private Entidade entidade;
     
     
-    public Movimentacao(String data_hora, String tipo, int quantidade, Produto produto, Usuario usuario, Entidade entidade) {
+    public Movimentacao(LocalDateTime data_hora, String tipo, int quantidade, Produto produto, Usuario usuario, Entidade entidade) {
         this.data_hora = data_hora;
         this.tipo = tipo;
         this.quantidade = quantidade;
@@ -24,14 +26,6 @@ public class Movimentacao {
      
     
     public Movimentacao() {
-    }
-
-    public String getData_hora() {
-        return data_hora;
-    }
-
-    public void setData_hora(String data_hora) {
-        this.data_hora = data_hora;
     }
 
     public String getTipo() {
@@ -74,6 +68,14 @@ public class Movimentacao {
         this.id_movimentacao = id_movimentacao;
     }
 
+    public LocalDateTime getData_hora() {
+        return data_hora;
+    }
+
+    public void setData_hora(LocalDateTime data_hora) {
+        this.data_hora = data_hora;
+    }
+
     public Entidade getEntidade() {
         return entidade;
     }
@@ -81,8 +83,6 @@ public class Movimentacao {
     public void setEntidade(Entidade entidade) {
         this.entidade = entidade;
     }
-    
-    
     
 }
 
