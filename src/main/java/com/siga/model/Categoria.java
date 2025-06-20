@@ -10,8 +10,7 @@ public class Categoria {
     }
 
     
-    public Categoria(int id_categoria, String nome_categoria, String descricao) {
-        this.id_categoria = id_categoria;
+    public Categoria(String nome_categoria, String descricao) {
         this.nome_categoria = nome_categoria;
         this.descricao = descricao;
     }
