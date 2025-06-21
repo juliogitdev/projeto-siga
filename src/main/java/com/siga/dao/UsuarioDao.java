@@ -41,7 +41,7 @@ public class UsuarioDao implements InterfaceDao<Usuario>{
     }
     @Override
     public void deletar(Usuario usuario) throws SQLException{
-        String sql = "DELETE FROM usuario WHERE id_usuario = ?";
+        String sql = "DELETE FROM usuario WHERE id_usuario = ?;";
         
         try(Connection connection = ConnectionFactory.getConnection(); PreparedStatement pstm = connection.prepareStatement(sql)){
             pstm.setInt(1, usuario.getId());
@@ -50,8 +50,8 @@ public class UsuarioDao implements InterfaceDao<Usuario>{
         
     @Override
     public List<Usuario> listarTodos() throws SQLException{
-        String sql = "SELECT * FROM usuario";
-        List<Usuario> lista_usuario = new ArrayList<>();
+        String sql = "SELECT * FROM usuario;";
+        List<Usuario> listaUsuario = new ArrayList<>();
         
         
         try(Connection connection  = ConnectionFactory.getConnection(); PreparedStatement pstm = connection.prepareStatement(sql)){
@@ -65,13 +65,13 @@ public class UsuarioDao implements InterfaceDao<Usuario>{
                 u.setLogin(resultset.getString("login"));
                 u.setSenha(resultset.getString("login"));
                 u.setId(resultset.getInt("id_usuario"));
-                lista_usuario.add(u);
+                listaUsuario.add(u);
             }
             
             
         
         }
-        return lista_usuario;
+        return listaUsuario;
         
     }
 }
