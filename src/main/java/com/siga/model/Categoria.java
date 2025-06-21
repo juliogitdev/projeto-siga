@@ -1,7 +1,8 @@
 package com.siga.model;
 
 
-public class Categoria extends Entidade{
+public class Categoria implements Entidade{
+    private int id;
     private String nome_categoria;
     private String descricao;
 
@@ -14,6 +15,15 @@ public class Categoria extends Entidade{
         this.descricao = descricao;
     }
     
+    @Override
+    public int getId(){
+        return id;
+    }
+    
+    @Override
+    public void setId(int id){
+        this.id = id;
+    }
 
     public String getNome_categoria() {
         return nome_categoria;

@@ -2,7 +2,8 @@
 package com.siga.model;
 
 
-public class Requisitante extends Entidade{
+public class Requisitante implements Entidade{
+    private int id;
     private String nome;
     private String setor;
 
@@ -11,6 +12,16 @@ public class Requisitante extends Entidade{
     public Requisitante(String nome, String setor) {
         this.nome = nome;
         this.setor = setor;
+    }
+    
+    @Override
+    public int getId(){
+        return id;
+    }
+    
+    @Override
+    public void setId(int id){
+        this.id = id;
     }
 
     public String getNome() {

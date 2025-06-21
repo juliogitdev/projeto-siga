@@ -1,7 +1,8 @@
 
 package com.siga.model;
 
-public class Usuario extends Entidade{
+public class Usuario implements Entidade{
+    private int id;
     private String nome;
     private String login;
     private String senha;
@@ -13,6 +14,16 @@ public class Usuario extends Entidade{
         this.nome = nome;
         this.login = login;
         this.senha = senha;
+    }
+    
+    @Override
+    public int getId(){
+        return id;
+    }
+    
+    @Override
+    public void setId(int id){
+        this.id = id;
     }
 
     public String getSenha() {

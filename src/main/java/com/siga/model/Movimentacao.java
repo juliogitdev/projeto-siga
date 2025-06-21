@@ -4,7 +4,8 @@ package com.siga.model;
 import java.time.LocalDateTime;
 
 
-public class Movimentacao extends Entidade{
+public class Movimentacao implements Entidade{
+    private int id;
     private LocalDateTime data_hora;
     private String tipo;
     private int quantidade;
@@ -22,9 +23,17 @@ public class Movimentacao extends Entidade{
         this.entidade = entidade;
     }
     
-     
-    
     public Movimentacao() {
+    }
+    
+    @Override
+    public int getId(){
+        return id;
+    }
+    
+    @Override
+    public void setId(int id){
+        this.id = id;
     }
 
     public String getTipo() {
