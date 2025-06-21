@@ -15,12 +15,13 @@ public class CategoriaDao implements InterfaceDao<Categoria>{
         
         String sql = "INSERT INTO categoria(nome, descricao) VALUES (?, ?);";
         
+        System.out.println(categoria.getNome_categoria());
+        
         try(Connection conn = ConnectionFactory.getConnection();
             PreparedStatement pstm = conn.prepareStatement(sql);)
         { 
             pstm.setString(1, categoria.getNome_categoria());
             pstm.setString(2, categoria.getDescricao());
-            
             pstm.execute();
             
             System.out.println("Categoria " + categoria.getNome_categoria() + " adicionada com sucesso.");
