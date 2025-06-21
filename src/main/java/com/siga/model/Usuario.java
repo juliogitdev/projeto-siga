@@ -1,8 +1,7 @@
 
 package com.siga.model;
 
-public class Usuario {
-    private int id_usuario;
+public class Usuario extends Entidade{
     private String nome;
     private String login;
     private String senha;
@@ -22,14 +21,6 @@ public class Usuario {
 
     public void setSenha(String senha) {
         this.senha = senha;
-    }
-
-    public int getId_usuario() {
-        return id_usuario;
-    }
-
-    public void setId_usuario(int id_usuario) {
-        this.id_usuario = id_usuario;
     }
 
     public String getNome() {

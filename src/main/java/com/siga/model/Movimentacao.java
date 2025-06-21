@@ -4,8 +4,7 @@ package com.siga.model;
 import java.time.LocalDateTime;
 
 
-public class Movimentacao {
-    private int id_movimentacao;
+public class Movimentacao extends Entidade{
     private LocalDateTime data_hora;
     private String tipo;
     private int quantidade;
@@ -58,14 +57,6 @@ public class Movimentacao {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
-    }
-
-    public int getId_movimentacao() {
-        return id_movimentacao;
-    }
-
-    public void setId_movimentacao(int id_movimentacao) {
-        this.id_movimentacao = id_movimentacao;
     }
 
     public LocalDateTime getData_hora() {

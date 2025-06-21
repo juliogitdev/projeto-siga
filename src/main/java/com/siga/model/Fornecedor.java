@@ -1,8 +1,7 @@
 package com.siga.model;
 
 
-public class Fornecedor {
-    private int id_fornecedor;
+public class Fornecedor extends Entidade{
     private String razao_social;
     private String cnpj;
     private String telefone;
@@ -18,15 +17,6 @@ public class Fornecedor {
         this.endereco = endereco;
     }
     
-    
-
-    public int getId_fornecedor() {
-        return id_fornecedor;
-    }
-
-    public void setId_fornecedor(int id_fornecedor) {
-        this.id_fornecedor = id_fornecedor;
-    }
 
     public String getRazao_social() {
         return razao_social;

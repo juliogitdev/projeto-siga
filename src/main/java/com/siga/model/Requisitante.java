@@ -3,24 +3,24 @@ package com.siga.model;
 
 
 public class Requisitante extends Entidade{
-    private int id;
+    private String nome;
     private String setor;
-    
-   
 
+    public Requisitante(){};
+    
     public Requisitante(String nome, String setor) {
-        super(nome);
+        this.nome = nome;
         this.setor = setor;
     }
-    
-    
-    public int getId() {
-        return id;
+
+    public String getNome() {
+        return nome;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
+    
 
     public String getSetor() {
         return setor;
