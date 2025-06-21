@@ -2,7 +2,7 @@ package com.siga.model;
 
 //Herdando da superclasse Entidade
 public class Produto extends Entidade{
-    private String nome_produto;
+    private String nomeProduto;
     private String descricao;
     private int quantidade;
     private Fornecedor fornecedor;
@@ -11,8 +11,8 @@ public class Produto extends Entidade{
     public Produto() {
     }
 
-    public Produto(String nome_produto, String descricao, int quantidade, Fornecedor fornecedor, Categoria categoria) {
-        this.nome_produto = nome_produto;
+    public Produto(String nomeProduto, String descricao, int quantidade, Fornecedor fornecedor, Categoria categoria) {
+        this.nomeProduto = nomeProduto;
         this.descricao = descricao;
         this.quantidade = quantidade;
         this.fornecedor = fornecedor;
@@ -20,12 +20,12 @@ public class Produto extends Entidade{
     }
 
 
-    public String getNome_produto() {
-        return nome_produto;
+    public String getNomeProduto() {
+        return nomeProduto;
     }
 
-    public void setNome_produto(String nome_produto) {
-        this.nome_produto = nome_produto;
+    public void setNomeProduto(String nomeProduto) {
+        this.nomeProduto = nomeProduto;
     }
 
     public String getDescricao() {

@@ -2,7 +2,7 @@ package com.siga.model;
 
 //Herdando da superclasse Entidade
 public class Fornecedor extends Entidade{
-    private String razao_social;
+    private String razaoSocial;
     private String cnpj;
     private String telefone;
     private String endereco;
@@ -10,20 +10,20 @@ public class Fornecedor extends Entidade{
     public Fornecedor() {
     }
 
-    public Fornecedor(String razao_social, String cnpj, String telefone, String endereco) {
-        this.razao_social = razao_social;
+    public Fornecedor(String razaoSocial, String cnpj, String telefone, String endereco) {
+        this.razaoSocial = razaoSocial;
         this.cnpj = cnpj;
         this.telefone = telefone;
         this.endereco = endereco;
     }
     
 
-    public String getRazao_social() {
-        return razao_social;
+    public String getRazaoSocial() {
+        return razaoSocial;
     }
 
-    public void setRazao_social(String razao_social) {
-        this.razao_social = razao_social;
+    public void setRazaoSocial(String razao_social) {
+        this.razaoSocial = razao_social;
     }
 
     public String getCnpj() {
