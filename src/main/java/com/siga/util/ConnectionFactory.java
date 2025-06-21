@@ -9,7 +9,8 @@ import java.sql.SQLException;
 public class ConnectionFactory {
     private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/siga";
     private static final String DATABASE_USER = "root";
-    private static final String DATABASE_PASSWORD = "qwe.123.";
+
+    private static final String DATABASE_PASSWORD = "your password here!";
     
     private static final String CONNECTION_PROPERTIES = "?serverTimezone=UTC";
     
