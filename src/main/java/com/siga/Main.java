@@ -4,12 +4,19 @@
  */
 package com.siga;
 
-/**
- *
- * @author Julio
- */
+import com.siga.dao.UsuarioDao;
+import com.siga.model.Usuario;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 public class Main {
-    public static void main (String args[]){
-        System.out.println("Teste");
+    public static void main (String args[]) throws SQLException{
+    ArrayList<Usuario> lista = UsuarioDao.listar();
+    for(Usuario u : lista){
+        System.out.println(u.getNome());
+    }
+   
+   
+   
     }
 }
