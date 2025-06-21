@@ -1,7 +1,7 @@
                                    
 package com.siga.model;
 
-
+//Herdando da superclasse Entidade
 public class Requisitante extends Entidade{
     private String nome;
     private String setor;

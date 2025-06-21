@@ -1,6 +1,6 @@
 package com.siga.model;
 
-
+//Herdando da superclasse Entidade
 public class Fornecedor extends Entidade{
     private String razao_social;
     private String cnpj;

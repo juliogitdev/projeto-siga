@@ -1,6 +1,7 @@
 
 package com.siga.model;
 
+//Herdando da superclasse Entidade
 public class Usuario extends Entidade{
     private String nome;
     private String login;

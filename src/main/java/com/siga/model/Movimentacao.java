@@ -3,7 +3,7 @@ package com.siga.model;
 
 import java.time.LocalDateTime;
 
-
+//Herdando da superclasse Entidade
 public class Movimentacao extends Entidade{
     private LocalDateTime data_hora;
     private String tipo;
