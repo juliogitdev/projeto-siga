@@ -57,7 +57,7 @@ public class CategoriaDao implements InterfaceDao<Categoria>{
         
     }
     @Override
-    public List<Categoria> listar_todos()throws SQLException{
+    public List<Categoria> listarTodos()throws SQLException{
         String sql = "SELECT * FROM categoria;";
         List<Categoria> lista = new ArrayList<>();
         try(Connection conn = ConnectionFactory.getConnection();
