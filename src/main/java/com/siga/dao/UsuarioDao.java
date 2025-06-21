@@ -49,7 +49,7 @@ public class UsuarioDao implements InterfaceDao<Usuario>{
         }}
         
     @Override
-    public List<Usuario> listar_todos() throws SQLException{
+    public List<Usuario> listarTodos() throws SQLException{
         String sql = "SELECT * FROM usuario";
         List<Usuario> lista_usuario = new ArrayList<>();
         
