@@ -1,11 +1,12 @@
 package com.siga.dao;
 
-import com.siga.model.Entidade;
+
+import java.sql.SQLException;
 import java.util.List;
 
-public interface InterfaceDao {
-    public void cadastrar(Entidade e);
-    public void atualizar(Entidade e);
-    public void deletar(Entidade e);
-    public List<Entidade> listar_todos();
+public interface InterfaceDao<T> {
+    public void cadastrar(T Entidade) throws SQLException;
+    public void atualizar(T Entidade) throws SQLException;
+    public void deletar(T Entidade) throws SQLException;
+    public List<T> listar_todos() throws SQLException;
 }
