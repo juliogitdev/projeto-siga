@@ -2,25 +2,25 @@ package com.siga.model;
 
 //Herdando da superclasse Entidade
 public class Categoria extends Entidade{
-    private String nome_categoria;
+    private String nomeCategoria;
     private String descricao;
 
     public Categoria() {
     }
 
     
-    public Categoria(String nome_categoria, String descricao) {
-        this.nome_categoria = nome_categoria;
+    public Categoria(String nomeCategoria, String descricao) {
+        this.nomeCategoria = nomeCategoria;
         this.descricao = descricao;
     }
     
 
     public String getNome_categoria() {
-        return nome_categoria;
+        return nomeCategoria;
     }
 
     public void setNome_categoria(String nome_categoria) {
-        this.nome_categoria = nome_categoria;
+        this.nomeCategoria = nome_categoria;
     }
 
     public String getDescricao() {

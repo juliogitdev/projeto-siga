@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 
 //Herdando da superclasse Entidade
 public class Movimentacao extends Entidade{
-    private LocalDateTime data_hora;
+    private LocalDateTime dataHora;
     private String tipo;
     private int quantidade;
     private Produto produto;
@@ -13,8 +13,8 @@ public class Movimentacao extends Entidade{
     private Entidade entidade;
     
     
-    public Movimentacao(LocalDateTime data_hora, String tipo, int quantidade, Produto produto, Usuario usuario, Entidade entidade) {
-        this.data_hora = data_hora;
+    public Movimentacao(LocalDateTime dataHora, String tipo, int quantidade, Produto produto, Usuario usuario, Entidade entidade) {
+        this.dataHora = dataHora;
         this.tipo = tipo;
         this.quantidade = quantidade;
         this.produto = produto;
@@ -59,12 +59,12 @@ public class Movimentacao extends Entidade{
         this.usuario = usuario;
     }
 
-    public LocalDateTime getData_hora() {
-        return data_hora;
+    public LocalDateTime getDataHora() {
+        return dataHora;
     }
 
-    public void setData_hora(LocalDateTime data_hora) {
-        this.data_hora = data_hora;
+    public void setData_hora(LocalDateTime dataHora) {
+        this.dataHora = dataHora;
     }
 
     public Entidade getEntidade() {
