@@ -5,6 +5,7 @@ package com.siga.model;
 public class Requisitante extends Entidade{
     private String nome;
     private String setor;
+    private String endereco;
 
     public Requisitante(){};
     
@@ -29,7 +30,14 @@ public class Requisitante extends Entidade{
     public void setSetor(String setor) {
         this.setor = setor;
     }
-    
+  
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
     
     
     
