@@ -11,10 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class UsuarioDao {
+public class UsuarioDao implements InterfaceDao<Usuario>{
     @SuppressWarnings("empty-statement")
-    public static void cadastrar(Usuario usuario) throws SQLException{
-        
+    @Override
+    public void cadastrar(Usuario usuario) throws SQLException{
         String sql = "INSERT INTO usuario(nome_completo, login, senha) VALUES(?, ?, ?);";
         try(Connection connection = ConnectionFactory.getConnection()){
             PreparedStatement pstm = connection.prepareStatement(sql);
@@ -24,8 +24,8 @@ public class UsuarioDao {
             pstm.execute();
         };
     }
-    
-    public static void atualizar(Usuario usuario) throws SQLException{
+    @Override
+    public void atualizar(Usuario usuario) throws SQLException{
         String sql = "UPDATE usuario SET nome_completo = ?, login = ?, senha = ? where id_usuario = ?;";
         
         
@@ -34,24 +34,24 @@ public class UsuarioDao {
             pstm.setString(1, usuario.getNome());
             pstm.setString(2, usuario.getLogin());
             pstm.setString(3, usuario.getSenha());
-            pstm.setInt(4, usuario.getId_usuario());
+            pstm.setInt(4, usuario.getId());
             pstm.execute();
         
         }
     }
-        
-    public static void deletar(Usuario usuario) throws SQLException{
+    @Override
+    public void deletar(Usuario usuario) throws SQLException{
         String sql = "DELETE FROM usuario WHERE id_usuario = ?";
         
         try(Connection connection = ConnectionFactory.getConnection(); PreparedStatement pstm = connection.prepareStatement(sql)){
-            pstm.setInt(1, usuario.getId_usuario());
+            pstm.setInt(1, usuario.getId());
             pstm.execute();
         }}
         
-   
-    public static ArrayList<Usuario> listar() throws SQLException{
+    @Override
+    public List<Usuario> listar_todos() throws SQLException{
         String sql = "SELECT * FROM usuario";
-        ArrayList<Usuario> lista_usuario = new ArrayList<>();
+        List<Usuario> lista_usuario = new ArrayList<>();
         
         
         try(Connection connection  = ConnectionFactory.getConnection(); PreparedStatement pstm = connection.prepareStatement(sql)){
@@ -64,14 +64,14 @@ public class UsuarioDao {
                 u.setNome(resultset.getString("nome_completo"));
                 u.setLogin(resultset.getString("login"));
                 u.setSenha(resultset.getString("login"));
-                u.setId_usuario(resultset.getInt("id_usuario"));
+                u.setId(resultset.getInt("id_usuario"));
                 lista_usuario.add(u);
             }
             
             
-        return lista_usuario;
-        }
         
+        }
+        return lista_usuario;
         
     }
 }
