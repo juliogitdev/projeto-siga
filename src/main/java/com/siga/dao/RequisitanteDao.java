@@ -77,7 +77,30 @@ public class RequisitanteDao implements InterfaceDao<Requisitante>{
 
     @Override
     public Requisitante buscarPorId(int id) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String sql = "SELECT * FROM requisitante WHERE id_requisitante = ?;";
+        Requisitante novoRequisitante = null;
+        
+        try(Connection conn = ConnectionFactory.getConnection(); PreparedStatement pstm = conn.prepareStatement(sql)){
+            pstm.setInt(1, id);
+            
+            
+            try(ResultSet rs = pstm.executeQuery()){
+                
+                if (rs.next()){
+                    novoRequisitante = new Requisitante();
+
+                    novoRequisitante.setNome(rs.getString("nome_requisitante"));
+                    novoRequisitante.setEndereco(rs.getString("endereco"));
+                    novoRequisitante.setSetor(rs.getString("setor"));
+                    novoRequisitante.setId(rs.getInt("id_requisitante"));
+                }
+            }
+        
+        
+        }
+        
+        
+        return novoRequisitante;
     }
     
 }
