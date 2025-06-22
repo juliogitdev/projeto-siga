@@ -110,16 +110,18 @@ public class ProdutoDao implements InterfaceDao<Produto>{
             pstm.setInt(1, id);
             
             try(ResultSet rs = pstm.executeQuery();){
-                FornecedorDao fDao = new FornecedorDao();
-                CategoriaDao cDao = new CategoriaDao();
-                novoProduto = new Produto();
+                if(rs.next()){
+                    FornecedorDao fDao = new FornecedorDao();
+                    CategoriaDao cDao = new CategoriaDao();
+                    novoProduto = new Produto();
                 
 
-                novoProduto.setId(rs.getInt("id_produto"));
-                novoProduto.setNomeProduto(rs.getString("nome_produto"));
-                novoProduto.setDescricao(rs.getString("descricao"));
-                novoProduto.setFornecedor(fDao.buscarPorId(rs.getInt("id_fornecedor")));
-                novoProduto.setCategoria(cDao.buscarPorId(rs.getInt("id_categoria")));
+                    novoProduto.setId(rs.getInt("id_produto"));
+                    novoProduto.setNomeProduto(rs.getString("nome_produto"));
+                    novoProduto.setDescricao(rs.getString("descricao"));
+                    novoProduto.setFornecedor(fDao.buscarPorId(rs.getInt("id_fornecedor")));
+                    novoProduto.setCategoria(cDao.buscarPorId(rs.getInt("id_categoria")));
+                }
                 
             }
         }
