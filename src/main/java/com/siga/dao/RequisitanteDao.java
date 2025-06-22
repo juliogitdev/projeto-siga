@@ -74,5 +74,10 @@ public class RequisitanteDao implements InterfaceDao<Requisitante>{
         }
         return listaRequisitante;
     }
+
+    @Override
+    public Requisitante buscarPorId(int id) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
 }

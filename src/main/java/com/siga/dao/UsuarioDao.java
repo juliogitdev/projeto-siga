@@ -74,6 +74,11 @@ public class UsuarioDao implements InterfaceDao<Usuario>{
         return listaUsuario;
         
     }
+
+    @Override
+    public Usuario buscarPorId(int id) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
     
     

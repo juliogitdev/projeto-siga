@@ -14,9 +14,7 @@ public class CategoriaDao implements InterfaceDao<Categoria>{
     public void cadastrar(Categoria categoria) throws SQLException{
         
         String sql = "INSERT INTO categoria(nome, descricao) VALUES (?, ?);";
-        
-        System.out.println(categoria.getNome_categoria());
-        
+                
         try(Connection conn = ConnectionFactory.getConnection();
             PreparedStatement pstm = conn.prepareStatement(sql);)
         { 
@@ -24,7 +22,6 @@ public class CategoriaDao implements InterfaceDao<Categoria>{
             pstm.setString(2, categoria.getDescricao());
             pstm.execute();
             
-            System.out.println("Categoria " + categoria.getNome_categoria() + " adicionada com sucesso.");
         }
     }
     @Override
@@ -77,6 +74,33 @@ public class CategoriaDao implements InterfaceDao<Categoria>{
             
         }
         return lista;
+    }
+
+    @Override
+    public Categoria buscarPorId(int id) throws SQLException {
+        String sql = "SELECT * FROM categoria WHERE id_categoria = ?;";
+        Categoria c = null;
+        
+        try(Connection conn = ConnectionFactory.getConnection();
+            PreparedStatement pstm = conn.prepareStatement(sql);
+            ){
+            
+            pstm.setInt(1, id);
+            
+            try(ResultSet rs = pstm.executeQuery();){
+                if(rs.next()){
+                    c = new Categoria();
+                    c.setId(rs.getInt("id_categoria"));
+                    c.setNome_categoria(rs.getString("nome"));
+                    c.setDescricao(rs.getString("descricao"));
+                }
+            }
+            
+            
+            
+            
+        }
+        return c;
     }
     
 }
