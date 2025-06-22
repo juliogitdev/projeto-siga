@@ -88,7 +88,7 @@ public class MovimentacaoDao implements InterfaceDao<Movimentacao> {
             
             while (rs.next()) {
                 Movimentacao mov = new Movimentacao();
-                mov.setId(rs.getInt("id"));
+                mov.setId(rs.getInt("id_movimentacao"));
                 mov.setData_hora(rs.getTimestamp("data_hora").toLocalDateTime());
                 mov.setQuantidade(rs.getInt("quantidade"));
                 mov.setTipo(rs.getString("tipo"));
@@ -104,7 +104,7 @@ public class MovimentacaoDao implements InterfaceDao<Movimentacao> {
 
     @Override
     public Movimentacao buscarPorId(int id) throws SQLException {
-        String sql = "SELECT id_requisitante, data_hora, quantidade, tipo, id_produto, id_usuario, id_requisitante FROM movimentacao WHERE id = ?;";
+        String sql = "SELECT id_movimentacao, data_hora, quantidade, tipo, id_produto, id_usuario, id_requisitante FROM movimentacao WHERE id_movimentacao = ?;";
         Movimentacao mov = null;
         
         try (Connection conn = ConnectionFactory.getConnection();
@@ -115,7 +115,7 @@ public class MovimentacaoDao implements InterfaceDao<Movimentacao> {
             try (ResultSet rs = pstm.executeQuery()) {
                 if (rs.next()) {
                     mov = new Movimentacao();
-                    mov.setId(rs.getInt("id"));
+                    mov.setId(rs.getInt("id_movimentacao"));
                     mov.setData_hora(rs.getTimestamp("data_hora").toLocalDateTime());
                     mov.setQuantidade(rs.getInt("quantidade"));
                     mov.setTipo(rs.getString("tipo"));
