@@ -2,7 +2,7 @@
 package com.siga.model;
 
 //Super classe Entidade
-public class Entidade {
+public abstract class Entidade {
     
     private int id;
     

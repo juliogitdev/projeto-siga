@@ -6,15 +6,17 @@ public class Fornecedor extends Entidade{
     private String cnpj;
     private String telefone;
     private String endereco;
+    private String email;
 
     public Fornecedor() {
     }
 
-    public Fornecedor(String razaoSocial, String cnpj, String telefone, String endereco) {
+    public Fornecedor(String razaoSocial, String cnpj, String telefone, String endereco, String email) {
         this.razaoSocial = razaoSocial;
         this.cnpj = cnpj;
         this.telefone = telefone;
         this.endereco = endereco;
+        this.email = email;
     }
     
 
@@ -48,6 +50,14 @@ public class Fornecedor extends Entidade{
 
     public void setEndereco(String endereco) {
         this.endereco = endereco;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
     
     
