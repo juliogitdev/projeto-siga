@@ -110,8 +110,9 @@ public class ProdutoDao extends MainDao implements InterfaceDao<Produto>{
         novoProduto.setId((Integer)listaAtributos.get(0));
         novoProduto.setNomeProduto(String.valueOf(listaAtributos.get(1)));
         novoProduto.setDescricao(String.valueOf(listaAtributos.get(2)));
-        novoProduto.setFornecedor(fd.buscarPorId((Integer)listaAtributos.get(3)));
-        novoProduto.setCategoria(cd.buscarPorId((Integer)listaAtributos.get(4)));
+        novoProduto.setQuantidade((Integer)listaAtributos.get(3));
+        novoProduto.setFornecedor(fd.buscarPorId((Integer)listaAtributos.get(4)));
+        novoProduto.setCategoria(cd.buscarPorId((Integer)listaAtributos.get(5)));
                 
         return novoProduto;
         

@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoriaDao implements InterfaceDao<Categoria>{
+public class CategoriaDao extends MainDao implements InterfaceDao<Categoria>{
     @Override
     public void cadastrar(Categoria categoria) throws SQLException{
         
@@ -78,28 +78,13 @@ public class CategoriaDao implements InterfaceDao<Categoria>{
 
     @Override
     public Categoria buscarPorId(int id) throws SQLException {
-        String sql = "SELECT * FROM categoria WHERE id_categoria = ?;";
-        Categoria c = null;
+        List<Object> lA = super.buscarPorId("categoria", id);
+        Categoria c = new Categoria();
         
-        try(Connection conn = ConnectionFactory.getConnection();
-            PreparedStatement pstm = conn.prepareStatement(sql);
-            ){
-            
-            pstm.setInt(1, id);
-            
-            try(ResultSet rs = pstm.executeQuery();){
-                if(rs.next()){
-                    c = new Categoria();
-                    c.setId(rs.getInt("id_categoria"));
-                    c.setNome_categoria(rs.getString("nome"));
-                    c.setDescricao(rs.getString("descricao"));
-                }
-            }
-            
-            
-            
-            
-        }
+        c.setId((Integer)lA.get(0));
+        c.setNome_categoria(String.valueOf(lA.get(1)));
+        c.setDescricao(String.valueOf(lA.get(2)));
+        
         return c;
     }
     
