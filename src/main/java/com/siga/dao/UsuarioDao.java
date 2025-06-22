@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class UsuarioDao implements InterfaceDao<Usuario>{
+public class UsuarioDao extends MainDao implements InterfaceDao<Usuario> {
     @SuppressWarnings("empty-statement")
     @Override
     public void cadastrar(Usuario usuario) throws SQLException{
@@ -77,29 +77,14 @@ public class UsuarioDao implements InterfaceDao<Usuario>{
 
     @Override
     public Usuario buscarPorId(int id) throws SQLException {
-        String sql = "SELECT * FROM usuario WHERE id_usuario = ?;";
-        Usuario u = null;
+        List<Object> lA = super.buscarPorId("usuario", id);
+        Usuario u = new Usuario();
         
-        try(Connection conn = ConnectionFactory.getConnection();
-            PreparedStatement pstm = conn.prepareStatement(sql);
-            ){
-            
-            pstm.setInt(1, id);
-            
-            try(ResultSet rs = pstm.executeQuery();){
-                if(rs.next()){
-                    u = new Usuario();
-                    u.setId(rs.getInt("id_usuario"));
-                    u.setLogin(rs.getString("login"));
-                    u.setNome(rs.getString("nome_completo"));
-                    u.setSenha(rs.getString("senha"));
-                }
-            }
-            
-            
-            
-            
-        }
+        u.setId((Integer)lA.get(0));
+        u.setNome(String.valueOf(lA.get(1)));
+        u.setLogin(String.valueOf(lA.get(2)));
+        u.setSenha(String.valueOf(lA.get(3)));
+        
         return u;
     }
     
