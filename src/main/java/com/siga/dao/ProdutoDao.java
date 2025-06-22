@@ -17,7 +17,7 @@ import com.siga.dao.CategoriaDao;
 import com.siga.dao.FornecedorDao;
 
 
-public class ProdutoDao implements InterfaceDao<Produto>{
+public class ProdutoDao extends MainDao implements InterfaceDao<Produto>{
 
     @Override
     public void cadastrar(Produto p) throws SQLException {
@@ -100,31 +100,19 @@ public class ProdutoDao implements InterfaceDao<Produto>{
 
     @Override
     public Produto buscarPorId(int id) throws SQLException {
-        String sql = "SELECT * FROM produto WHERE id_produto=?;";
-        Produto novoProduto = null;
+        FornecedorDao fd = new FornecedorDao();
+        CategoriaDao cd = new CategoriaDao();
         
-        try(Connection conn = ConnectionFactory.getConnection();
-            PreparedStatement pstm = conn.prepareStatement(sql);
-            ){
-            
-            pstm.setInt(1, id);
-            
-            try(ResultSet rs = pstm.executeQuery();){
-                if(rs.next()){
-                    FornecedorDao fDao = new FornecedorDao();
-                    CategoriaDao cDao = new CategoriaDao();
-                    novoProduto = new Produto();
+        List<Object> listaAtributos = super.buscarPorId("produto", id);
+        
+        Produto novoProduto = new Produto();
+        
+        novoProduto.setId((Integer)listaAtributos.get(0));
+        novoProduto.setNomeProduto(String.valueOf(listaAtributos.get(1)));
+        novoProduto.setDescricao(String.valueOf(listaAtributos.get(2)));
+        novoProduto.setFornecedor(fd.buscarPorId((Integer)listaAtributos.get(3)));
+        novoProduto.setCategoria(cd.buscarPorId((Integer)listaAtributos.get(4)));
                 
-
-                    novoProduto.setId(rs.getInt("id_produto"));
-                    novoProduto.setNomeProduto(rs.getString("nome_produto"));
-                    novoProduto.setDescricao(rs.getString("descricao"));
-                    novoProduto.setFornecedor(fDao.buscarPorId(rs.getInt("id_fornecedor")));
-                    novoProduto.setCategoria(cDao.buscarPorId(rs.getInt("id_categoria")));
-                }
-                
-            }
-        }
         return novoProduto;
         
     }
