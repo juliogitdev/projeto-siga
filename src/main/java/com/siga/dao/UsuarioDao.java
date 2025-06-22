@@ -102,6 +102,27 @@ public class UsuarioDao implements InterfaceDao<Usuario>{
         }
         return u;
     }
+    
+    public Usuario buscarPorLogin(String login) throws SQLException{
+        Usuario u = null;
+        String sql = "SELECT * FROM usuario WHERE login = ?;";
+        
+        try(Connection conn = ConnectionFactory.getConnection(); PreparedStatement pstm = conn.prepareStatement(sql);){
+            pstm.setString(1, login);
+            
+            try(ResultSet rs = pstm.executeQuery();){
+                if(rs.next()){
+                    u = new Usuario();
+                    u.setId(rs.getInt("id_usuario"));
+                    u.setLogin(rs.getString("login"));
+                    u.setNome(rs.getString("nome_completo"));
+                    u.setSenha(rs.getString("senha"));
+                }
+            }
+        }
+        
+        return u;
+    }
 }
     
     
