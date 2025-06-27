@@ -1,6 +1,7 @@
 package com.siga.view.auth;
 
 import javax.swing.JOptionPane;
+import org.mindrot.jbcrypt.BCrypt;
 
 public class RegistrarView extends javax.swing.JFrame {
 
@@ -17,13 +18,13 @@ public class RegistrarView extends javax.swing.JFrame {
         jFrame1 = new javax.swing.JFrame();
         popupMenu1 = new java.awt.PopupMenu();
         jPanel1 = new javax.swing.JPanel();
-        loginInput = new javax.swing.JTextField();
+        emailInput = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         loginButton = new javax.swing.JButton();
         senhaInput = new javax.swing.JPasswordField();
         buttonViewCadastroUser = new javax.swing.JButton();
-        loginInput1 = new javax.swing.JTextField();
+        nomeInput = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
@@ -69,9 +70,9 @@ public class RegistrarView extends javax.swing.JFrame {
         jPanel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jPanel1.setPreferredSize(new java.awt.Dimension(400, 300));
 
-        loginInput.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        loginInput.setToolTipText("");
-        loginInput.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        emailInput.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        emailInput.setToolTipText("");
+        emailInput.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Email");
@@ -112,9 +113,9 @@ public class RegistrarView extends javax.swing.JFrame {
             }
         });
 
-        loginInput1.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        loginInput1.setToolTipText("");
-        loginInput1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        nomeInput.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        nomeInput.setToolTipText("");
+        nomeInput.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel3.setText("Nome Completo");
@@ -128,11 +129,11 @@ public class RegistrarView extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel1)
-                        .addComponent(loginInput, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(emailInput, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel2)
                         .addComponent(senhaInput, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel3)
-                        .addComponent(loginInput1, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(nomeInput, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(loginButton, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
@@ -146,11 +147,11 @@ public class RegistrarView extends javax.swing.JFrame {
                 .addContainerGap(43, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(loginInput1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(nomeInput, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(loginInput, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(emailInput, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -182,8 +183,12 @@ public class RegistrarView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private String getLoginString(){
-        return loginInput.getText();
+    private String getNomeString(){
+        return nomeInput.getText();
+    }
+    
+    private String getEmailString(){
+        return emailInput.getText();
     }
     
     private String getSenhaString(){
@@ -199,9 +204,46 @@ public class RegistrarView extends javax.swing.JFrame {
     }//GEN-LAST:event_loginButtonMouseClicked
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
-        //
-        if(getLoginString().isEmpty() || getSenhaString().isEmpty()){
-            System.out.println("Preencha todos os campos");
+        //Verifica se algum campo está vazio
+        if(getEmailString().isEmpty() | getSenhaString().isEmpty() | getNomeString().isEmpty()){
+            JOptionPane.showMessageDialog(jFrame1, "Por favor, preencha todos os campos!");
+        }else{
+            
+            //Coleta o nome, email e senha
+            String nome = getNomeString();
+            String email = emailInput.getText();
+            String senha = new String(senhaInput.getPassword());
+            
+            boolean emailIsOk = false;
+            boolean senhaIsOk = false;
+            boolean nomeIsOk = false;
+            
+            //Verifica se o nome tem pelo menos 5 caracteres
+            if(nome.length() > 5){
+                //Verifica se o e-mail contem "@" e "."
+                if(email.contains("@") & email.contains(".")){
+                    if(senha.length() >= 8){
+                        emailIsOk = true;
+                        senhaIsOk = true;
+                        nomeIsOk = true;
+                    }else{
+                        JOptionPane.showMessageDialog(jFrame1, "Insira uma senha maior");
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(jFrame1, "Digite um e-mail válido");
+                }
+            }else{
+                JOptionPane.showMessageDialog(jFrame1, "Digite seu nome completo");
+            }
+            
+            if(nomeIsOk & emailIsOk & senhaIsOk){
+                senha = BCrypt.hashpw(senha, BCrypt.gensalt(4));
+                System.out.println(senha);
+            }
+            
+            
+            
+            
         }
     }//GEN-LAST:event_loginButtonActionPerformed
 
@@ -209,6 +251,7 @@ public class RegistrarView extends javax.swing.JFrame {
         //
     }//GEN-LAST:event_senhaInputInputMethodTextChanged
 
+    //Metodo para chamar a view de login
     private void buttonViewCadastroUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonViewCadastroUserActionPerformed
         dispose();
         new LoginView().setVisible(true);
@@ -247,6 +290,7 @@ public class RegistrarView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonViewCadastroUser;
+    private javax.swing.JTextField emailInput;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JDialog jDialog2;
     private javax.swing.JFrame jFrame1;
@@ -255,8 +299,7 @@ public class RegistrarView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton loginButton;
-    private javax.swing.JTextField loginInput;
-    private javax.swing.JTextField loginInput1;
+    private javax.swing.JTextField nomeInput;
     private java.awt.PopupMenu popupMenu1;
     private javax.swing.JPasswordField senhaInput;
     // End of variables declaration//GEN-END:variables

@@ -1,11 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package com.siga.view.auth;
 
 import javax.swing.JOptionPane;
-
+import org.mindrot.jbcrypt.BCrypt;
 /**
  *
  * @author Julio
@@ -219,8 +215,8 @@ public class LoginView extends javax.swing.JFrame {
             }
             
             if(emailIsOk & senhaIsOk){
-                System.out.println(email);
-                System.out.println(senha);
+                senha = BCrypt.hashpw(senha, BCrypt.gensalt(4));
+                System.out.println("Senha criptgrofada: " + senha);
             }
             
             
