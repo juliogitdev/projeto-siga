@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RequisitanteDao implements InterfaceDao<Requisitante>{
+public class RequisitanteDao extends MainDao implements InterfaceDao<Requisitante>{
 
     @Override
     public void cadastrar(Requisitante re) throws SQLException {
@@ -77,27 +77,17 @@ public class RequisitanteDao implements InterfaceDao<Requisitante>{
 
     @Override
     public Requisitante buscarPorId(int id) throws SQLException {
-        String sql = "SELECT * FROM requisitante WHERE id_requisitante = ?;";
-        Requisitante novoRequisitante = null;
+        List<Object> listaAtributos = super.buscarPorId("requisitante", id);
+        Requisitante novoRequisitante = new Requisitante();
         
-        try(Connection conn = ConnectionFactory.getConnection(); PreparedStatement pstm = conn.prepareStatement(sql)){
-            pstm.setInt(1, id);
-            
-            
-            try(ResultSet rs = pstm.executeQuery()){
-                
-                if (rs.next()){
-                    novoRequisitante = new Requisitante();
+        novoRequisitante.setId((Integer) listaAtributos.get(0));
+        novoRequisitante.setNome(String.valueOf(listaAtributos.get(1)));
+        novoRequisitante.setSetor(String.valueOf(listaAtributos.get(2)));
+        novoRequisitante.setEndereco(String.valueOf(listaAtributos.get(3)));
 
-                    novoRequisitante.setNome(rs.getString("nome_requisitante"));
-                    novoRequisitante.setEndereco(rs.getString("endereco"));
-                    novoRequisitante.setSetor(rs.getString("setor"));
-                    novoRequisitante.setId(rs.getInt("id_requisitante"));
-                }
-            }
         
         
-        }
+        
         
         
         return novoRequisitante;

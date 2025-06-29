@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.siga.dao;
 
 import com.siga.model.Fornecedor;
@@ -17,7 +13,7 @@ import java.util.List;
  *
  * @author franc
  */
-public class FornecedorDao implements InterfaceDao<Fornecedor> {
+public class FornecedorDao extends MainDao implements InterfaceDao<Fornecedor> {
 
     @Override
     @SuppressWarnings("empty-statement")
@@ -81,39 +77,24 @@ public class FornecedorDao implements InterfaceDao<Fornecedor> {
         }
         return listaFornecedor;
     }
-    
+    @Override
     public Fornecedor buscarPorId(int id) throws SQLException {
-    String sql = "SELECT * FROM fornecedor WHERE id_fornecedor = ?;";
-    Fornecedor f = null; // Comece com nulo
-
-    // O try-with-resources garante o fechamento automático da conexão e do statement
-    try (Connection conn = ConnectionFactory.getConnection();
-         PreparedStatement pstm = conn.prepareStatement(sql)) {
-
+        List<Object> lA = super.buscarPorId("fornecedor", id);
+        Fornecedor f = new Fornecedor();
         
-        pstm.setInt(1, id);
-
+        f.setId((Integer)lA.get(0));
+        f.setRazaoSocial(String.valueOf(lA.get(1)));
+        f.setCnpj(String.valueOf(lA.get(2)));
+        f.setTelefone(String.valueOf(lA.get(3)));
+        f.setEndereco(String.valueOf(lA.get(4)));
+        f.setEmail(String.valueOf(lA.get(5)));
         
-        try(ResultSet rs = pstm.executeQuery()){
-
-            
-            if (rs.next()) {
-                f = new Fornecedor(); // Crie o objeto só se encontrou algo
-                
-                f.setId(rs.getInt("id_fornecedor"));
-                f.setRazaoSocial(rs.getString("razao_social"));
-                f.setCnpj(rs.getString("cnpj"));
-                f.setEndereco(rs.getString("endereco"));
-                f.setTelefone(rs.getString("telefone"));
-                f.setEmail(rs.getString("email"));
-            }
-        }
+        return f;
     }
     
-    // Retorna o fornecedor encontrado ou null se não achou
-    return f;
+    
+    
 }
         
-}
 
 
