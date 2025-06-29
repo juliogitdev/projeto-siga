@@ -19,6 +19,7 @@ public class LoginController{
     public LoginController(TelaLogin tl, UsuarioDao ud) {
         this.telaLogin = tl;
         this.usuarioDao = ud;
+        tl.setVisible(true);
         this.telaLogin.addLoginListener(new LoginListener());
     }
 
