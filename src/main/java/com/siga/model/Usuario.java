@@ -3,29 +3,19 @@ package com.siga.model;
 
 //Herdando da superclasse Entidade
 public class Usuario extends Entidade{
-    private int id;
     private String nome;
-    private String email;
+    private String login;
     private String senha;
 
     public Usuario() {
     }
 
-    public Usuario(String nome, String email, String senha) {
+    public Usuario(String nome, String login, String senha) {
         this.nome = nome;
-        this.email = email;
+        this.login = login;
         this.senha = senha;
     }
-    
-    @Override
-     public int getId() {
-        return id;
-    }
 
-    @Override
-    public void setId(int id) {
-        this.id = id;
-    }
     public String getSenha() {
         return senha;
     }
@@ -42,12 +32,12 @@ public class Usuario extends Entidade{
         this.nome = nome;
     }
 
-    public String getEmail() {
-        return email;
+    public String getLogin() {
+        return login;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setLogin(String login) {
+        this.login = login;
     }
     
     

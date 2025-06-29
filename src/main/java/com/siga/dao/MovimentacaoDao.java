@@ -11,11 +11,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement; 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MovimentacaoDao extends MainDao implements InterfaceDao<Movimentacao> {
+public class MovimentacaoDao implements InterfaceDao<Movimentacao> {
     
     ProdutoDao pd = new ProdutoDao();
     UsuarioDao ud = new UsuarioDao();
@@ -105,21 +104,28 @@ public class MovimentacaoDao extends MainDao implements InterfaceDao<Movimentaca
 
     @Override
     public Movimentacao buscarPorId(int id) throws SQLException {
-        List<Object> lA = super.buscarPorId("movimentacao", id);
-        Movimentacao m = new Movimentacao();
+        String sql = "SELECT id_movimentacao, data_hora, quantidade, tipo, id_produto, id_usuario, id_requisitante FROM movimentacao WHERE id_movimentacao = ?;";
+        Movimentacao mov = null;
         
-        ProdutoDao pd = new ProdutoDao();
-        UsuarioDao ud = new UsuarioDao();
-        RequisitanteDao rd = new RequisitanteDao();
-        
-        m.setId((Integer)lA.get(0));
-        m.setData_hora((LocalDateTime) lA.get(1));
-        m.setTipo(String.valueOf(lA.get(2)));
-        m.setQuantidade((Integer) lA.get(3));
-        m.setProduto(pd.buscarPorId((Integer) lA.get(4)));
-        m.setUsuario(ud.buscarPorId((Integer) lA.get(5)));
-        m.setEntidade(rd.buscarPorId((Integer) lA.get(6)));
-        
-        return m;
+        try (Connection conn = ConnectionFactory.getConnection();
+             PreparedStatement pstm = conn.prepareStatement(sql)) {
+            
+            pstm.setInt(1, id);
+            
+            try (ResultSet rs = pstm.executeQuery()) {
+                if (rs.next()) {
+                    mov = new Movimentacao();
+                    mov.setId(rs.getInt("id_movimentacao"));
+                    mov.setData_hora(rs.getTimestamp("data_hora").toLocalDateTime());
+                    mov.setQuantidade(rs.getInt("quantidade"));
+                    mov.setTipo(rs.getString("tipo"));
+                    mov.setProduto(pd.buscarPorId(rs.getInt("id_produto")));
+                    mov.setUsuario(ud.buscarPorId(rs.getInt("id_usuario")));
+                    mov.setEntidade(rd.buscarPorId(rs.getInt("id_requisitante")));
+                    
+                }
+            }
+        }
+        return mov;
     }
 }
