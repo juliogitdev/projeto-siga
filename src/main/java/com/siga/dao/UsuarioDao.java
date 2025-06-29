@@ -99,7 +99,7 @@ public class UsuarioDao extends MainDao implements InterfaceDao<Usuario> {
     
     public Usuario buscarPorEmail(String email) throws SQLException{
         Usuario u = null;
-        String sql = "SELECT * FROM usuario WHERE login = ?;";
+        String sql = "SELECT * FROM usuario WHERE email = ?;";
         
         try(Connection conn = ConnectionFactory.getConnection(); PreparedStatement pstm = conn.prepareStatement(sql);){
             pstm.setString(1, email);
