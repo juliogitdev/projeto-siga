@@ -196,7 +196,7 @@ public class TelaRegistro extends javax.swing.JFrame {
         return String.valueOf(senhaInput.getPassword());
     }
     
-    public void addLoginListener(ActionListener listener) {
+    public void addRegistroListener(ActionListener listener) {
         registroButton.addActionListener(listener);
     }
     
