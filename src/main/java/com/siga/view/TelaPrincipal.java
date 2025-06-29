@@ -1,6 +1,5 @@
 package com.siga.view;
 
-import com.siga.model.Usuario;
 import java.awt.Panel;
 import java.awt.event.ActionListener;
 
@@ -9,23 +8,11 @@ import java.awt.event.ActionListener;
  * @author Julio
  */
 public class TelaPrincipal extends javax.swing.JFrame {
-
-    private Usuario usuario;
-    
-    
     
     public TelaPrincipal() {
         initComponents();
-        LabelUsuario.setText(usuario.getNome());
     }
-    
-    private void setUsuario(Usuario usuario){
-        this.usuario = usuario;
-    }
-    
-    private Usuario getUsuario(){
-        return usuario;
-    }
+   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -261,7 +248,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         PanelConteudo.add(panel);
     }
     
-    public void addFonecedorListener(ActionListener listener){
+    public void addCategoriaListener(ActionListener listener){
         MenuItemCategoria.addActionListener(listener);
     }
     
