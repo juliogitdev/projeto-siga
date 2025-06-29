@@ -131,7 +131,7 @@
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="loginButton" pref="120" max="32767" attributes="0"/>
+                              <Component id="registroButton" pref="120" max="32767" attributes="0"/>
                               <Component id="buttonViewCadastroUser" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
@@ -157,7 +157,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="senhaInput" min="-2" pref="51" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="loginButton" min="-2" pref="42" max="-2" attributes="0"/>
+                  <Component id="registroButton" min="-2" pref="42" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
                   <Component id="buttonViewCadastroUser" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
@@ -191,13 +191,13 @@
             <Property name="text" type="java.lang.String" value="Senha"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="loginButton">
+        <Component class="javax.swing.JButton" name="registroButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Registrar"/>
           </Properties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="loginButtonMouseClicked"/>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="loginButtonActionPerformed"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="registroButtonMouseClicked"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="registroButtonActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JPasswordField" name="senhaInput">
