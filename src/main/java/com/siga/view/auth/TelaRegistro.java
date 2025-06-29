@@ -1,5 +1,7 @@
 package com.siga.view.auth;
 
+import com.siga.controller.LoginController;
+import com.siga.dao.UsuarioDao;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 import org.mindrot.jbcrypt.BCrypt;
@@ -224,7 +226,7 @@ public class TelaRegistro extends javax.swing.JFrame {
     //Metodo para chamar a view de login
     private void buttonViewCadastroUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonViewCadastroUserActionPerformed
         dispose();
-        new TelaLogin().setVisible(true);
+        new LoginController(new TelaLogin(), new UsuarioDao());
     }//GEN-LAST:event_buttonViewCadastroUserActionPerformed
     
     
