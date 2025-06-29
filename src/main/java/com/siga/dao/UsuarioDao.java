@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import org.mindrot.jbcrypt.BCrypt;
 
 
 public class UsuarioDao extends MainDao implements InterfaceDao<Usuario> {
@@ -18,6 +19,11 @@ public class UsuarioDao extends MainDao implements InterfaceDao<Usuario> {
         String sql = "INSERT INTO usuario(nome_completo, login, senha) VALUES(?, ?, ?);";
         try(Connection connection = ConnectionFactory.getConnection()){
             PreparedStatement pstm = connection.prepareStatement(sql);
+            
+            String senhaPura = usuario.getSenha();
+            String senhaHashed = BCrypt.hashpw(senhaPura, BCrypt.gensalt());
+            usuario.setSenha(senhaHashed);
+            
             pstm.setString(1, usuario.getNome());
             pstm.setString(2, usuario.getLogin());
             pstm.setString(3, usuario.getSenha()); 
@@ -30,7 +36,10 @@ public class UsuarioDao extends MainDao implements InterfaceDao<Usuario> {
         
         
         try(Connection connection = ConnectionFactory.getConnection(); PreparedStatement pstm = connection.prepareStatement(sql)){
-           
+            String senhaPura = usuario.getSenha();
+            String senhaHashed = BCrypt.hashpw(senhaPura, BCrypt.gensalt());
+            usuario.setSenha(senhaHashed);
+            
             pstm.setString(1, usuario.getNome());
             pstm.setString(2, usuario.getLogin());
             pstm.setString(3, usuario.getSenha());
@@ -107,6 +116,20 @@ public class UsuarioDao extends MainDao implements InterfaceDao<Usuario> {
         }
         
         return u;
+    }
+    
+    public boolean autenticar(String email, String senha) throws SQLException{
+        Usuario usuario = buscarPorLogin(email);
+        String hash = BCrypt.hashpw(senha, BCrypt.gensalt());
+        if(usuario == null){
+            return false;
+        }
+        
+        if(BCrypt.checkpw(senha, usuario.getSenha())){
+            return true;
+        }
+        return false;
+        
     }
 }
     
