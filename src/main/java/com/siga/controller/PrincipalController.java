@@ -10,6 +10,8 @@ import com.siga.model.Categoria;
 import com.siga.view.TelaPrincipal;
 import com.siga.dao.CategoriaDao;
 import com.siga.model.Usuario;
+import com.siga.view.cadastros.CadastrarCategoria;
+import com.siga.view.cadastros.Dialog.DialogAddCategoria;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,23 +20,27 @@ import java.awt.event.ActionListener;
 public class PrincipalController {
     
     private TelaPrincipal telaPrincipal;
-    private Categoria categoria;
-    private CategoriaDao categoriaDao;
+    private CadastrarCategoriaController cadCategoriaController;
     private Usuario usuario;
 
     public PrincipalController(TelaPrincipal telaPrincipal, Usuario usuario) {
         this.telaPrincipal = telaPrincipal;
+        
         telaPrincipal.setVisible(true);
-        this.categoriaDao = new CategoriaDao();
+        telaPrincipal.setLabelUsuario(usuario.getNome());
+        
+        this.cadCategoriaController = new CadastrarCategoriaController(new CadastrarCategoria(), new CategoriaDao(), new DialogAddCategoria());
+        
         this.usuario = usuario;
-        telaPrincipal.addCategoriaListener(new CategoriaListener());
+        telaPrincipal.CategoriaListener(new CategoriaListener());
     }
     
     class CategoriaListener implements ActionListener{
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("Cadastrar categoria");
+            telaPrincipal.setContentPanel(cadCategoriaController.getView());
+            cadCategoriaController.CarregarCategorias();
         }
         
     }

@@ -103,4 +103,24 @@ public class CategoriaDao implements InterfaceDao<Categoria>{
         return c;
     }
     
+    public Categoria buscarPorNomeExato(String nome) throws SQLException{
+        Categoria c = null;
+        String sql = "SELECT * FROM categoria WHERE nome = ?;";
+        
+        try(Connection conn = ConnectionFactory.getConnection(); PreparedStatement pstm = conn.prepareStatement(sql);){
+            pstm.setString(1, nome);
+            
+            try(ResultSet rs = pstm.executeQuery();){
+                if(rs.next()){
+                    c = new Categoria();
+                    c.setId(rs.getInt("id_categoria"));
+                    c.setNome_categoria(rs.getString("nome"));
+                    c.setDescricao(rs.getString("descricao"));
+                }
+            }
+        }
+        
+        return c;
+    }
+    
 }

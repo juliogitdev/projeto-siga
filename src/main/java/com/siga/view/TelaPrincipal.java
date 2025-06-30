@@ -1,7 +1,9 @@
 package com.siga.view;
 
+import java.awt.BorderLayout;
 import java.awt.Panel;
 import java.awt.event.ActionListener;
+import javax.swing.JPanel;
 
 /**
  *
@@ -11,6 +13,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     
     public TelaPrincipal() {
         initComponents();
+        PanelConteudo.setLayout(new BorderLayout());
     }
    
 
@@ -28,7 +31,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         PanelConteudo = new javax.swing.JPanel();
         LabelUsuario = new javax.swing.JLabel();
         Menu = new javax.swing.JMenuBar();
-        CadastrosMenu = new javax.swing.JMenu();
+        EntidadesMenu = new javax.swing.JMenu();
         MenuItemFornecedor = new javax.swing.JMenuItem();
         MenuItemCategoria = new javax.swing.JMenuItem();
         MenuItemProduto = new javax.swing.JMenuItem();
@@ -75,38 +78,32 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        LabelUsuario.setText("Usuário:");
-
         javax.swing.GroupLayout PanelConteudoLayout = new javax.swing.GroupLayout(PanelConteudo);
         PanelConteudo.setLayout(PanelConteudoLayout);
         PanelConteudoLayout.setHorizontalGroup(
             PanelConteudoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelConteudoLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(LabelUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(19, 19, 19))
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         PanelConteudoLayout.setVerticalGroup(
             PanelConteudoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelConteudoLayout.createSequentialGroup()
-                .addContainerGap(387, Short.MAX_VALUE)
-                .addComponent(LabelUsuario)
-                .addContainerGap())
+            .addGap(0, 375, Short.MAX_VALUE)
         );
 
-        CadastrosMenu.setText("Cadastros");
+        LabelUsuario.setText("Usuário:");
+
+        EntidadesMenu.setText("Entidades");
 
         MenuItemFornecedor.setText("Fornecedor");
-        CadastrosMenu.add(MenuItemFornecedor);
+        EntidadesMenu.add(MenuItemFornecedor);
 
         MenuItemCategoria.setText("Categoria");
-        CadastrosMenu.add(MenuItemCategoria);
+        EntidadesMenu.add(MenuItemCategoria);
 
         MenuItemProduto.setText("Produto");
-        CadastrosMenu.add(MenuItemProduto);
+        EntidadesMenu.add(MenuItemProduto);
 
         MenuItemRequisitante.setText("Requisitante");
-        CadastrosMenu.add(MenuItemRequisitante);
+        EntidadesMenu.add(MenuItemRequisitante);
 
         MenuItemMovimentacacao.setText("Movimentação");
         MenuItemMovimentacacao.addActionListener(new java.awt.event.ActionListener() {
@@ -114,9 +111,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 MenuItemMovimentacacaoActionPerformed(evt);
             }
         });
-        CadastrosMenu.add(MenuItemMovimentacacao);
+        EntidadesMenu.add(MenuItemMovimentacacao);
 
-        Menu.add(CadastrosMenu);
+        Menu.add(EntidadesMenu);
 
         MovimentacoesMenu.setText("Movimentações");
 
@@ -161,6 +158,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(PanelSiga, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(LabelUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(19, 19, 19))
             .addComponent(PanelConteudo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -168,7 +169,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(PanelSiga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(PanelConteudo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(PanelConteudo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, Short.MAX_VALUE)
+                .addComponent(LabelUsuario))
         );
 
         pack();
@@ -218,7 +221,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu AjudaMenu;
-    private javax.swing.JMenu CadastrosMenu;
+    private javax.swing.JMenu EntidadesMenu;
     private javax.swing.JLabel LabelUsuario;
     private javax.swing.JMenuBar Menu;
     private javax.swing.JMenuItem MenuItemCategoria;
@@ -243,13 +246,18 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     
     
-    public void setContentPanel(Panel panel){
+    public void setContentPanel(JPanel panel){
         PanelConteudo.removeAll();
-        PanelConteudo.add(panel);
+        PanelConteudo.add(panel, BorderLayout.CENTER);
+        PanelConteudo.revalidate();
+        PanelConteudo.repaint();
     }
     
-    public void addCategoriaListener(ActionListener listener){
+    public void CategoriaListener(ActionListener listener){
         MenuItemCategoria.addActionListener(listener);
     }
     
+    public void setLabelUsuario(String nome){
+        LabelUsuario.setText("Usuario: " + nome);
+    }
 }
