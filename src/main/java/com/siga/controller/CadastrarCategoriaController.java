@@ -72,14 +72,19 @@ public class CadastrarCategoriaController {
             try {
                 Categoria c = categoriaDao.buscarPorNomeExato(nome);
                 if(c == null){
-                    categoriaDao.cadastrar(new Categoria(nome, descricao));
-                    addDialogCategoria.setVisible(false);
-                    CarregarCategorias();
+                    if(nome.isEmpty() | nome == ""){
+                        addDialogCategoria.showMessage("Campo não pode está vázio!");
+                    }else{
+                        categoriaDao.cadastrar(new Categoria(nome, descricao));
+                        addDialogCategoria.setVisible(false);
+                        CarregarCategorias();
+                    }
+                    
                 }else{
                     addDialogCategoria.showMessage("Já existe uma categoria com esse nome");
                 }
             } catch (SQLException ex) {
-                System.out.println(ex);;
+                System.out.println(ex);
             }
         }
         
