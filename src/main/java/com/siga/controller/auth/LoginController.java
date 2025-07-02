@@ -1,4 +1,4 @@
-package com.siga.controller;
+package com.siga.controller.auth;
 
 /**
  *

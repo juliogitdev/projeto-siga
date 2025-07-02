@@ -1,6 +1,6 @@
 package com.siga;
 
-import com.siga.controller.LoginController;
+import com.siga.controller.auth.LoginController;
 import com.siga.controller.PrincipalController;
 import com.siga.dao.UsuarioDao;
 import com.siga.model.Usuario;

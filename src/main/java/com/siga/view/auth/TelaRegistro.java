@@ -1,6 +1,6 @@
 package com.siga.view.auth;
 
-import com.siga.controller.LoginController;
+import com.siga.controller.auth.LoginController;
 import com.siga.dao.UsuarioDao;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;

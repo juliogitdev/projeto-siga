@@ -56,7 +56,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         PanelSiga.setBackground(new java.awt.Color(153, 153, 153));
 
         textSiga.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        textSiga.setForeground(new java.awt.Color(51, 204, 0));
+        textSiga.setForeground(new java.awt.Color(200, 200, 200));
         textSiga.setText("SIGA");
         textSiga.setAlignmentX(0.5F);
         textSiga.setPreferredSize(new java.awt.Dimension(60, 32));
@@ -158,11 +158,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(PanelSiga, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(PanelConteudo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(LabelUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(19, 19, 19))
-            .addComponent(PanelConteudo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(25, 25, 25))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -170,8 +170,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addComponent(PanelSiga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(PanelConteudo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addComponent(LabelUsuario))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(LabelUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE))
         );
 
         pack();
@@ -246,6 +246,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     
     
+    //Remove todo o conteudo que está dentro de Panel de conteudo
     public void setContentPanel(JPanel panel){
         PanelConteudo.removeAll();
         PanelConteudo.add(panel, BorderLayout.CENTER);
@@ -253,10 +254,30 @@ public class TelaPrincipal extends javax.swing.JFrame {
         PanelConteudo.repaint();
     }
     
+    //Adiciona listener em Categoria
     public void CategoriaListener(ActionListener listener){
         MenuItemCategoria.addActionListener(listener);
     }
+    //Adiciona listener em Fornecedor
+    public void FornecedorListener(ActionListener listener){
+        MenuItemFornecedor.addActionListener(listener);
+    }
     
+    //Adiciona listener em Fornecedor
+    public void RequisitanteListener(ActionListener listener){
+        MenuItemFornecedor.addActionListener(listener);
+    }
+    //Adiciona listener em Fornecedor
+    public void ProdutoListener(ActionListener listener){
+        MenuItemFornecedor.addActionListener(listener);
+    }
+    
+    //Adiciona listener em movimentação
+    public void MovimentacaoListener(ActionListener listener){
+        MenuItemFornecedor.addActionListener(listener);
+    }
+    
+    //Coloca o nome do usuario no canto inferior esquerdo da programa
     public void setLabelUsuario(String nome){
         LabelUsuario.setText("Usuario: " + nome);
     }
