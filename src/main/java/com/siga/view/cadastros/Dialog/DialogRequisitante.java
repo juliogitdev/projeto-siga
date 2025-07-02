@@ -5,6 +5,7 @@
 package com.siga.view.cadastros.Dialog;
 
 import java.awt.event.ActionListener;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
@@ -14,12 +15,12 @@ import javax.swing.JTextField;
  *
  * @author Julio
  */
-public class DialogAddCategoria extends javax.swing.JFrame {
+public class DialogRequisitante extends javax.swing.JFrame {
 
     /**
      * Creates new form Categoria
      */
-    public DialogAddCategoria() {
+    public DialogRequisitante() {
         initComponents();
     }
 
@@ -35,10 +36,11 @@ public class DialogAddCategoria extends javax.swing.JFrame {
         jDialog1 = new javax.swing.JDialog();
         jLabel1 = new javax.swing.JLabel();
         nomeInput = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        descricaoInput = new javax.swing.JTextArea();
-        jLabel2 = new javax.swing.JLabel();
         buttonCadastrar = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        setorInput = new javax.swing.JTextField();
+        enderecoInput = new javax.swing.JLabel();
+        nomeInput2 = new javax.swing.JTextField();
 
         javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
         jDialog1.getContentPane().setLayout(jDialog1Layout);
@@ -59,16 +61,26 @@ public class DialogAddCategoria extends javax.swing.JFrame {
             }
         });
 
-        descricaoInput.setColumns(20);
-        descricaoInput.setRows(5);
-        jScrollPane1.setViewportView(descricaoInput);
-
-        jLabel2.setText("Descrição:");
-
         buttonCadastrar.setText("Cadastrar");
         buttonCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCadastrarActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("Setor:");
+
+        setorInput.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                setorInputActionPerformed(evt);
+            }
+        });
+
+        enderecoInput.setText("Endereço:");
+
+        nomeInput2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nomeInput2ActionPerformed(evt);
             }
         });
 
@@ -77,18 +89,19 @@ public class DialogAddCategoria extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(71, 71, 71)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(77, 77, 77)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel2)
-                            .addComponent(jScrollPane1)
-                            .addComponent(jLabel1)
-                            .addComponent(nomeInput)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(160, 160, 160)
-                        .addComponent(buttonCadastrar)))
-                .addContainerGap(89, Short.MAX_VALUE))
+                    .addComponent(jLabel1)
+                    .addComponent(nomeInput, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(setorInput, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(enderecoInput)
+                    .addComponent(nomeInput2, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(148, Short.MAX_VALUE)
+                .addComponent(buttonCadastrar)
+                .addGap(148, 148, 148))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -97,13 +110,17 @@ public class DialogAddCategoria extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(nomeInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(13, 13, 13)
-                .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(setorInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(enderecoInput)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(nomeInput2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(buttonCadastrar)
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         pack();
@@ -117,6 +134,14 @@ public class DialogAddCategoria extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_buttonCadastrarActionPerformed
+
+    private void setorInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_setorInputActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_setorInputActionPerformed
+
+    private void nomeInput2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeInput2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nomeInput2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -135,49 +160,70 @@ public class DialogAddCategoria extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DialogAddCategoria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DialogRequisitante.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DialogAddCategoria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DialogRequisitante.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DialogAddCategoria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DialogRequisitante.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DialogAddCategoria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DialogRequisitante.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new DialogAddCategoria().setVisible(true);
+                new DialogRequisitante().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCadastrar;
-    private javax.swing.JTextArea descricaoInput;
+    private javax.swing.JLabel enderecoInput;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JTextField nomeInput;
+    private javax.swing.JTextField nomeInput2;
+    private javax.swing.JTextField setorInput;
     // End of variables declaration//GEN-END:variables
 
     public void showMessage(String message){
         JOptionPane.showMessageDialog(jDialog1, message);
     }
     
-    public void addDialogCategoria(ActionListener listener){
+    public void addDialogRequisitante(ActionListener listener){
         buttonCadastrar.addActionListener(listener);
     }
 
     public JTextField getNomeInput() {
         return nomeInput;
     }
-    
-    public JTextArea getDescricaoInput(){
-        return descricaoInput;
+
+    public JLabel getEnderecoInput() {
+        return enderecoInput;
     }
+
+    public JTextField getSetorInput() {
+        return setorInput;
+    }
+    
+    
 
 }

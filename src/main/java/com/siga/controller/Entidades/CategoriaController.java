@@ -6,113 +6,80 @@ package com.siga.controller.Entidades;
 
 import com.siga.dao.CategoriaDao;
 import com.siga.model.Categoria;
+import com.siga.model.Fornecedor;
 import com.siga.view.entidade.CategoriaView;
-import com.siga.view.cadastros.Dialog.DialogAddCategoria;
+import com.siga.view.cadastros.Dialog.DialogCategoria;
+import com.siga.view.entidade.FornecedorView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
  * @author Julio
  */
 public class CategoriaController {
-    private CategoriaView cadastrarCategoriaView;
+    private CategoriaView categoriaView;
     private CategoriaDao categoriaDao;
-    private DialogAddCategoria addDialogCategoria;
-    public CategoriaController(CategoriaView cadastrarCategoriaView, CategoriaDao categoriaDao, DialogAddCategoria addDialogCategoria){
-        this.cadastrarCategoriaView = cadastrarCategoriaView;
-        this.categoriaDao = categoriaDao;
-        this.addDialogCategoria = addDialogCategoria;
+    private DialogCategoria dialogCategoria;
+    private String[] colunasString = {"Nome", "Descrição"};
+
+    public CategoriaController() {
+        this.categoriaView = new CategoriaView();
+        this.categoriaDao = new CategoriaDao();
+        this.dialogCategoria = new DialogCategoria();
         
-        cadastrarCategoriaView.AddCategoriaListenner(new AddCategoriaListener());
-        cadastrarCategoriaView.editarCategoriaListener(new editarCategoriaListener());
-        cadastrarCategoriaView.excluirCategoriaListener(new excluirCategoriaListener());
+        categoriaView.setColunasTabela(colunasString);
+        categoriaView.setLabelEntidade("Categoria");
         
-        addDialogCategoria.addDialogCategoria(new AddDialogCategoriaListener());
-        
+        categoriaView.addEntidadeListenner(new AddEntidade());
+        categoriaView.editarEntidadeListener(new EditarEntidade());
+        categoriaView.excluirEntidadeListener(new ExcluirEntidade());
     }
     
     
     
+    
+    
+    
+    //retorna a view do categoria
     public CategoriaView getView(){
-        return cadastrarCategoriaView;
+        return categoriaView;
     }
     
-    public List<Categoria> buscarCategorias() throws SQLException{
-       return categoriaDao.listarTodos();
-    }
-    
-    public void CarregarCategorias(){
-        try{
-            List<Categoria> categorias = buscarCategorias();
-            cadastrarCategoriaView.atualizarTabela(categorias);
-        }catch(SQLException e){
-            System.out.println(e);
-        }
+    //carrega a tabela de categoria
+    public void carregarCategorias() throws SQLException{
+        List<Categoria> categorias = categoriaDao.listarTodos();
+        //chama o método de atualizar tabela da view de fornecedores
+        categoriaView.atualizarTabela(categorias);
     }
     
     
-    class AddCategoriaListener implements ActionListener{
+    //classe para manipular quando o botão de adicionar categoria é clicado
+    class AddEntidade implements ActionListener{
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            addDialogCategoria.setVisible(true);
-        }
-    }
-    
-    class AddDialogCategoriaListener implements ActionListener{
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            String nome = addDialogCategoria.getNomeInput().getText();
-            String descricao = addDialogCategoria.getDescricaoInput().getText();
-            
-            try {
-                Categoria c = categoriaDao.buscarPorNomeExato(nome);
-                if(c == null){
-                    if(nome.isEmpty() | nome == ""){
-                        addDialogCategoria.showMessage("Campo não pode está vázio!");
-                    }else{
-                        categoriaDao.cadastrar(new Categoria(nome, descricao));
-                        addDialogCategoria.setVisible(false);
-                        CarregarCategorias();
-                    }
-                    
-                }else{
-                    addDialogCategoria.showMessage("Já existe uma categoria com esse nome");
-                }
-            } catch (SQLException ex) {
-                System.out.println(ex);
-            }
+            System.out.println("Clicando em adicionar");
         }
         
     }
     
-    class editarCategoriaListener implements ActionListener{
+    //classe para manipular quando o botão de editar categoria é clicado
+    class EditarEntidade implements ActionListener{
 
         @Override
         public void actionPerformed(ActionEvent e) {
             System.out.println("Clicando em editar");
-        }
-        
+        }   
     }
-    
-    class excluirCategoriaListener implements ActionListener{
+    //classe para manipular quando o botão de excluir categoria é clicado
+    class ExcluirEntidade implements ActionListener{
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("Excluido categoria");
-        }
-        
+            System.out.println("Clicando em excluir");
+        }   
     }
-    
-    
-
-    
-    
-    
 }

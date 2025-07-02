@@ -9,21 +9,18 @@ package com.siga.controller;
 import com.siga.controller.Entidades.CategoriaController;
 import com.siga.controller.Entidades.FornecedorController;
 import com.siga.view.TelaPrincipal;
-import com.siga.dao.CategoriaDao;
 import com.siga.model.Usuario;
-import com.siga.view.cadastros.Dialog.DialogAddCategoria;
-import com.siga.view.entidade.CategoriaView;
+
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
 
-
 public class PrincipalController {
     
     private TelaPrincipal telaPrincipal;
-    private CategoriaController cadCategoriaController;
+    private CategoriaController categoriaController;
     private FornecedorController fornecedorController;
     private Usuario usuario;
 
@@ -34,7 +31,7 @@ public class PrincipalController {
         telaPrincipal.setVisible(true);
         telaPrincipal.setLabelUsuario(usuario.getNome());
         
-        this.cadCategoriaController = new CategoriaController(new CategoriaView(), new CategoriaDao(), new DialogAddCategoria());
+        this.categoriaController = new CategoriaController();
         this.fornecedorController = new FornecedorController();
         this.usuario = usuario;
         
@@ -47,8 +44,12 @@ public class PrincipalController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            telaPrincipal.setContentPanel(cadCategoriaController.getView());
-            cadCategoriaController.CarregarCategorias();
+            telaPrincipal.setContentPanel(categoriaController.getView());
+            try {
+                categoriaController.carregarCategorias();
+            } catch (SQLException ex) {
+                System.out.println(ex);
+            }
         }
         
     }
