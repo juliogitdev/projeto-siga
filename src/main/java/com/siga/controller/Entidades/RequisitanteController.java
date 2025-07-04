@@ -18,7 +18,7 @@ public class RequisitanteController {
     private String[] colunasString = {"Nome", "Setor", "Endereço"};
     
     
-    public RequisitanteController(){
+    public RequisitanteController() {
         this.requisitanteView = new  RequisitanteView();
         this.requisitanteDao = new RequisitanteDao();
         this.requisitanteDialog = new DialogRequisitante();

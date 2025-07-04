@@ -30,7 +30,7 @@ public abstract class EntidadeController{
         entidadeView.excluirEntidadeListener(new ExcluirEntidadeListener());
     }
     
-    public List<InterfaceDao> listarEntidades() throws SQLException{
+    public List<InterfaceDao> getTodasEntidades() throws SQLException{
         return getEntidadeDao().listarTodos();
     }
 
@@ -70,7 +70,7 @@ public abstract class EntidadeController{
         this.dialogEntidade = dialogEntidade;
     }
     
-    public void carregarCategorias() throws SQLException{
+    public void listarEntidadesTabela() throws SQLException{
         getView().atualizarTabela(getEntidadeDao().listarTodos());
     }
     
@@ -81,13 +81,15 @@ public abstract class EntidadeController{
     
     public abstract void adicionarEntidade(DialogEntidade dialog);
     public abstract void editarEntidade(DialogEntidade dialog);
-    public abstract void excluirEntidade(int id);
+    public abstract void excluirEntidade(DialogEntidade dialog);
     
     class AddEntidadeListener implements ActionListener{
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            dialogEntidade.limparInputs();
             dialogEntidade.setVisible(true);
+            adicionarEntidade(dialogEntidade);
 
         }
     }
@@ -104,7 +106,7 @@ public abstract class EntidadeController{
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            excluirEntidade(entidadeView.getTabelaEntidade().getSelectedColumn());
+            excluirEntidade(dialogEntidade);
         }
     }
     

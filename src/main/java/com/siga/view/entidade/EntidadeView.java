@@ -2,6 +2,7 @@ package com.siga.view.entidade;
 import com.siga.model.Entidade;
 import java.awt.event.ActionListener;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -219,6 +220,16 @@ public abstract class EntidadeView extends javax.swing.JPanel{
         DefaultTableModel tableModel = new DefaultTableModel(colunas, 0);
         tabelaEntidade.setModel(tableModel);
     }
+    
+    public void showMessage(String message){
+        JOptionPane.showMessageDialog(jPanel2, message);
+    }
+    
+    
+    
+        
+        
+        
     
 
     

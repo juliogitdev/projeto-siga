@@ -6,6 +6,7 @@ public class Categoria extends Entidade{
     private String descricao;
 
     public Categoria() {
+        setId(-1);
     }
 
     
@@ -30,4 +31,5 @@ public class Categoria extends Entidade{
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
+
 }

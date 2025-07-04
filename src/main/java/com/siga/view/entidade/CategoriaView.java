@@ -21,6 +21,7 @@ public class CategoriaView extends EntidadeView{
                 Categoria c = (Categoria) entidade;
                 
                 tableModel.addRow(new Object[]{
+                    c.getId(),
                     c.getNome_categoria(),
                     c.getDescricao()
                 });

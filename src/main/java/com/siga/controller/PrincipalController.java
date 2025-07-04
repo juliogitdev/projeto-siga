@@ -53,7 +53,7 @@ public class PrincipalController {
         public void actionPerformed(ActionEvent e) {
             telaPrincipal.setContentPanel(categoriaController.getView());
             try {
-                categoriaController.carregarCategorias();
+                categoriaController.listarEntidadesTabela();
             } catch (SQLException ex) {
                 Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
             }

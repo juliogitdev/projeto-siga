@@ -51,6 +51,9 @@ public class DialogCategoria extends javax.swing.JFrame implements DialogEntidad
             .addGap(0, 300, Short.MAX_VALUE)
         );
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
         jLabel1.setText("Nome:");
 
         nomeInput.addActionListener(new java.awt.event.ActionListener() {
@@ -173,7 +176,11 @@ public class DialogCategoria extends javax.swing.JFrame implements DialogEntidad
     
     @Override
     public void addEntidadeListener(ActionListener listener){
-        System.out.println("adicionando listener no dialog");
+        
+        //Remove todos os eventos antes de implementar outro, para não ter duplicidade
+        for(ActionListener al : buttonCadastrar.getActionListeners()){
+            buttonCadastrar.removeActionListener(al);
+        }
         buttonCadastrar.addActionListener(listener);
     }
     
@@ -187,20 +194,24 @@ public class DialogCategoria extends javax.swing.JFrame implements DialogEntidad
     public void setVisible(boolean b){
         super.setVisible(b);
         
-        if(b){
-            limparInputs();
-                    
-        }
-    }
-    
-   
 
-    public JTextField getNomeInput() {
-        return nomeInput;
     }
     
-    public JTextArea getDescricaoInput(){
-        return descricaoInput;
+
+    public String getNome() {
+        return nomeInput.getText();
+    }
+    
+    public void setNome(String nome){
+        nomeInput.setText(nome);
+    }
+    
+    public String getDescricao() {
+        return descricaoInput.getText();
+    }
+    
+    public void setDescricao(String descricao){
+        descricaoInput.setText(descricao);
     }
 
 }
