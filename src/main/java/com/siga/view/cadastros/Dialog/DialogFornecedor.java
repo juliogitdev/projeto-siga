@@ -12,7 +12,7 @@ import javax.swing.JTextField;
  *
  * @author Julio
  */
-public class DialogFornecedor extends javax.swing.JFrame {
+public class DialogFornecedor extends javax.swing.JFrame implements DialogEntidade{
 
     /**
      * Creates new form Categoria
@@ -239,13 +239,36 @@ public class DialogFornecedor extends javax.swing.JFrame {
 
     
         //Metodo para abrir um pop-up com uma mensagem
+    @Override
     public void showMessage(String message){
         JOptionPane.showMessageDialog(jDialog1, message);
     }
         //Adicionar um "ouvidor" de eventos no botão de cadastrar
-    public void addDialogCategoria(ActionListener listener){
+    @Override
+    public void addEntidadeListener(ActionListener listener){
         buttonCadastrar.addActionListener(listener);
     }
+    
+    @Override
+    public void limparInputs(){
+        setCnpjText("");
+        setEmailText("");
+        setEnderecoText("");
+        setRazaoSocialText("");
+        setTelefoneText("");
+    }
+    
+    @Override
+    public void setVisible(boolean b){
+        super.setVisible(b);
+        
+        if(b){
+            iniciar();
+            limparInputs();
+                    
+        }
+    }
+    
        //Getters para pegar os valores dos inputs
     public JTextField getCnpjInput() {
         return cnpjInput;
@@ -266,6 +289,30 @@ public class DialogFornecedor extends javax.swing.JFrame {
     public JTextField getTelefoneInput() {
         return telefoneInput;
     }
+
+    public void setCnpjText(String str) {
+        this.cnpjInput.setText(str);
+    }
+
+    public void setEmailText(String str) {
+        this.emailInput.setText(str);
+    }
+    
+    public void setEnderecoText(String str) {
+        this.enderecoInput.setText(str);
+    }
+
+    public void setRazaoSocialText(String str) {
+        this.razaoSocialInput.setText(str);
+    }
+
+    public void setTelefoneText(String str) {
+        this.telefoneInput.setText(str);
+    }
+
+
+    
+    
 
     
 

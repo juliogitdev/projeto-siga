@@ -7,15 +7,13 @@ package com.siga.view.cadastros.Dialog;
 import java.awt.event.ActionListener;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 /**
  *
  * @author Julio
  */
-public class DialogRequisitante extends javax.swing.JFrame {
+public class DialogRequisitante extends javax.swing.JFrame implements DialogEntidade{
 
     /**
      * Creates new form Categoria
@@ -204,12 +202,31 @@ public class DialogRequisitante extends javax.swing.JFrame {
     private javax.swing.JTextField setorInput;
     // End of variables declaration//GEN-END:variables
 
+    @Override
     public void showMessage(String message){
         JOptionPane.showMessageDialog(jDialog1, message);
     }
-    
-    public void addDialogRequisitante(ActionListener listener){
+    @Override
+    public void addEntidadeListener(ActionListener listener){
         buttonCadastrar.addActionListener(listener);
+    }
+    
+    @Override
+    public void limparInputs(){
+        nomeInput.setText("");
+        enderecoInput.setText("");
+        setorInput.setText("");
+    }
+    
+    @Override
+    public void setVisible(boolean b){
+        super.setVisible(b);
+        
+        if(b){
+            iniciar();
+            limparInputs();
+                    
+        }
     }
 
     public JTextField getNomeInput() {

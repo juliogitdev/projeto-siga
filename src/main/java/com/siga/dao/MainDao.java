@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 
-public class MainDao {
+public abstract class MainDao implements InterfaceDao{
     
     private List<String> buscarNomesColunas(String table) throws SQLException {
     String sql = "SELECT * FROM " + table;
@@ -31,7 +31,6 @@ public class MainDao {
         }
     return listaNomes;
     }
-    
         
     
     
@@ -88,5 +87,19 @@ public class MainDao {
         
         return listaAtributos;
     }
+
+    @Override
+    public abstract void cadastrar(Object Entidade) throws SQLException;
+    @Override
+    public abstract void atualizar(Object Entidade) throws SQLException;
+
+    @Override
+    public abstract void deletar(Object Entidade) throws SQLException;
+
+    @Override
+    public abstract List listarTodos() throws SQLException;
+
+    @Override
+    public abstract Object buscarPorId(int id)throws SQLException;
 }
 

@@ -9,7 +9,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Julio
  */
-public class CategoriaView extends PanelPrincipal{
+public class CategoriaView extends EntidadeView{
     
     @Override
     public void atualizarTabela(List<? extends Entidade> entidades){

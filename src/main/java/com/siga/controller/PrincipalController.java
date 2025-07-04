@@ -15,6 +15,8 @@ import com.siga.model.Usuario;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class PrincipalController {
@@ -48,7 +50,7 @@ public class PrincipalController {
             try {
                 categoriaController.carregarCategorias();
             } catch (SQLException ex) {
-                System.out.println(ex);
+                Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         

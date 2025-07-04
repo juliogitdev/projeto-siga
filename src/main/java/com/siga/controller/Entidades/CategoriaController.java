@@ -1,85 +1,63 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.siga.controller.Entidades;
 
 import com.siga.dao.CategoriaDao;
 import com.siga.model.Categoria;
-import com.siga.model.Fornecedor;
 import com.siga.view.entidade.CategoriaView;
 import com.siga.view.cadastros.Dialog.DialogCategoria;
-import com.siga.view.entidade.FornecedorView;
+import com.siga.view.cadastros.Dialog.DialogEntidade;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JTable;
 
 /**
  *
  * @author Julio
  */
-public class CategoriaController {
-    private CategoriaView categoriaView;
-    private CategoriaDao categoriaDao;
-    private DialogCategoria dialogCategoria;
-    private String[] colunasString = {"Nome", "Descrição"};
+public class CategoriaController extends EntidadeController{
+    
+    public CategoriaController(){
+        super(new CategoriaView(), new CategoriaDao(), new DialogCategoria());
+        this.setColunasString(new String[] {"Nome", "Descrição"});
+        this.setColunasTabela(this.getColunasString());
+        
+        getDialogEntidade().addEntidadeListener(new ButtonAddCategoriaListener());
+        
+        this.getView().setLabelEntidade("Categoria");
+    }
 
-    public CategoriaController() {
-        this.categoriaView = new CategoriaView();
-        this.categoriaDao = new CategoriaDao();
-        this.dialogCategoria = new DialogCategoria();
+
+    @Override
+    public void adicionarEntidade(DialogEntidade dialog) {
+        if(dialog instanceof DialogCategoria dialogCategoria){
+            dialogCategoria.addEntidadeListener(new ButtonAddCategoriaListener());
+             
+            
+        }
         
-        categoriaView.setColunasTabela(colunasString);
-        categoriaView.setLabelEntidade("Categoria");
-        
-        categoriaView.addEntidadeListenner(new AddEntidade());
-        categoriaView.editarEntidadeListener(new EditarEntidade());
-        categoriaView.excluirEntidadeListener(new ExcluirEntidade());
+    }
+
+    @Override
+    public void editarEntidade(DialogEntidade dialog) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void excluirEntidade(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
     
-    
-    
-    
-    
-    //retorna a view do categoria
-    public CategoriaView getView(){
-        return categoriaView;
-    }
-    
-    //carrega a tabela de categoria
-    public void carregarCategorias() throws SQLException{
-        List<Categoria> categorias = categoriaDao.listarTodos();
-        //chama o método de atualizar tabela da view de fornecedores
-        categoriaView.atualizarTabela(categorias);
-    }
-    
-    
-    //classe para manipular quando o botão de adicionar categoria é clicado
-    class AddEntidade implements ActionListener{
+    class ButtonAddCategoriaListener implements ActionListener{
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("Clicando em adicionar");
+            System.out.println("Clicando");
         }
         
     }
     
-    //classe para manipular quando o botão de editar categoria é clicado
-    class EditarEntidade implements ActionListener{
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            System.out.println("Clicando em editar");
-        }   
-    }
-    //classe para manipular quando o botão de excluir categoria é clicado
-    class ExcluirEntidade implements ActionListener{
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            System.out.println("Clicando em excluir");
-        }   
-    }
 }

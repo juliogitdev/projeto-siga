@@ -14,7 +14,7 @@ import javax.swing.JTextField;
  *
  * @author Julio
  */
-public class DialogCategoria extends javax.swing.JFrame {
+public class DialogCategoria extends javax.swing.JFrame implements DialogEntidade{
 
     /**
      * Creates new form Categoria
@@ -109,19 +109,19 @@ public class DialogCategoria extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void nomeInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeInputActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nomeInputActionPerformed
-
     private void buttonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCadastrarActionPerformed
         
         
     }//GEN-LAST:event_buttonCadastrarActionPerformed
 
+    private void nomeInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeInputActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nomeInputActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void iniciar() {
+    public void iniciar() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -166,13 +166,34 @@ public class DialogCategoria extends javax.swing.JFrame {
     private javax.swing.JTextField nomeInput;
     // End of variables declaration//GEN-END:variables
 
+    @Override
     public void showMessage(String message){
         JOptionPane.showMessageDialog(jDialog1, message);
     }
     
-    public void addDialogCategoria(ActionListener listener){
+    @Override
+    public void addEntidadeListener(ActionListener listener){
+        System.out.println("adicionando listener no dialog");
         buttonCadastrar.addActionListener(listener);
     }
+    
+    @Override
+    public void limparInputs(){
+        nomeInput.setText("");
+        descricaoInput.setText("");
+    }
+    
+    @Override
+    public void setVisible(boolean b){
+        super.setVisible(b);
+        
+        if(b){
+            limparInputs();
+                    
+        }
+    }
+    
+   
 
     public JTextField getNomeInput() {
         return nomeInput;

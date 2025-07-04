@@ -9,13 +9,12 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Julio
  */
-public abstract class PanelPrincipal extends javax.swing.JPanel{
+public abstract class EntidadeView extends javax.swing.JPanel{
 
     /**
      * Creates new form CadastrarCategoria
      */
-    public PanelPrincipal() {
-        System.out.println("Iniciando");
+    public EntidadeView() {
         initComponents();
     }
 
@@ -84,6 +83,7 @@ public abstract class PanelPrincipal extends javax.swing.JPanel{
         tabelaEntidade.setEditingRow(0);
         tabelaEntidade.setFocusable(false);
         tabelaEntidade.setMaximumSize(new java.awt.Dimension(727, 0));
+        tabelaEntidade.setRequestFocusEnabled(false);
         tabelaEntidade.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tabelaEntidade.setShowGrid(true);
         tabelaEntidade.getTableHeader().setResizingAllowed(false);
@@ -219,5 +219,7 @@ public abstract class PanelPrincipal extends javax.swing.JPanel{
         DefaultTableModel tableModel = new DefaultTableModel(colunas, 0);
         tabelaEntidade.setModel(tableModel);
     }
+    
+
     
 }
