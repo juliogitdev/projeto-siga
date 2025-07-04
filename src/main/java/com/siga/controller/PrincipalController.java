@@ -8,6 +8,7 @@ package com.siga.controller;
 
 import com.siga.controller.Entidades.CategoriaController;
 import com.siga.controller.Entidades.FornecedorController;
+import com.siga.controller.Entidades.RequisitanteController;
 import com.siga.view.TelaPrincipal;
 import com.siga.model.Usuario;
 
@@ -24,6 +25,7 @@ public class PrincipalController {
     private TelaPrincipal telaPrincipal;
     private CategoriaController categoriaController;
     private FornecedorController fornecedorController;
+    private RequisitanteController requisitanteController;
     private Usuario usuario;
 
     public PrincipalController(TelaPrincipal telaPrincipal, Usuario usuario) {
@@ -35,11 +37,14 @@ public class PrincipalController {
         
         this.categoriaController = new CategoriaController();
         this.fornecedorController = new FornecedorController();
+        this.requisitanteController = new RequisitanteController();
         this.usuario = usuario;
         
         //Adicionando listeners nas entidades do menu
         telaPrincipal.CategoriaListener(new CategoriaListener());
         telaPrincipal.FornecedorListener(new FornecedorListener());
+        telaPrincipal.RequisitanteListener(new RequisitanteListener());
+        
     }
     
     class CategoriaListener implements ActionListener{
@@ -63,6 +68,20 @@ public class PrincipalController {
             telaPrincipal.setContentPanel(fornecedorController.getView());
             try {
                 fornecedorController.carregarFornecedores();
+            } catch (SQLException ex) {
+                System.out.println(ex);
+            }
+        }
+        
+    }
+    
+    class RequisitanteListener implements ActionListener{
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            telaPrincipal.setContentPanel(requisitanteController.getView());
+            try {
+                requisitanteController.carregarRequisitantes();
             } catch (SQLException ex) {
                 System.out.println(ex);
             }
