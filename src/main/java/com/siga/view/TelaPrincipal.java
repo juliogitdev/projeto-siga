@@ -265,16 +265,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
     
     //Adiciona listener em Fornecedor
     public void RequisitanteListener(ActionListener listener){
-        MenuItemFornecedor.addActionListener(listener);
+        MenuItemRequisitante.addActionListener(listener);
     }
     //Adiciona listener em Fornecedor
     public void ProdutoListener(ActionListener listener){
-        MenuItemFornecedor.addActionListener(listener);
+        MenuItemProduto.addActionListener(listener);
     }
     
     //Adiciona listener em movimentação
     public void MovimentacaoListener(ActionListener listener){
-        MenuItemFornecedor.addActionListener(listener);
+        MenuItemMovimentacacao.addActionListener(listener);
     }
     
     //Coloca o nome do usuario no canto inferior esquerdo da programa
