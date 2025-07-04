@@ -14,6 +14,7 @@ public class Movimentacao extends Entidade{
     
     
     public Movimentacao(LocalDateTime dataHora, String tipo, int quantidade, Produto produto, Usuario usuario, Entidade entidade) {
+        super();
         this.dataHora = dataHora;
         this.tipo = tipo;
         this.quantidade = quantidade;
@@ -25,6 +26,7 @@ public class Movimentacao extends Entidade{
      
     
     public Movimentacao() {
+        super();
     }
 
     public String getTipo() {

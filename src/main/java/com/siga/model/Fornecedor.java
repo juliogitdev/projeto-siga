@@ -9,9 +9,11 @@ public class Fornecedor extends Entidade{
     private String email;
 
     public Fornecedor() {
+        super();
     }
 
     public Fornecedor(String razaoSocial, String cnpj, String telefone, String endereco, String email) {
+        super();
         this.razaoSocial = razaoSocial;
         this.cnpj = cnpj;
         this.telefone = telefone;

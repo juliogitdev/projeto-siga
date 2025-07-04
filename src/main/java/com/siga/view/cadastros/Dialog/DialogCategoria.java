@@ -168,7 +168,7 @@ public class DialogCategoria extends javax.swing.JFrame implements DialogEntidad
 
     @Override
     public void showMessage(String message){
-        JOptionPane.showMessageDialog(jDialog1, message);
+        JOptionPane.showMessageDialog(null, message);
     }
     
     @Override
@@ -200,7 +200,7 @@ public class DialogCategoria extends javax.swing.JFrame implements DialogEntidad
     }
     
     public void setNome(String nome){
-        nomeInput.setText(nome);
+        nomeInput.setText(nome.trim());
     }
     
     public String getDescricao() {
@@ -208,7 +208,7 @@ public class DialogCategoria extends javax.swing.JFrame implements DialogEntidad
     }
     
     public void setDescricao(String descricao){
-        descricaoInput.setText(descricao);
+        descricaoInput.setText(descricao.trim());
     }
 
 

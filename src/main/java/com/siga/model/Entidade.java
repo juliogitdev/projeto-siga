@@ -6,6 +6,10 @@ public abstract class Entidade{
     
     private int id;
     
+    public Entidade(){
+        this.id = -1;
+    }
+    
     public int getId(){
         return this.id;
     }

@@ -9,9 +9,11 @@ public class Produto extends Entidade{
     private Categoria categoria;
 
     public Produto() {
+        super();
     }
 
     public Produto(String nomeProduto, String descricao, int quantidade, Fornecedor fornecedor, Categoria categoria) {
+        super();
         this.nomeProduto = nomeProduto;
         this.descricao = descricao;
         this.quantidade = quantidade;

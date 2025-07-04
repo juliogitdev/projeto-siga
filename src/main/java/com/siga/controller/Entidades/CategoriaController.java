@@ -196,7 +196,7 @@ public class CategoriaController extends EntidadeController{
                 categoria.setDescricao(dialogCategoria.getDescricao());
                 
                 //Verificar se o usuario digitou o nome da categoria
-                if(categoria.getNome_categoria() == ""){
+                if(categoria.getNome_categoria().isEmpty()){
                     dialogCategoria.showMessage("Digite o nome da categoria");
                     return;
                 }else{

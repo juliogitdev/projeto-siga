@@ -7,9 +7,10 @@ public class Requisitante extends Entidade{
     private String setor;
     private String endereco;
 
-    public Requisitante(){};
+    public Requisitante(){super();};
     
     public Requisitante(String nome, String setor, String endereco) {
+        super();
         this.nome = nome;
         this.setor = setor;
         this.endereco = endereco;

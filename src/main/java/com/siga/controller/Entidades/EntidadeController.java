@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.List;
+import javax.swing.JTextField;
 /**
  *
  * @author Julio
@@ -78,6 +79,16 @@ public abstract class EntidadeController{
         getDialogEntidade().setVisible(true);
     }
     
+    public boolean isInputEmpty(JTextField textInput){
+        return textInput.getText().isBlank();
+    }
+    
+    public boolean isMinCaracterInput(JTextField textInput, int minCaracter){
+        if(textInput.getText().length() >= minCaracter){
+            return true;
+        }
+        return false;
+    }
     
     public abstract void adicionarEntidade(DialogEntidade dialog);
     public abstract void editarEntidade(DialogEntidade dialog);

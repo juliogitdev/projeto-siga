@@ -6,11 +6,12 @@ public class Categoria extends Entidade{
     private String descricao;
 
     public Categoria() {
-        setId(-1);
+        super();
     }
 
     
     public Categoria(String nomeCategoria, String descricao) {
+        super();
         this.nomeCategoria = nomeCategoria;
         this.descricao = descricao;
     }
