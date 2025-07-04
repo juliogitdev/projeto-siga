@@ -59,7 +59,7 @@ public class DialogRequisitante extends javax.swing.JFrame implements DialogEnti
             }
         });
 
-        buttonCadastrar.setText("Cadastrar");
+        buttonCadastrar.setText("Salvar");
         buttonCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCadastrarActionPerformed(evt);
@@ -97,7 +97,7 @@ public class DialogRequisitante extends javax.swing.JFrame implements DialogEnti
                     .addComponent(nomeInput2, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(148, Short.MAX_VALUE)
+                .addContainerGap(156, Short.MAX_VALUE)
                 .addComponent(buttonCadastrar)
                 .addGap(148, 148, 148))
         );

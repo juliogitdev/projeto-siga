@@ -62,7 +62,7 @@ public class DialogFornecedor extends javax.swing.JFrame implements DialogEntida
             }
         });
 
-        buttonCadastrar.setText("Cadastrar");
+        buttonCadastrar.setText("Salvar");
         buttonCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCadastrarActionPerformed(evt);
@@ -311,7 +311,6 @@ public class DialogFornecedor extends javax.swing.JFrame implements DialogEntida
     }
 
 
-    
     
 
     
