@@ -67,7 +67,7 @@ public class PrincipalController {
         public void actionPerformed(ActionEvent e) {
             telaPrincipal.setContentPanel(fornecedorController.getView());
             try {
-                fornecedorController.carregarFornecedores();
+                fornecedorController.listarEntidadesTabela();
             } catch (SQLException ex) {
                 System.out.println(ex);
             }

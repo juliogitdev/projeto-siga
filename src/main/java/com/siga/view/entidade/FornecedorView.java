@@ -30,6 +30,7 @@ public class FornecedorView extends EntidadeView{
                 
                 //Adiciona cada fornecedor com os campos abaixo
                 tableModel.addRow(new Object[]{
+                    fornecedor.getId(),
                     fornecedor.getRazaoSocial(),
                     fornecedor.getCnpj(),
                     fornecedor.getEmail(),

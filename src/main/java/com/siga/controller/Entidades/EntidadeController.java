@@ -94,6 +94,17 @@ public abstract class EntidadeController{
     public abstract void editarEntidade(DialogEntidade dialog);
     public abstract void excluirEntidade(DialogEntidade dialog);
     
+    public boolean isRowSelected(){
+        int rowSelected = getView().getTabelaEntidade().getSelectedRow();
+                
+        if(rowSelected == -1){
+            getView().showMessage("Selecione um(a) " + getView().getLabelEntidade());
+            return false;
+        }
+        
+        return true;
+    }
+    
     class AddEntidadeListener implements ActionListener{
 
         @Override

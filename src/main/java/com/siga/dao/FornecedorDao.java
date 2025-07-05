@@ -70,7 +70,7 @@ public class FornecedorDao implements InterfaceDao<Fornecedor> {
             ResultSet rs = pstm.executeQuery();
             while (rs.next()) {
                 Fornecedor f = new Fornecedor();
-
+                f.setId(rs.getInt("id_fornecedor"));
                 f.setRazaoSocial(rs.getString("razao_social"));
                 f.setCnpj(rs.getString("cnpj"));
                 f.setTelefone(rs.getString("telefone"));
@@ -83,36 +83,67 @@ public class FornecedorDao implements InterfaceDao<Fornecedor> {
     }
     
     public Fornecedor buscarPorId(int id) throws SQLException {
-    String sql = "SELECT * FROM fornecedor WHERE id_fornecedor = ?;";
-    Fornecedor f = null; // Comece com nulo
+        String sql = "SELECT * FROM fornecedor WHERE id_fornecedor = ?;";
+        Fornecedor f = null; // Comece com nulo
 
-    // O try-with-resources garante o fechamento automático da conexão e do statement
-    try (Connection conn = ConnectionFactory.getConnection();
-         PreparedStatement pstm = conn.prepareStatement(sql)) {
-
-        
-        pstm.setInt(1, id);
+        // O try-with-resources garante o fechamento automático da conexão e do statement
+        try (Connection conn = ConnectionFactory.getConnection();
+            PreparedStatement pstm = conn.prepareStatement(sql)) {
 
         
-        try(ResultSet rs = pstm.executeQuery()){
+            pstm.setInt(1, id);
+
+        
+            try(ResultSet rs = pstm.executeQuery()){
 
             
-            if (rs.next()) {
-                f = new Fornecedor(); // Crie o objeto só se encontrou algo
+                if (rs.next()) {
+                    f = new Fornecedor(); // Crie o objeto só se encontrou algo
                 
-                f.setId(rs.getInt("id_fornecedor"));
-                f.setRazaoSocial(rs.getString("razao_social"));
-                f.setCnpj(rs.getString("cnpj"));
-                f.setEndereco(rs.getString("endereco"));
-                f.setTelefone(rs.getString("telefone"));
-                f.setEmail(rs.getString("email"));
+                    f.setId(rs.getInt("id_fornecedor"));
+                    f.setRazaoSocial(rs.getString("razao_social"));
+                    f.setCnpj(rs.getString("cnpj"));
+                    f.setEndereco(rs.getString("endereco"));
+                    f.setTelefone(rs.getString("telefone"));
+                    f.setEmail(rs.getString("email"));
+                }
             }
         }
-    }
     
-    // Retorna o fornecedor encontrado ou null se não achou
-    return f;
+        // Retorna o fornecedor encontrado ou null se não achou
+        return f;
 }
+    public Fornecedor buscarPorCnpj(String cnpj) throws SQLException{
+        String sql = "SELECT * FROM fornecedor WHERE cnpj = ?;";
+        Fornecedor f = null; // Comece com nulo
+
+        // O try-with-resources garante o fechamento automático da conexão e do statement
+        try (Connection conn = ConnectionFactory.getConnection();
+             PreparedStatement pstm = conn.prepareStatement(sql);) {
+            
+            
+            pstm.setString(1, cnpj);
+
+        
+            try(ResultSet rs = pstm.executeQuery()){
+
+            
+                if (rs.next()) {
+                    f = new Fornecedor(); // Crie o objeto só se encontrou algo
+                
+                    f.setId(rs.getInt("id_fornecedor"));
+                    f.setRazaoSocial(rs.getString("razao_social"));
+                    f.setCnpj(rs.getString("cnpj"));
+                    f.setEndereco(rs.getString("endereco"));
+                    f.setTelefone(rs.getString("telefone"));
+                    f.setEmail(rs.getString("email"));
+                }
+            }
+        }
+    
+        // Retorna o fornecedor encontrado ou null se não achou
+        return f;
+    }
         
 }
 

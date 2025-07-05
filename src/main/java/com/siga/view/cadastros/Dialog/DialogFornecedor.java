@@ -54,7 +54,7 @@ public class DialogFornecedor extends javax.swing.JFrame implements DialogEntida
             .addGap(0, 300, Short.MAX_VALUE)
         );
 
-        jLabel1.setText("Razão Social: (opcional)");
+        jLabel1.setText("Razão Social:");
 
         razaoSocialInput.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -246,6 +246,9 @@ public class DialogFornecedor extends javax.swing.JFrame implements DialogEntida
         //Adicionar um "ouvidor" de eventos no botão de cadastrar
     @Override
     public void addEntidadeListener(ActionListener listener){
+        for(ActionListener al : buttonCadastrar.getActionListeners()){
+            buttonCadastrar.removeActionListener(al);
+        }
         buttonCadastrar.addActionListener(listener);
     }
     
@@ -261,12 +264,6 @@ public class DialogFornecedor extends javax.swing.JFrame implements DialogEntida
     @Override
     public void setVisible(boolean b){
         super.setVisible(b);
-        
-        if(b){
-            iniciar();
-            limparInputs();
-                    
-        }
     }
     
        //Getters para pegar os valores dos inputs
