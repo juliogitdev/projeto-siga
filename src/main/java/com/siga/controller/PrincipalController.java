@@ -28,7 +28,7 @@ public class PrincipalController {
     private FornecedorController fornecedorController;
     private RequisitanteController requisitanteController;
     private Usuario usuario;
-
+   
     public PrincipalController(TelaPrincipal telaPrincipal, Usuario usuario) {
         this.telaPrincipal = telaPrincipal;
         
@@ -43,11 +43,11 @@ public class PrincipalController {
         
         //Adicionando listeners nas entidades do menu
         telaPrincipal.CategoriaListener(new CategoriaListener());
-        telaPrincipal.FornecedorListener(new FornecedorListener());
+        //telaPrincipal.FornecedorListener(new FornecedorListener());
         telaPrincipal.RequisitanteListener(new RequisitanteListener());
         
     }
-    
+
     class CategoriaListener implements ActionListener{
 
         @Override
@@ -61,7 +61,7 @@ public class PrincipalController {
         }
         
     }
-    
+    /**
     class FornecedorListener implements ActionListener{
 
         @Override
@@ -75,7 +75,7 @@ public class PrincipalController {
         }
         
     }
-    
+    **/
     class RequisitanteListener implements ActionListener{
 
         @Override
