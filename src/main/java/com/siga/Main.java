@@ -14,7 +14,7 @@ public class Main {
     public static void main (String args[]) throws SQLException{
         UsuarioDao ud = new UsuarioDao();
         TelaPrincipal tp = new TelaPrincipal();
-        Usuario u = ud.buscarPorEmail("cesar@gmail.com");
+        Usuario u = ud.buscarPorEmail("FRAN@GMAIL.COM");
         PrincipalController pc = new PrincipalController(tp, u);
 
 }

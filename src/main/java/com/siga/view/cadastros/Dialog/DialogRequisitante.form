@@ -44,8 +44,8 @@
                   <Component id="nomeInput" alignment="0" min="-2" pref="234" max="-2" attributes="0"/>
                   <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="setorInput" alignment="0" min="-2" pref="234" max="-2" attributes="0"/>
-                  <Component id="enderecoInput" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="nomeInput2" alignment="0" min="-2" pref="234" max="-2" attributes="0"/>
+                  <Component id="enderecoLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="enderecoInput" alignment="0" min="-2" pref="234" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -68,9 +68,9 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="setorInput" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="enderecoInput" min="-2" max="-2" attributes="0"/>
+              <Component id="enderecoLabel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="nomeInput2" min="-2" max="-2" attributes="0"/>
+              <Component id="enderecoInput" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="buttonCadastrar" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="36" max="32767" attributes="0"/>
@@ -107,14 +107,14 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="setorInputActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="enderecoInput">
+    <Component class="javax.swing.JLabel" name="enderecoLabel">
       <Properties>
         <Property name="text" type="java.lang.String" value="Endere&#xe7;o:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="nomeInput2">
+    <Component class="javax.swing.JTextField" name="enderecoInput">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nomeInput2ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="enderecoInputActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
