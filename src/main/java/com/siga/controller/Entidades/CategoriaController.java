@@ -1,231 +1,142 @@
 package com.siga.controller.Entidades;
 
 import com.siga.dao.CategoriaDao;
+import com.siga.dao.InterfaceDao;
+import com.siga.dao.RequisitanteDao;
 import com.siga.model.Categoria;
-import com.siga.view.entidade.CategoriaView;
+import com.siga.model.Requisitante;
 import com.siga.view.cadastros.Dialog.DialogCategoria;
 import com.siga.view.cadastros.Dialog.DialogEntidade;
+import com.siga.view.cadastros.Dialog.DialogFornecedor;
+import com.siga.view.cadastros.Dialog.DialogRequisitante;
+import com.siga.view.entidade.CategoriaView;
+import com.siga.view.entidade.EntidadeView;
+import com.siga.view.entidade.RequisitanteView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 
-/**
- *
- * @author Julio
- */
-public class CategoriaController extends EntidadeController{
-    
-    public CategoriaController(){
+public class CategoriaController extends EntidadeController {
+
+    public CategoriaController() {
+        //construtor 
         super(new CategoriaView(), new CategoriaDao(), new DialogCategoria());
-        
-        
-        this.setColunasString(new String[] {"ID", "Nome", "Descrição"});
-        this.setColunasTabela(this.getColunasString());
-
-        this.getView().setLabelEntidade("Categoria");
+        super.getView().setColunasTabela(new String[]{"Id", "Nome", "Descrição"});
+        super.getView().setLabelEntidade("Categoria");
     }
-    
-  
-
 
     @Override
-    public void adicionarEntidade(DialogEntidade dialog) {
-        
-        //Verdadeiro caso o tipo de dialog seja categoria
-        if(dialog instanceof DialogCategoria dialogCategoria){
-            
-            //Adiciona um listener no botao de salvar/cadastrar a categoria
-            //Passa uma categoria vazia, com id -1, indicando que não existe no banco de dados
-            dialogCategoria.addEntidadeListener(new ButtonDialogCategoriaListener(new Categoria()));
-             
-            
+    public void carregarDadosEntidade() throws SQLException {
+        //aqui esse metodo basicamente vai pegar o id da linha selecionada e vai transformar em um objeto para logo apos 
+        //pegarmos seus parametros para jogar na view 
+
+        int id = getIdSelected();
+        DialogCategoria dialogCategoria = (DialogCategoria) getDialogEntidade();
+        CategoriaDao catDao = (CategoriaDao) getEntidadeDao();
+
+        Categoria categoria = null;
+
+        categoria = catDao.buscarPorId(id);
+
+        dialogCategoria.setNome(categoria.getNome_categoria());
+        dialogCategoria.setDescricao(categoria.getDescricao());
+
+    }
+
+    @Override
+    protected void adicionar() throws SQLException {
+
+        Categoria categoria = new Categoria();
+
+        CategoriaDao catDao = (CategoriaDao) getEntidadeDao();
+        CategoriaView ategoriaView = (CategoriaView) getView();
+        DialogCategoria dialogCategoria = (DialogCategoria) getDialogEntidade();
+
+        String inputNome, inputDescricao;
+
+        inputNome = dialogCategoria.getNome();
+        inputDescricao = dialogCategoria.getDescricao();
+
+        //pequena verificação
+        if (inputNome.isBlank()) {
+            getView().showMessage("Por favor preencha os campos!");
+            return;
         }
-        
-    }
 
-    @Override
-    public void editarEntidade(DialogEntidade dialog) {
-        //Pega a tablea
-        JTable table = getView().getTabelaEntidade();
-        
-        //Pega o index da linha que está selecionada
-        int indexRowEditar = table.getSelectedRow();
-        
-        
+        if (catDao.buscarPorNomeExato(inputNome) == null) {
+            categoria.setNome_categoria(inputNome);
+            categoria.setDescricao(inputDescricao);
 
-        try {
-
-            //Verifico se alguma linha foi selecionada
-            if(indexRowEditar > -1){
-                
-                //Pega o id da entidade na linha selecionada e na coluna 0 (ID)
-                int idEntidadeTable = (int) table.getModel().getValueAt(indexRowEditar, 0);
-                //Busca a categoria no banco de dados pelo id que pega na coluna
-                Categoria categoria = (Categoria) getEntidadeDao().buscarPorId(idEntidadeTable);
-                
-                //Verifica se existe uma categoria no banco com esse id
-                if(categoria != null){
-                    //Pega o JDialog de categoria
-                    DialogCategoria dCategoria = (DialogCategoria) getDialogEntidade();
-                    
-                    //Preenche os campos com dados da categoria
-                    dCategoria.setNome(categoria.getNome_categoria());
-                    dCategoria.setDescricao(categoria.getDescricao());
-                    
-            
-                    //Deixa visivel
-                    dialog.setVisible(true);
-                    
-                    //Adicionando listener no botão de atualizar
-                    dialog.addEntidadeListener(new ButtonDialogCategoriaListener(categoria));
-                }
-                
-            }else{
-                getView().showMessage("Selecione uma categoria para editar");
-            }
-        } catch (SQLException ex) {
-            System.out.println("Falha ao editar categoria");
-        }
-        
-        
-    }
-
-    @Override
-    public void excluirEntidade(DialogEntidade dialog) {
-        JTable table = getView().getTabelaEntidade();
-        int indexRow = table.getSelectedRow();
-        
-        //Exibe uma mensagem caso nenhum linha seja selecionada
-        if(indexRow < 0){
-            getView().showMessage("selecione uma categoria para excluir");
+            //cadastrar o requisitante no banco de dados
+            catDao.cadastrar(categoria);
+            //atualizar tabela
+            listarEntidadesTabela();
+            dialogCategoria.setVisible(false);
+            getView().showMessage("Requisitante Cadastrado com Sucesso!");
             return;
         }
         
-        CategoriaDao categoriaDao = (CategoriaDao) getEntidadeDao();
-        
-        //Pega o id da categoria selecionada
-        int idRemover = (int) table.getModel().getValueAt(indexRow, 0);
-        
-        try{
-            //Exibe uma mensagem solicitando confirmação e retorna uma CONSTANTE indicando a resposta do usuario
-            int resposta = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir?", "Excluir", JOptionPane.YES_OPTION);
-            
-            if(resposta == JOptionPane.YES_OPTION){
-                categoriaDao.deletar(categoriaDao.buscarPorId(idRemover));
-                listarEntidadesTabela();
-                getView().showMessage("Categoria excluida com sucesso");
-                return;
-            }
-            
-            
-        }catch(SQLException ex){
-            System.out.println("Falha ao buscar categoria para excluir");
-        }
-        
-        
-        
-        
+        dialogCategoria.showMessage("Já existe uma categoria com este nome");
+
     }
-    
-    
-    class ButtonDialogCategoriaListener implements ActionListener{
-        
-        private Categoria categoria;
-        private DialogCategoria dialogCategoria;
-        public ButtonDialogCategoriaListener(Categoria categoria){
-            this.categoria = categoria;
-            this.dialogCategoria =(DialogCategoria) getDialogEntidade();
+
+    @Override
+    protected void atualizar() throws SQLException {
+
+        //vai puxar o id da linha selecionada
+        int id = getIdSelected();
+
+        CategoriaDao catDao = (CategoriaDao) getEntidadeDao();
+        DialogCategoria dialogCategoria = (DialogCategoria) getDialogEntidade();
+
+        //vai transformar o id encontrado em objeto
+        Categoria categoria = catDao.buscarPorId(id);
+
+        String inputName, inputDescricao;
+
+        inputName = dialogCategoria.getNome();
+        inputDescricao = dialogCategoria.getDescricao();
+
+        if (inputName.isBlank()) {
+            getView().showMessage("Não deixe o campo do Nome do requisitante vazio!");
+            return;
         }
 
+        if (catDao.buscarPorNomeExato(inputName).getNome_categoria().equals(categoria.getNome_categoria())
+                | catDao.buscarPorNomeExato(inputName) == null) {
 
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            int id = categoria.getId();
-                        
-            //Verifica se categoria possui ID (ID>=0 siginifica que puxou do banco de dados e existe)
-            //Se for false ele vai para o else e cria uma nova categoria
-            if(id > -1){
-                //Montando o objeto categoria, pois ele veio null
-                categoria.setNome_categoria(dialogCategoria.getNome());
-                categoria.setDescricao(dialogCategoria.getDescricao());
-                
-                //Exibe mensagem caso o input de nome categoria esteja vazio
-                if(dialogCategoria.getNome().isEmpty()){
-                    getDialogEntidade().showMessage("Por favor preencha o campo nome da categoria!");
-                    return;
-                }
-                                
-                try {
-                    CategoriaDao categoriaDao = (CategoriaDao) getEntidadeDao();
-                    //Busca a categoria no banco pelo nome para evitar duplicidade de categoria
-                    Categoria categoriaDoBanco = categoriaDao.buscarPorNomeExato(dialogCategoria.getNome());
-                    //Se a já existir uma categoria com esse nome e for diferente da que está tentando editar, exibe alerta
-                    if(categoriaDoBanco != null){
-                        if(categoriaDoBanco.getNome_categoria() != categoria.getNome_categoria())
-                            getDialogEntidade().showMessage("Já existe uma categoria com este nome!");
-                        return;
-                    }else{
-                        //faz o update no banco de dados passando a categoria
-                        categoriaDao.atualizar(categoria);
-                        //Recarrega a table de categorias
-                        listarEntidadesTabela();
-                        //Desmonta o dialog de cadastro
-                        getDialogEntidade().setVisible(false);
-                        
-                        //Limpa os inputs para evitar de abrir denovo e está com os dados antigos
-                        getDialogEntidade().limparInputs();
-                        
-                        //Exibe mensagem de sucesso
-                        getView().showMessage("Categoria Editada com sucesso");
-                        
-                    }
-                } catch (SQLException ex) {
-                    Logger.getLogger(CategoriaController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                
-                
-                
-            }
-            //Cria categoria pois id categoria é -1, representando que não existe no banco de dados
-            else{
-                categoria.setNome_categoria(dialogCategoria.getNome());
-                categoria.setDescricao(dialogCategoria.getDescricao());
-                
-                //Verificar se o usuario digitou o nome da categoria
-                if(categoria.getNome_categoria().isEmpty()){
-                    dialogCategoria.showMessage("Digite o nome da categoria");
-                    return;
-                }else{
-                    try{
-                        CategoriaDao categoriaDao = (CategoriaDao) getEntidadeDao();
-                        
-                        //Busca pela nome da categoria, se não existe retorna null
-                        Categoria categoriaDoBanco = categoriaDao.buscarPorNomeExato(dialogCategoria.getNome());
-                        
-                        //Se a categoria não voltar null, significa que ela já existe no banco de dados
-                        if(categoriaDoBanco != null){
-                            dialogCategoria.showMessage("Já existe uma categoria com este nome!");
-                        }else{
-                            categoriaDao.cadastrar(categoria);
-                            dialogCategoria.setVisible(false);
-                            dialogCategoria.limparInputs();
-                            listarEntidadesTabela();
-                            getView().showMessage("Categoria cadastrada com sucesso!");
-                        }
-                    }catch(SQLException ex){
-                        System.out.println("Erro ao adicionar entidade");
-                    }
-                    
-                }
-            }
-            
-            
+            //vai setar os atributos de acordo com as entradas do usuario
+            categoria.setNome_categoria(inputName);
+            categoria.setDescricao(inputDescricao);
+
+            //vai atualizar no dao
+            catDao.atualizar(categoria);
+            listarEntidadesTabela();
+            dialogCategoria.setVisible(false);
+            dialogCategoria.limparInputs();
+            dialogCategoria.showMessage("Categoria atualizado com sucesso!");
+            return;
         }
-        
+
+        getDialogEntidade().showMessage("Já existe uma categoria com este nome");
+
     }
-    
+
+    @Override
+    public void salvarEntidadeListener(String acao) {
+        try {
+            if (acao.equals("Add")) {
+                adicionar();
+            } else if (acao.equals("Update")) {
+                atualizar();
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+
+    }
 }

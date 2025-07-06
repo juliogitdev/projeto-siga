@@ -19,8 +19,9 @@ import javax.swing.JTable;
  *
  * @author Julio
  */
-public class FornecedorController extends EntidadeController {
 
+public class FornecedorController{
+    /**
     public FornecedorController() {
         super(new FornecedorView(), new FornecedorDao(), new DialogFornecedor());
 
@@ -193,5 +194,5 @@ public class FornecedorController extends EntidadeController {
         }
 
     }
-
+**/
 }

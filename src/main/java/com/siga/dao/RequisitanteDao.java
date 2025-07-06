@@ -1,5 +1,6 @@
 package com.siga.dao;
 
+import com.siga.model.Categoria;
 import com.siga.model.Requisitante;
 import com.siga.util.ConnectionFactory;
 import java.sql.Connection;
@@ -102,5 +103,26 @@ public class RequisitanteDao implements InterfaceDao<Requisitante>{
         
         return novoRequisitante;
     }
+    public Requisitante buscarPorNomeExato(String nome) throws SQLException{
+        Requisitante r = null;
+        String sql = "SELECT * FROM requisitante WHERE nome_requisitante = ?;";
+        
+        try(Connection conn = ConnectionFactory.getConnection(); PreparedStatement pstm = conn.prepareStatement(sql);){
+            pstm.setString(1, nome);
+            
+            try(ResultSet rs = pstm.executeQuery();){
+                if(rs.next()){
+                    r = new Requisitante();
+                    r.setId(rs.getInt("id_requisitante"));
+                    r.setNome(rs.getString("nome_requisitante"));
+                    r.setSetor(rs.getString("setor"));
+                    r.setEndereco(rs.getString("endereco"));
+                }
+            }
+        }
+        
+        return r;
+    }
     
 }
+
