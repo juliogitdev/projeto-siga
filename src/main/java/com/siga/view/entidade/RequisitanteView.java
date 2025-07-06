@@ -25,6 +25,7 @@ public class RequisitanteView extends EntidadeView{
            if(ent instanceof Requisitante requisitante){
                
                tableModel.addRow(new Object[]{
+                   requisitante.getId(),
                    requisitante.getNome(),
                    requisitante.getSetor(),
                    requisitante.getEndereco()

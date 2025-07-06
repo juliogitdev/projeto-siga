@@ -37,8 +37,8 @@ public class DialogRequisitante extends javax.swing.JFrame implements DialogEnti
         buttonCadastrar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         setorInput = new javax.swing.JTextField();
-        enderecoInput = new javax.swing.JLabel();
-        nomeInput2 = new javax.swing.JTextField();
+        enderecoLabel = new javax.swing.JLabel();
+        enderecoInput = new javax.swing.JTextField();
 
         javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
         jDialog1.getContentPane().setLayout(jDialog1Layout);
@@ -74,11 +74,11 @@ public class DialogRequisitante extends javax.swing.JFrame implements DialogEnti
             }
         });
 
-        enderecoInput.setText("Endereço:");
+        enderecoLabel.setText("Endereço:");
 
-        nomeInput2.addActionListener(new java.awt.event.ActionListener() {
+        enderecoInput.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nomeInput2ActionPerformed(evt);
+                enderecoInputActionPerformed(evt);
             }
         });
 
@@ -93,8 +93,8 @@ public class DialogRequisitante extends javax.swing.JFrame implements DialogEnti
                     .addComponent(nomeInput, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(setorInput, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(enderecoInput)
-                    .addComponent(nomeInput2, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(enderecoLabel)
+                    .addComponent(enderecoInput, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(156, Short.MAX_VALUE)
@@ -113,9 +113,9 @@ public class DialogRequisitante extends javax.swing.JFrame implements DialogEnti
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(setorInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(enderecoInput)
+                .addComponent(enderecoLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(nomeInput2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(enderecoInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(buttonCadastrar)
                 .addContainerGap(36, Short.MAX_VALUE))
@@ -137,9 +137,9 @@ public class DialogRequisitante extends javax.swing.JFrame implements DialogEnti
         // TODO add your handling code here:
     }//GEN-LAST:event_setorInputActionPerformed
 
-    private void nomeInput2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeInput2ActionPerformed
+    private void enderecoInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enderecoInputActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_nomeInput2ActionPerformed
+    }//GEN-LAST:event_enderecoInputActionPerformed
 
     /**
      * @param args the command line arguments
@@ -193,12 +193,12 @@ public class DialogRequisitante extends javax.swing.JFrame implements DialogEnti
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCadastrar;
-    private javax.swing.JLabel enderecoInput;
+    private javax.swing.JTextField enderecoInput;
+    private javax.swing.JLabel enderecoLabel;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JTextField nomeInput;
-    private javax.swing.JTextField nomeInput2;
     private javax.swing.JTextField setorInput;
     // End of variables declaration//GEN-END:variables
 
@@ -207,7 +207,10 @@ public class DialogRequisitante extends javax.swing.JFrame implements DialogEnti
         JOptionPane.showMessageDialog(jDialog1, message);
     }
     @Override
-    public void addEntidadeListener(ActionListener listener){
+     public void addEntidadeListener(ActionListener listener){
+        for(ActionListener al : buttonCadastrar.getActionListeners()){
+            buttonCadastrar.removeActionListener(al);
+        }
         buttonCadastrar.addActionListener(listener);
     }
     
@@ -221,24 +224,29 @@ public class DialogRequisitante extends javax.swing.JFrame implements DialogEnti
     @Override
     public void setVisible(boolean b){
         super.setVisible(b);
-        
-        if(b){
-            iniciar();
-            limparInputs();
-                    
-        }
     }
 
     public JTextField getNomeInput() {
         return nomeInput;
     }
 
-    public JLabel getEnderecoInput() {
+    public JTextField getEnderecoInput() {
         return enderecoInput;
     }
 
     public JTextField getSetorInput() {
         return setorInput;
+    }
+    
+    public void setNomeInput(String word){
+        this.nomeInput.setText(word);
+    }
+    
+    public void setSetorInput(String word){
+        this.setorInput.setText(word);
+    }
+    public void setEnderecoInput(String word){
+        this.enderecoInput.setText(word);
     }
     
     

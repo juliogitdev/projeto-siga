@@ -7,6 +7,7 @@ package com.siga.controller;
  */
 
 import com.siga.controller.Entidades.CategoriaController;
+import com.siga.controller.Entidades.EntidadeController;
 import com.siga.controller.Entidades.FornecedorController;
 import com.siga.controller.Entidades.RequisitanteController;
 import com.siga.view.TelaPrincipal;
@@ -81,7 +82,7 @@ public class PrincipalController {
         public void actionPerformed(ActionEvent e) {
             telaPrincipal.setContentPanel(requisitanteController.getView());
             try {
-                requisitanteController.carregarRequisitantes();
+                 requisitanteController.listarEntidadesTabela();
             } catch (SQLException ex) {
                 System.out.println(ex);
             }

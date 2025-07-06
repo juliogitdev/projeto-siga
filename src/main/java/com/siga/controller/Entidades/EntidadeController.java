@@ -105,6 +105,15 @@ public abstract class EntidadeController{
         return true;
     }
     
+    public int getIdSelected(){
+        int linha,id;
+        linha = getView().getTabelaEntidade().getSelectedRow();
+        id = (Integer) getView().getTabelaEntidade().getValueAt(linha, 0);
+
+        
+        return id;
+    }
+    
     class AddEntidadeListener implements ActionListener{
 
         @Override
