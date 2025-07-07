@@ -51,6 +51,8 @@ public class PrincipalController {
         telaPrincipal.ProdutoListener(new ProdutoListener());
         
     }
+    
+    
 
     class CategoriaListener implements ActionListener{
 
@@ -59,6 +61,7 @@ public class PrincipalController {
             telaPrincipal.setContentPanel(categoriaController.getView());
             try {
                 categoriaController.listarEntidadesTabela();
+                
             } catch (SQLException ex) {
                 Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -101,7 +104,10 @@ public class PrincipalController {
             telaPrincipal.setContentPanel(produtoController.getView());
             
             try{
+                
                 produtoController.listarEntidadesTabela();
+                produtoController.carregarComboBoxsDialog();
+                
             }catch(SQLException ex){
                 System.out.println(ex);
             }

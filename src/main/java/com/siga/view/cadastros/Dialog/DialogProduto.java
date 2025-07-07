@@ -5,6 +5,8 @@ import com.siga.model.Categoria;
 import com.siga.model.Fornecedor;
 import java.awt.event.ActionListener;
 import java.util.List;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
@@ -19,6 +21,8 @@ public class DialogProduto extends javax.swing.JFrame implements DialogEntidade{
      */
     public DialogProduto() {
         initComponents();
+        getjComboBoxCategoria().setVisible(false);
+        getjComboBoxFornecedor().setVisible(false);
     }
 
     /**
@@ -36,10 +40,10 @@ public class DialogProduto extends javax.swing.JFrame implements DialogEntidade{
         buttonCadastrar = new javax.swing.JButton();
         jTextFieldDescricao = new javax.swing.JTextField();
         jLabelDescricao = new javax.swing.JLabel();
-        jLabelCategoria = new javax.swing.JLabel();
-        jLabelFornecedor = new javax.swing.JLabel();
         jComboBoxFornecedor = new javax.swing.JComboBox<>();
         jComboBoxCategoria = new javax.swing.JComboBox<>();
+        jCheckBoxFonecedor = new javax.swing.JCheckBox();
+        jCheckBoxCategoria = new javax.swing.JCheckBox();
 
         javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
         jDialog1.getContentPane().setLayout(jDialog1Layout);
@@ -75,28 +79,47 @@ public class DialogProduto extends javax.swing.JFrame implements DialogEntidade{
 
         jLabelDescricao.setText("Descrição:");
 
-        jLabelCategoria.setText("Categoria:");
+        jComboBoxFornecedor.setToolTipText("");
 
-        jLabelFornecedor.setText("Fornecedor:");
+        jComboBoxCategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxCategoriaActionPerformed(evt);
+            }
+        });
+
+        jCheckBoxFonecedor.setText("Fornecedor");
+        jCheckBoxFonecedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxFonecedorActionPerformed(evt);
+            }
+        });
+
+        jCheckBoxCategoria.setText("Categoria");
+        jCheckBoxCategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxCategoriaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(78, 78, 78)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(buttonCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabelFornecedor)
-                        .addComponent(jLabelNome)
-                        .addComponent(jTextFieldNome, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
-                        .addComponent(jLabelDescricao)
-                        .addComponent(jTextFieldDescricao, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
-                        .addComponent(jLabelCategoria)
-                        .addComponent(jComboBoxFornecedor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jComboBoxCategoria, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(0, 80, Short.MAX_VALUE))
+                .addGap(91, 91, 91)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jCheckBoxCategoria)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(buttonCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabelNome)
+                            .addComponent(jTextFieldNome, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
+                            .addComponent(jLabelDescricao)
+                            .addComponent(jTextFieldDescricao, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
+                            .addComponent(jCheckBoxFonecedor)
+                            .addComponent(jComboBoxFornecedor, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jComboBoxCategoria, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addGap(0, 91, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -110,16 +133,16 @@ public class DialogProduto extends javax.swing.JFrame implements DialogEntidade{
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextFieldDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabelCategoria)
+                .addComponent(jCheckBoxCategoria)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jComboBoxCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabelFornecedor)
+                .addGap(2, 2, 2)
+                .addComponent(jCheckBoxFonecedor)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jComboBoxFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(buttonCadastrar)
-                .addGap(34, 34, 34))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
@@ -137,6 +160,21 @@ public class DialogProduto extends javax.swing.JFrame implements DialogEntidade{
     private void jTextFieldDescricaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldDescricaoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldDescricaoActionPerformed
+
+    private void jCheckBoxFonecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxFonecedorActionPerformed
+        // TODO add your handling code here:
+        getjComboBoxFornecedor().setVisible(jCheckBoxFonecedor.isSelected());
+    }//GEN-LAST:event_jCheckBoxFonecedorActionPerformed
+
+    private void jCheckBoxCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxCategoriaActionPerformed
+        // TODO add your handling code here:
+
+        getjComboBoxCategoria().setVisible(jCheckBoxCategoria.isSelected());
+    }//GEN-LAST:event_jCheckBoxCategoriaActionPerformed
+
+    private void jComboBoxCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCategoriaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxCategoriaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -184,18 +222,19 @@ public class DialogProduto extends javax.swing.JFrame implements DialogEntidade{
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new DialogProduto().setVisible(true);
+                
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCadastrar;
+    private javax.swing.JCheckBox jCheckBoxCategoria;
+    private javax.swing.JCheckBox jCheckBoxFonecedor;
     private javax.swing.JComboBox<Categoria> jComboBoxCategoria;
     private javax.swing.JComboBox<Fornecedor> jComboBoxFornecedor;
     private javax.swing.JDialog jDialog1;
-    private javax.swing.JLabel jLabelCategoria;
     private javax.swing.JLabel jLabelDescricao;
-    private javax.swing.JLabel jLabelFornecedor;
     private javax.swing.JLabel jLabelNome;
     private javax.swing.JTextField jTextFieldDescricao;
     private javax.swing.JTextField jTextFieldNome;
@@ -220,7 +259,12 @@ public class DialogProduto extends javax.swing.JFrame implements DialogEntidade{
     public void limparInputs(){
         setNome("");
         setDescricao("");
-        
+        jCheckBoxCategoria.setSelected(false);
+        jCheckBoxFonecedor.setSelected(false);
+        jComboBoxCategoria.setSelectedIndex(0);
+        jComboBoxFornecedor.setSelectedIndex(0);
+        jComboBoxCategoria.setVisible(false);
+        jComboBoxFornecedor.setVisible(false);
     }
     
     @Override
@@ -246,6 +290,8 @@ public class DialogProduto extends javax.swing.JFrame implements DialogEntidade{
 
     public void carregarComboBoxCategoria(List<Categoria> categorias){
         jComboBoxCategoria.removeAllItems();
+        
+
         
         for(Categoria c : categorias){
             jComboBoxCategoria.addItem(c);
@@ -275,6 +321,35 @@ public class DialogProduto extends javax.swing.JFrame implements DialogEntidade{
     public void setSelectedFornecedor(Fornecedor f){
         jComboBoxFornecedor.setSelectedItem(f);
     }
+
+    public JComboBox<Categoria> getjComboBoxCategoria() {
+        return jComboBoxCategoria;
+    }
+
+    public JComboBox<Fornecedor> getjComboBoxFornecedor() {
+        return jComboBoxFornecedor;
+    }  
+    
+    public void setVisibleComboBox(JComboBox box, boolean b){
+        box.setVisible(b);
+    }
+
+    public void setCheckBoxCategoriaVisible(boolean b) {
+        this.jCheckBoxCategoria.setVisible(b);
+    }
+    
+    public void setCheckBoxCategoriaSelected(boolean b){
+        jCheckBoxCategoria.setSelected(b);
+    }
+    
+    public void setCheckBoxFornecedorSelected(boolean b){
+        jCheckBoxFonecedor.setSelected(b);
+    }
+
+    public void setCheckBoxFonecedorVisible(boolean b) {
+        this.jCheckBoxFonecedor.setVisible(b);
+    }
+    
     
     
 

@@ -54,12 +54,6 @@ public abstract class MainDao implements InterfaceDao{
     
     }
    
-    
-    public void Cadastrar(){
-        
-    
-    
-    }
 
     
     public List<Object> buscarPorId(String tabela, int id) throws SQLException{
