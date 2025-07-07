@@ -5,6 +5,7 @@ package com.siga.view.entidade;
  * @author Julio
  */
 
+import com.siga.model.Categoria;
 import com.siga.model.Entidade;
 import com.siga.model.Fornecedor;
 import com.siga.model.Produto;
@@ -29,14 +30,20 @@ public class ProdutoView extends EntidadeView{
             if(ent instanceof Produto){
                 Produto p = (Produto) ent;
                 
+                Categoria c = p.getCategoria();
+                Fornecedor f = p.getFornecedor();
+                
+                String cNome = (c != null) ? c.getNome_categoria() : "Sem categoria";
+                String fNome = (f != null) ? f.getRazaoSocial() : "Sem fornecedor";
+                
                 //Adiciona cada fornecedor com os campos abaixo
                 tableModel.addRow(new Object[]{
                     p.getId(),
                     p.getNomeProduto(),
                     p.getDescricao(),
                     p.getQuantidade(),
-                    p.getCategoria(),
-                    p.getFornecedor()
+                    cNome,
+                    fNome
             });
             }
         }
