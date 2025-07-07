@@ -33,7 +33,7 @@ public class FornecedorController extends EntidadeController {
         dialogFornecedor.setTelefoneText(fornecedor.getTelefone());
 
     }
-    
+
     @Override
     protected void adicionar() throws SQLException {
         DialogFornecedor dialogFornecedor = (DialogFornecedor) getDialogEntidade();
@@ -50,17 +50,23 @@ public class FornecedorController extends EntidadeController {
         inputEmail = dialogFornecedor.getEmailInput().getText();
         inputTelefone = dialogFornecedor.getTelefoneInput().getText();
 
-        fornecedor.setRazaoSocial(inputRazaoSocial);
-        fornecedor.setCnpj(inputCnpj);
-        fornecedor.setEndereco(inputEndereco);
-        fornecedor.setEmail(inputEmail);
-        fornecedor.setTelefone(inputTelefone);
+        if (fornDao.buscarPorCnpj(inputCnpj) == null) {
+            fornecedor.setRazaoSocial(inputRazaoSocial);
+            fornecedor.setCnpj(inputCnpj);
+            fornecedor.setEndereco(inputEndereco);
+            fornecedor.setEmail(inputEmail);
+            fornecedor.setTelefone(inputTelefone);
+            
+            fornDao.cadastrar(fornecedor);
+            dialogFornecedor.limparInputs();
+            listarEntidadesTabela();
+            dialogFornecedor.setVisible(false);
+            fornView.showMessage("Fornecedor Cadastrado com Sucesso!");
+            return;
+        } else {
+            dialogFornecedor.showMessage("Fornecedor com " + inputCnpj + " já cadastrado");
+        }
 
-        fornDao.cadastrar(fornecedor);
-        dialogFornecedor.limparInputs();
-        listarEntidadesTabela();
-        dialogFornecedor.setVisible(false);
-        fornView.showMessage("Fornecedor Cadastrado com Sucesso!");
     }
 
     @Override
@@ -81,17 +87,22 @@ public class FornecedorController extends EntidadeController {
         inputEmail = dialogFornecedor.getEmailInput().getText();
         inputTelefone = dialogFornecedor.getTelefoneInput().getText();
 
-        fornecedor.setRazaoSocial(inputRazaoSocial);
-        fornecedor.setCnpj(inputCnpj);
-        fornecedor.setEndereco(inputEndereco);
-        fornecedor.setEmail(inputEmail);
-        fornecedor.setTelefone(inputTelefone);
+        if (fornecedor.getCnpj().equals(inputCnpj) | fornDao.buscarPorCnpj(inputCnpj) == null) {
+            fornecedor.setRazaoSocial(inputRazaoSocial);
+            fornecedor.setCnpj(inputCnpj);
+            fornecedor.setEndereco(inputEndereco);
+            fornecedor.setEmail(inputEmail);
+            fornecedor.setTelefone(inputTelefone);
 
-        fornDao.atualizar(fornecedor);
-        listarEntidadesTabela();
-        dialogFornecedor.setVisible(false);
-        dialogFornecedor.limparInputs();
-        dialogFornecedor.showMessage("Fornecedor atualizado com sucesso!");
+            fornDao.atualizar(fornecedor);
+            listarEntidadesTabela();
+            dialogFornecedor.setVisible(false);
+            dialogFornecedor.limparInputs();
+            dialogFornecedor.showMessage("Fornecedor atualizado com sucesso!");
+            return;
+        }else{
+            dialogFornecedor.showMessage("Fornecedor com " + inputCnpj + " já cadastrado!");
+        }
 
     }
 
@@ -110,5 +121,3 @@ public class FornecedorController extends EntidadeController {
 
     }
 }
-
-
