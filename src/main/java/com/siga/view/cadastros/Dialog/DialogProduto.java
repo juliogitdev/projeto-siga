@@ -244,8 +244,7 @@ public class DialogProduto extends javax.swing.JFrame implements DialogEntidade{
         //Metodo para abrir um pop-up com uma mensagem
     @Override
     public void showMessage(String message){
-        JOptionPane.showMessageDialog(jDialog1, message);
-    }
+        JOptionPane.showMessageDialog(jDialog1, message);     }
         //Adicionar um "ouvidor" de eventos no botão de cadastrar
     @Override
     public void addEntidadeListener(ActionListener listener){
@@ -261,8 +260,8 @@ public class DialogProduto extends javax.swing.JFrame implements DialogEntidade{
         setDescricao("");
         jCheckBoxCategoria.setSelected(false);
         jCheckBoxFonecedor.setSelected(false);
-        jComboBoxCategoria.setSelectedIndex(0);
-        jComboBoxFornecedor.setSelectedIndex(0);
+        jComboBoxCategoria.setSelectedItem(null);
+        jComboBoxFornecedor.setSelectedItem(null);
         jComboBoxCategoria.setVisible(false);
         jComboBoxFornecedor.setVisible(false);
     }
@@ -273,6 +272,7 @@ public class DialogProduto extends javax.swing.JFrame implements DialogEntidade{
     }
     
     public String getNome(){
+        
         return jTextFieldNome.getText();
     }
     
@@ -288,24 +288,33 @@ public class DialogProduto extends javax.swing.JFrame implements DialogEntidade{
         jTextFieldDescricao.setText(descricao);
     }
 
-    public void carregarComboBoxCategoria(List<Categoria> categorias){
-        jComboBoxCategoria.removeAllItems();
-        
+    public void carregarComboBoxCategoria(List<Categoria> categorias) {
+    jComboBoxCategoria.removeAllItems();
 
-        
-        for(Categoria c : categorias){
+    if (categorias != null && !categorias.isEmpty()) {
+        for (Categoria c : categorias) {
             jComboBoxCategoria.addItem(c);
         }
-    }
+        jComboBoxCategoria.setEnabled(true);
+    }else{
+        jComboBoxCategoria.setEnabled(false);
+        }
+}
+
     
-    public void carregarComboBoxFornecedor(List<Fornecedor> fornecedores){
+    public void carregarComboBoxFornecedor(List<Fornecedor> fornecedores) {
         jComboBoxFornecedor.removeAllItems();
-        
-        for(Fornecedor f : fornecedores){
-            jComboBoxFornecedor.addItem(f);
+
+        if (fornecedores != null && !fornecedores.isEmpty()) {
+            for (Fornecedor f : fornecedores) {
+                jComboBoxFornecedor.addItem(f);
+            }
+            jComboBoxFornecedor.setEnabled(true);
+        } else {
+            jComboBoxFornecedor.setEnabled(false);
         }
     }
-    
+
     public Categoria getSelectedCategoria(){
         return jComboBoxCategoria.getItemAt(jComboBoxCategoria.getSelectedIndex());
     }
@@ -329,6 +338,16 @@ public class DialogProduto extends javax.swing.JFrame implements DialogEntidade{
     public JComboBox<Fornecedor> getjComboBoxFornecedor() {
         return jComboBoxFornecedor;
     }  
+
+    public boolean getjCheckBoxCategoria() {
+        return jCheckBoxCategoria.isSelected();
+    }
+
+    public boolean getjCheckBoxFonecedor() {
+        return jCheckBoxFonecedor.isSelected();
+    }
+
+    
     
     public void setVisibleComboBox(JComboBox box, boolean b){
         box.setVisible(b);

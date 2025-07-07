@@ -12,6 +12,7 @@ import com.siga.view.cadastros.Dialog.DialogProduto;
 import com.siga.view.entidade.EntidadeView;
 import com.siga.view.entidade.ProdutoView;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JComboBox;
 
@@ -43,8 +44,15 @@ public class ProdutoController extends EntidadeController{
         }
         
         DialogProduto dialogProduto = (DialogProduto) getDialogEntidade();
-        dialogProduto.carregarComboBoxCategoria(categorias);
-        dialogProduto.carregarComboBoxFornecedor(fornecedores);
+        
+        if(categorias != null){
+            dialogProduto.carregarComboBoxCategoria(categorias);
+        }
+        
+        if (fornecedores != null){
+            dialogProduto.carregarComboBoxFornecedor(fornecedores);
+        }
+        
     }
 
     @Override
@@ -86,17 +94,106 @@ public class ProdutoController extends EntidadeController{
 
     @Override
     public void salvarEntidadeListener(String acao) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+         try {
+            if (acao.equals("Add")) {
+                adicionar();
+            } else if (acao.equals("Update")) {
+                atualizar();
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        
     }
 
     @Override
     protected void adicionar() throws SQLException {
+        ProdutoDao produtoDao = (ProdutoDao) getEntidadeDao();
+        ProdutoView produtoView = (ProdutoView) getView();
+        DialogProduto dialogProduto = (DialogProduto) getDialogEntidade();
+        
+        String nome, descricao;
+        Categoria categoria = null;
+        Fornecedor fornecedor = null;
+        
+        Produto produto = new Produto();
+        
+        nome = dialogProduto.getNome();
+        descricao = dialogProduto.getDescricao();
+        
+        if(nome.isBlank()){
+            dialogProduto.showMessage("Não deixe o nome do produto vazio");
+        
+        }
+        
+        if(dialogProduto.getjCheckBoxCategoria()){
+            categoria = dialogProduto.getSelectedCategoria();
+        }
+        
+        if(dialogProduto.getjCheckBoxFonecedor()){
+            fornecedor = dialogProduto.getSelectedFornecedor();
+        }
+        
+        produto.setNomeProduto(nome);
+        produto.setDescricao(descricao);
+        produto.setFornecedor(fornecedor);
+        produto.setCategoria(categoria);
+        
+        produtoDao.cadastrar(produto);
+        listarEntidadesTabela();
+        dialogProduto.limparInputs();
+        dialogProduto.showMessage("Produto Cadastrado com sucesso");
+        
         
     }
 
     @Override
     protected void atualizar() throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        ProdutoDao produtoDao = (ProdutoDao) getEntidadeDao();
+        ProdutoView produtoView = (ProdutoView) getView();
+        DialogProduto dialogProduto = (DialogProduto) getDialogEntidade();
+        
+        int id = getIdSelected();
+        
+        Produto produto = produtoDao.buscarPorId(id);
+        
+        
+        String nome, descricao;
+        Categoria categoria = null;
+        Fornecedor fornecedor = null;
+        
+        nome = dialogProduto.getNome();
+        descricao = dialogProduto.getDescricao();
+        
+        if(nome.isBlank()){
+            dialogProduto.showMessage("Não deixe o nome do produto vazio");
+            return;
+        
+        }
+        
+        if(dialogProduto.getjCheckBoxCategoria()){
+            categoria = dialogProduto.getSelectedCategoria();
+        }
+        
+        if(dialogProduto.getjCheckBoxFonecedor()){
+            fornecedor = dialogProduto.getSelectedFornecedor();
+        }
+        
+        produto.setNomeProduto(nome);
+        produto.setDescricao(descricao);
+        produto.setFornecedor(fornecedor);
+        produto.setCategoria(categoria);
+        
+        
+        produtoDao.atualizar(produto);
+        listarEntidadesTabela();
+        dialogProduto.limparInputs();
+        dialogProduto.setVisible(false);
+        dialogProduto.showMessage("Produto atualizado com sucesso!");
+        
+        
+        
     }
     
 }

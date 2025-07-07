@@ -29,9 +29,18 @@ public class ProdutoDao implements InterfaceDao<Produto>{
             pstm.setString(1, p.getNomeProduto());
             pstm.setString(2, p.getDescricao());
             pstm.setInt(3, p.getQuantidade());
-            pstm.setInt(4, p.getFornecedor().getId());
-            pstm.setInt(5, p.getCategoria().getId());
             
+            if(p.getFornecedor() ==null){
+                pstm.setNull(4, java.sql.Types.INTEGER);
+            }else{
+                pstm.setInt(4, p.getFornecedor().getId());
+            }
+            
+            if(p.getCategoria() == null){
+                pstm.setNull(5, java.sql.Types.INTEGER);
+            }else{
+                pstm.setInt(5, p.getCategoria().getId());
+            }
             pstm.execute();
             
         }
@@ -40,7 +49,7 @@ public class ProdutoDao implements InterfaceDao<Produto>{
 
     @Override
     public void atualizar(Produto p) throws SQLException {
-        String sql = "UPDATE produto SET nome_produto = ?, descricao = ?, quantidade = ?, id_fornecedor = ?, id_categoria = ? WHERE id_categoria = ?";
+        String sql = "UPDATE produto SET nome_produto = ?, descricao = ?, quantidade = ?, id_fornecedor = ?, id_categoria = ? WHERE id_produto = ?";
         
         try(Connection conn = ConnectionFactory.getConnection();
             PreparedStatement pstm = conn.prepareStatement(sql)){
@@ -48,9 +57,20 @@ public class ProdutoDao implements InterfaceDao<Produto>{
             pstm.setString(1, p.getNomeProduto());
             pstm.setString(2, p.getDescricao());
             pstm.setInt(3, p.getQuantidade());
-            pstm.setInt(4, p.getFornecedor().getId());
-            pstm.setInt(5, p.getCategoria().getId());
             pstm.setInt(6, p.getId());
+            
+            if(p.getFornecedor() ==null){
+                pstm.setNull(4, java.sql.Types.INTEGER);
+            }else{
+                pstm.setInt(4, p.getFornecedor().getId());
+            }
+            
+            if(p.getCategoria() == null){
+                pstm.setNull(5, java.sql.Types.INTEGER);
+            }else{
+                pstm.setInt(5, p.getCategoria().getId());
+            }
+            
             
             pstm.execute();
             
