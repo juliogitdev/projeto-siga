@@ -9,6 +9,7 @@ package com.siga.controller;
 import com.siga.controller.Entidades.CategoriaController;
 import com.siga.controller.Entidades.EntidadeController;
 import com.siga.controller.Entidades.FornecedorController;
+import com.siga.controller.Entidades.ProdutoController;
 import com.siga.controller.Entidades.RequisitanteController;
 import com.siga.view.TelaPrincipal;
 import com.siga.model.Usuario;
@@ -27,6 +28,7 @@ public class PrincipalController {
     private CategoriaController categoriaController;
     private FornecedorController fornecedorController;
     private RequisitanteController requisitanteController;
+    private ProdutoController produtoController;
     private Usuario usuario;
    
     public PrincipalController(TelaPrincipal telaPrincipal, Usuario usuario) {
@@ -39,12 +41,14 @@ public class PrincipalController {
         this.categoriaController = new CategoriaController();
         this.fornecedorController = new FornecedorController();
         this.requisitanteController = new RequisitanteController();
+        this.produtoController = new ProdutoController();
         this.usuario = usuario;
         
         //Adicionando listeners nas entidades do menu
         telaPrincipal.CategoriaListener(new CategoriaListener());
         telaPrincipal.FornecedorListener(new FornecedorListener());
         telaPrincipal.RequisitanteListener(new RequisitanteListener());
+        telaPrincipal.ProdutoListener(new ProdutoListener());
         
     }
 
@@ -84,6 +88,21 @@ public class PrincipalController {
             try {
                  requisitanteController.listarEntidadesTabela();
             } catch (SQLException ex) {
+                System.out.println(ex);
+            }
+        }
+        
+    }
+    
+    class ProdutoListener implements ActionListener{
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            telaPrincipal.setContentPanel(produtoController.getView());
+            
+            try{
+                produtoController.listarEntidadesTabela();
+            }catch(SQLException ex){
                 System.out.println(ex);
             }
         }
