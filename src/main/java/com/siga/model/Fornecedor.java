@@ -63,4 +63,9 @@ public class Fornecedor extends Entidade{
     }
     
     
+    
+    @Override
+    public String toString(){
+        return razaoSocial;
+    }
 }

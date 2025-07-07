@@ -62,5 +62,9 @@ public class Produto extends Entidade{
         this.categoria = categoria;
     }
     
+    @Override
+    public String toString(){
+        return nomeProduto;
+    }
     
 }

@@ -41,7 +41,10 @@ public class Requisitante extends Entidade{
         this.endereco = endereco;
     }
     
-    
+    @Override
+    public String toString(){
+        return nome;
+    }
     
     
 }
