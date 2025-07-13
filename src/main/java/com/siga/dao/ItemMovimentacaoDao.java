@@ -22,33 +22,12 @@ import java.util.List;
  */
 
 
-public class ItemMovimentacaoDao implements InterfaceDao{
+public class ItemMovimentacaoDao{
 
-   //tive que criar assim pois não consegui sobre escrever o outro(cadastrar) com o item movimentacao como parametro dá uma olhada depois
-    public void add(ItemMovimentacao itemMovimentacao) throws SQLException {
-        String sql = "INSERT INTO item_movimentacao(id_movimentacao, id_produto, quantidade) VALUES (?, ?, ?);";
-        
-        try(Connection conn = ConnectionFactory.getConnection()){
-            
-            conn.setAutoCommit(false);
-            
-            try(PreparedStatement pstm = conn.prepareStatement(sql))
-            { 
-               validar(itemMovimentacao, pstm);
-               conn.commit();
-               
-            }catch (Exception e){
-                
-                conn.rollback();
-                System.out.println(e);
-            }
 
-            }
-        
-        }
     
   
-    private void validar(ItemMovimentacao itemMovimentacao, PreparedStatement pstm) throws SQLException{
+    /**private void validar(ItemMovimentacao itemMovimentacao, PreparedStatement pstm) throws SQLException{
         int idMovimentacao = itemMovimentacao.getMovimentacao().getId();
         int idProduto = itemMovimentacao.getProduto().getId();
         int quantidade = itemMovimentacao.getQuantidade();
@@ -58,23 +37,26 @@ public class ItemMovimentacaoDao implements InterfaceDao{
         pstm.setInt(3, quantidade);
 
         pstm.execute();
+    }**/
+    
+    public void cadastrar(Connection conn, ItemMovimentacao im) throws SQLException{
+        String sql = "INSERT INTO item_movimentacao(id_movimentacao, id_produto, quantidade) VALUES (?, ?, ?);";
+        
+        try(PreparedStatement pstm = conn.prepareStatement(sql)){
+            pstm.setInt(1, im.getIdMovimentacao());
+            pstm.setInt(2, im.getIdProduto());
+            pstm.setInt(3, im.getQuantidade());
+            
+            int linhasAfetadas = pstm.executeUpdate();
+            if(linhasAfetadas == 0){
+                throw new SQLException("Ciação de item movimentação falhou, nenhuma linha afetada");
+            }
+        }
+        
     }
-    @Override
-    public void cadastrar(Object Entidade) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    
 
-    @Override
-    public void atualizar(Object Entidade) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public void deletar(Object Entidade) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
+    /**
     public List<ItemMovimentacao> listarTodos() throws SQLException {
         
         String sql = "SELECT * FROM item_movimentacao";
@@ -101,7 +83,7 @@ public class ItemMovimentacaoDao implements InterfaceDao{
         return listaItemMovimentacao;
     }
 
-    @Override
+    
     public Object buscarPorId(int id) throws SQLException {
        String sql = "SELECT * FROM item_movimentacao WHERE id_item_movimentacao = ?;";
        
@@ -124,8 +106,9 @@ public class ItemMovimentacaoDao implements InterfaceDao{
             }
         }
         return itM;
-}
     }
+**/
+}
         
         
     

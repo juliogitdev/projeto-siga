@@ -11,25 +11,34 @@ import com.siga.model.Usuario;
 
 public class ItemMovimentacao extends Entidade {
     
-    private Movimentacao movimentacao;
-    private Produto produto;
+    private int idMovimentacao;
+    private int idProduto;
     private int quantidade;
 
-    public Movimentacao getMovimentacao() {
-        return movimentacao;
+    public ItemMovimentacao(int idProduto, int quantidade) {
+        this.idProduto = idProduto;
+        this.quantidade = quantidade;
+    }
+    
+    
+
+    public int getIdMovimentacao() {
+        return idMovimentacao;
     }
 
-    public void setMovimentacao(Movimentacao movimentacao) {
-        this.movimentacao = movimentacao;
+    public void setIdMovimentacao(int idMovimentacao) {
+        this.idMovimentacao = idMovimentacao;
     }
 
-    public Produto getProduto() {
-        return produto;
+    public int getIdProduto() {
+        return idProduto;
     }
 
-    public void setProduto(Produto produto) {
-        this.produto = produto;
+    public void setIdProduto(int idProduto) {
+        this.idProduto = idProduto;
     }
+
+    
 
     public int getQuantidade() {
         return quantidade;

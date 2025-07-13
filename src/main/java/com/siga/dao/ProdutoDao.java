@@ -139,6 +139,7 @@ public class ProdutoDao implements InterfaceDao<Produto>{
                     novoProduto.setId(rs.getInt("id_produto"));
                     novoProduto.setNomeProduto(rs.getString("nome_produto"));
                     novoProduto.setDescricao(rs.getString("descricao"));
+                    novoProduto.setQuantidade(rs.getInt("quantidade"));
                     novoProduto.setFornecedor(fDao.buscarPorId(rs.getInt("id_fornecedor")));
                     novoProduto.setCategoria(cDao.buscarPorId(rs.getInt("id_categoria")));
                 }
@@ -149,7 +150,7 @@ public class ProdutoDao implements InterfaceDao<Produto>{
         
     }
     
-    public void atualizarEstoque(Produto p, Connection conn) throws SQLException{
+    private void atualizarEstoque(Produto p, Connection conn) throws SQLException{
         String sql = "UPDATE produto SET quantidade = ? WHERE id_produto = ?";
         
         try(PreparedStatement pstm = conn.prepareStatement(sql)){
@@ -158,10 +159,26 @@ public class ProdutoDao implements InterfaceDao<Produto>{
             pstm.setInt(2, p.getId());
             
          
-            pstm.executeUpdate();
+            int linhasAfedatas = pstm.executeUpdate();
             
+            if(linhasAfedatas == 0){
+                throw new SQLException("Falha ao atualizar estoque, nenhuma linha afetada");
+            }
         }
         
+    }
+    
+    public void adicionarEstoque(Produto p, Connection conn, int quantidadeNova) throws SQLException{
+        int quantidadeAtual = p.getQuantidade();
+        p.setQuantidade(quantidadeAtual + quantidadeNova);
+        atualizarEstoque(p, conn);
+    }
+    
+    public void removerEstoque(Produto p, Connection conn, int quantidadeNova) throws SQLException{
+        int quantidadeAtual = p.getQuantidade();
+        quantidadeNova *= -1;
+        p.setQuantidade(quantidadeAtual + quantidadeNova);
+        atualizarEstoque(p, conn);
     }
     
 }

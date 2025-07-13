@@ -1,10 +1,8 @@
 package com.siga.dao;
 
 import com.siga.model.Movimentacao; 
-import com.siga.model.Requisitante;
-import com.siga.model.Fornecedor;
+import com.siga.model.ItemMovimentacao;
 import com.siga.model.Produto;
-
 import com.siga.util.ConnectionFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,70 +12,88 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MovimentacaoDao implements InterfaceDao<Movimentacao> {
+public class MovimentacaoDao{
     
     ProdutoDao pd = new ProdutoDao();
     UsuarioDao ud = new UsuarioDao();
     RequisitanteDao rd = new RequisitanteDao();
+    FornecedorDao fd = new FornecedorDao();
 
-    @Override
-    public void cadastrar(Movimentacao movimentacao) throws SQLException {
-        String sql = "INSERT INTO movimentacao (data_hora, quantidade, tipo, id_produto, id_usuario, id_requisitante) VALUES (?, ?, ?, ?, ?, ?);";
+
+    public void realizarMovimentacaoCompleta(Movimentacao mov) throws Exception{
+        Connection conn = null;
         
-        try (Connection conn = ConnectionFactory.getConnection();
-             PreparedStatement pstm = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) { 
-
-            pstm.setTimestamp(1, java.sql.Timestamp.valueOf(movimentacao.getDataHora())); 
-            pstm.setInt(2, movimentacao.getQuantidade());
-            pstm.setString(3, movimentacao.getTipo()); 
-            pstm.setInt(4, movimentacao.getProduto().getId());
-            pstm.setInt(5, movimentacao.getUsuario().getId());
-            pstm.setInt(6, movimentacao.getEntidade().getId());
+        //Daos
+        ProdutoDao pd = new ProdutoDao();
+        ItemMovimentacaoDao imd = new ItemMovimentacaoDao();
+        
+        try{
+            //Pega conexao com banco
+            conn = ConnectionFactory.getConnection();
             
+            //Remove autocomit
+            conn.setAutoCommit(false);
             
-            pstm.execute();
+            //Cadastra nova movimentação retornando o id novo da movimentação
+            int idNovoMovimentacao = cadastrarMovimentação(mov, conn);
+            
+            //Percorre por cada itemMovimentação
+            for(ItemMovimentacao im : mov.getItemMovimentacao()){
+                //Cadastra ItemMovimentação
+                
+                im.setIdMovimentacao(idNovoMovimentacao);
+                imd.cadastrar(conn, im);
 
-            try (ResultSet rs = pstm.getGeneratedKeys()) {
-                if (rs.next()) {
-                    movimentacao.setId(rs.getInt(1));
+                Produto pItemMovimentacao = pd.buscarPorId(im.getIdProduto());
+
+                //Atualiza estoque
+                switch(mov.getTipo().toUpperCase()){
+                    case "ENTRADA":
+                        pd.adicionarEstoque(pItemMovimentacao, conn, im.getQuantidade());
+                        break;
+                    case "SAIDA":
+                        pd.removerEstoque(pItemMovimentacao, conn, im.getQuantidade());
+                }
+                
+            }
+            
+            conn.commit();
+            
+        }catch(Exception e){
+            conn.rollback();
+            System.out.println("Falha ao cadastrar movimentação, nada foi inserido");;
+        }
+    }
+    
+    public int cadastrarMovimentação(Movimentacao mov, Connection conn) throws SQLException {
+        String sql = "INSERT INTO movimentacao (data_hora, tipo,  id_usuario, id_requisitante, id_fornecedor) VALUES (?, ?, ?, ?, ?);";
+        
+        try (PreparedStatement pstm = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) { 
+            pstm.setTimestamp(1, java.sql.Timestamp.valueOf(mov.getDataHora()));
+            pstm.setString(2, mov.getTipo());
+            pstm.setInt(3, mov.getUsuario().getId());
+            pstm.setInt(4, mov.getRequisitante().getId());
+            pstm.setInt(5, mov.getFornecedor().getId());
+            
+            int linhasAfetada = pstm.executeUpdate();
+            
+            if(linhasAfetada == 0){
+                throw new SQLException("Falha ao cadastrar movimentação, nenhuma linha afetada");
+            }
+            try(ResultSet rs = pstm.getGeneratedKeys()){
+                if(rs.next()){
+                    return rs.getInt(1);
+                }else{
+                    throw new SQLException("Falanha ao cadastrar movimentação, não retornou o novo id gerado");
                 }
             }
-        }
-    }
-
-    @Override
-    public void atualizar(Movimentacao movimentacao) throws SQLException {
-        String sql = "UPDATE movimentacao SET data_hora = ?, quantidade = ?, tipo = ?, id_produto = ?, id_usuario = ?, id_requisitante = ? WHERE id_movimentacao = ?;";
-        
-        try (Connection conn = ConnectionFactory.getConnection();
-             PreparedStatement pstm = conn.prepareStatement(sql)) {
-
-            pstm.setTimestamp(1, java.sql.Timestamp.valueOf(movimentacao.getDataHora()));
-            pstm.setInt(2, movimentacao.getQuantidade());
-            pstm.setString(3, movimentacao.getTipo());
-            pstm.setInt(4, movimentacao.getProduto().getId());
-            pstm.setInt(5, movimentacao.getUsuario().getId());
-            pstm.setInt(6, movimentacao.getEntidade().getId());
-            pstm.setInt(7, movimentacao.getId());
             
-            pstm.execute();
         }
     }
 
-    @Override
-    public void deletar(Movimentacao movimentacao) throws SQLException {
-        String sql = "DELETE FROM movimentacao WHERE id_movimentacao = ?;";
-        
-        try (Connection conn = ConnectionFactory.getConnection();
-             PreparedStatement pstm = conn.prepareStatement(sql)) {
-            pstm.setInt(1, movimentacao.getId());
-            pstm.execute();
-        }
-    }
-
-    @Override
+    
     public List<Movimentacao> listarTodos() throws SQLException {
-        String sql = "SELECT id_movimentacao, data_hora, quantidade, tipo, id_produto, id_usuario, id_requisitante FROM movimentacao;";
+        String sql = "SELECT id_movimentacao, data_hora, tipo, id_usuario, id_requisitante, id_fornecedor FROM movimentacao;";
         List<Movimentacao> lista = new ArrayList<>();
         
         try (Connection conn = ConnectionFactory.getConnection();
@@ -90,11 +106,10 @@ public class MovimentacaoDao implements InterfaceDao<Movimentacao> {
                 Movimentacao mov = new Movimentacao();
                 mov.setId(rs.getInt("id_movimentacao"));
                 mov.setData_hora(rs.getTimestamp("data_hora").toLocalDateTime());
-                mov.setQuantidade(rs.getInt("quantidade"));
                 mov.setTipo(rs.getString("tipo"));
-                mov.setProduto(pd.buscarPorId(rs.getInt("id_produto")));
                 mov.setUsuario(ud.buscarPorId(rs.getInt("id_usuario")));
-                mov.setEntidade(rd.buscarPorId(rs.getInt("id_requisitante")));
+                mov.setRequisitante(rd.buscarPorId(rs.getInt("id_requisitante")));
+                mov.setFornecedor(fd.buscarPorId(rs.getInt("id_fornecedor")));
                 
                 lista.add(mov);
             }
@@ -102,9 +117,9 @@ public class MovimentacaoDao implements InterfaceDao<Movimentacao> {
         return lista;
     }
 
-    @Override
+    
     public Movimentacao buscarPorId(int id) throws SQLException {
-        String sql = "SELECT id_movimentacao, data_hora, quantidade, tipo, id_produto, id_usuario, id_requisitante FROM movimentacao WHERE id_movimentacao = ?;";
+        String sql = "SELECT id_movimentacao, data_hora, tipo, id_usuario, id_requisitante, id_fornecedor FROM movimentacao WHERE id_movimentacao = ?;";
         Movimentacao mov = null;
         
         try (Connection conn = ConnectionFactory.getConnection();
@@ -117,11 +132,10 @@ public class MovimentacaoDao implements InterfaceDao<Movimentacao> {
                     mov = new Movimentacao();
                     mov.setId(rs.getInt("id_movimentacao"));
                     mov.setData_hora(rs.getTimestamp("data_hora").toLocalDateTime());
-                    mov.setQuantidade(rs.getInt("quantidade"));
                     mov.setTipo(rs.getString("tipo"));
-                    mov.setProduto(pd.buscarPorId(rs.getInt("id_produto")));
                     mov.setUsuario(ud.buscarPorId(rs.getInt("id_usuario")));
-                    mov.setEntidade(rd.buscarPorId(rs.getInt("id_requisitante")));
+                    mov.setRequisitante(rd.buscarPorId(rs.getInt("id_requisitante")));
+                    mov.setFornecedor(fd.buscarPorId(rs.getInt("id_fornecedor")));
                     
                 }
             }

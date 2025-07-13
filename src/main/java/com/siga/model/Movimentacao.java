@@ -2,25 +2,26 @@
 package com.siga.model;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 //Herdando da superclasse Entidade
 public class Movimentacao extends Entidade{
     private LocalDateTime dataHora;
     private String tipo;
-    private int quantidade;
-    private Produto produto;
     private Usuario usuario;
-    private Entidade entidade;
+    private List<ItemMovimentacao> itemMovimentacao;
+    private Requisitante requisitante;
+    private Fornecedor fornecedor;
     
     
-    public Movimentacao(LocalDateTime dataHora, String tipo, int quantidade, Produto produto, Usuario usuario, Entidade entidade) {
+    public Movimentacao(LocalDateTime dataHora, String tipo, Usuario usuario, Requisitante requisitante, Fornecedor fornecedor, List<ItemMovimentacao> itemMovimentacao) {
         super();
         this.dataHora = dataHora;
         this.tipo = tipo;
-        this.quantidade = quantidade;
-        this.produto = produto;
+        this.itemMovimentacao = itemMovimentacao;
         this.usuario = usuario;
-        this.entidade = entidade;
+        this.requisitante = requisitante;
+        this.fornecedor = fornecedor;
     }
     
      
@@ -35,22 +36,6 @@ public class Movimentacao extends Entidade{
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
-    }
-
-    public int getQuantidade() {
-        return quantidade;
-    }
-
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
-    }
-
-    public Produto getProduto() {
-        return produto;
-    }
-
-    public void setProduto(Produto produto) {
-        this.produto = produto;
     }
 
     public Usuario getUsuario() {
@@ -69,13 +54,33 @@ public class Movimentacao extends Entidade{
         this.dataHora = dataHora;
     }
 
-    public Entidade getEntidade() {
-        return entidade;
+    public Requisitante getRequisitante() {
+        return requisitante;
     }
 
-    public void setEntidade(Entidade entidade) {
-        this.entidade = entidade;
+    public void setRequisitante(Requisitante requisitante) {
+        this.requisitante = requisitante;
     }
+
+    public Fornecedor getFornecedor() {
+        return fornecedor;
+    }
+
+    public void setFornecedor(Fornecedor fornecedor) {
+        this.fornecedor = fornecedor;
+    }
+
+    public List<ItemMovimentacao> getItemMovimentacao() {
+        return itemMovimentacao;
+    }
+
+    public void setItemMovimentacao(List<ItemMovimentacao> itemMovimentacao) {
+        this.itemMovimentacao = itemMovimentacao;
+    }
+
+    
+
+    
     
 }
 
