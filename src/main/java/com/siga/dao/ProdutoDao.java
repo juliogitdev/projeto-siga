@@ -158,7 +158,7 @@ public class ProdutoDao implements InterfaceDao<Produto>{
             pstm.setInt(2, p.getId());
             
          
-            pstm.execute();
+            pstm.executeUpdate();
             
         }
         
