@@ -149,11 +149,10 @@ public class ProdutoDao implements InterfaceDao<Produto>{
         
     }
     
-    public void atualizarEstoque(Produto p) throws SQLException{
+    public void atualizarEstoque(Produto p, Connection conn) throws SQLException{
         String sql = "UPDATE produto SET quantidade = ? WHERE id_produto = ?";
         
-        try(Connection conn = ConnectionFactory.getConnection();
-            PreparedStatement pstm = conn.prepareStatement(sql)){
+        try(PreparedStatement pstm = conn.prepareStatement(sql)){
             
             pstm.setInt(1, p.getQuantidade());
             pstm.setInt(2, p.getId());
