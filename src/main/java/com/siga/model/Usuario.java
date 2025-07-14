@@ -43,5 +43,9 @@ public class Usuario extends Entidade{
     }
     
     
-   
+    
+    @Override
+    public String toString(){
+        return this.getNome();
+    }
 }

@@ -9,6 +9,7 @@ import com.siga.model.Entidade;
 import com.siga.model.Fornecedor;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
+
 public class FornecedorView extends EntidadeView{
     
     //Concretiza o contrato da panel principal, adicioando o metodo de atualizar tabela

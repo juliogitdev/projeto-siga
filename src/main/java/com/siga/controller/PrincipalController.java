@@ -9,6 +9,7 @@ package com.siga.controller;
 import com.siga.controller.Entidades.CategoriaController;
 import com.siga.controller.Entidades.EntidadeController;
 import com.siga.controller.Entidades.FornecedorController;
+import com.siga.controller.Entidades.MovimentacaoController;
 import com.siga.controller.Entidades.ProdutoController;
 import com.siga.controller.Entidades.RequisitanteController;
 import com.siga.view.TelaPrincipal;
@@ -29,6 +30,7 @@ public class PrincipalController {
     private FornecedorController fornecedorController;
     private RequisitanteController requisitanteController;
     private ProdutoController produtoController;
+    private MovimentacaoController movimentacaoController;
     private Usuario usuario;
    
     public PrincipalController(TelaPrincipal telaPrincipal, Usuario usuario) {
@@ -42,6 +44,7 @@ public class PrincipalController {
         this.fornecedorController = new FornecedorController();
         this.requisitanteController = new RequisitanteController();
         this.produtoController = new ProdutoController();
+        this.movimentacaoController = new MovimentacaoController();
         this.usuario = usuario;
         
         //Adicionando listeners nas entidades do menu
@@ -49,6 +52,7 @@ public class PrincipalController {
         telaPrincipal.FornecedorListener(new FornecedorListener());
         telaPrincipal.RequisitanteListener(new RequisitanteListener());
         telaPrincipal.ProdutoListener(new ProdutoListener());
+        telaPrincipal.MovimentacaoListener(new MovimentacaoListener());
         
     }
     
@@ -115,7 +119,22 @@ public class PrincipalController {
         
     }
 
-    
+    class MovimentacaoListener implements ActionListener{
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            telaPrincipal.setContentPanel(movimentacaoController.getView());
+            
+            try{
+                
+                movimentacaoController.listarEntidadesTabela();
+                
+            }catch(SQLException ex){
+                System.out.println(ex);
+            }
+        }
+        
+    }
     
     
 }

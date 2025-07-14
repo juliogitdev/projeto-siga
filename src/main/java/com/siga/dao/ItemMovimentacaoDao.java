@@ -49,7 +49,7 @@ public class ItemMovimentacaoDao{
             
             int linhasAfetadas = pstm.executeUpdate();
             if(linhasAfetadas == 0){
-                throw new SQLException("Ciação de item movimentação falhou, nenhuma linha afetada");
+                throw new SQLException("Criação de item movimentação falhou, nenhuma linha afetada");
             }
         }
         

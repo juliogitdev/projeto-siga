@@ -12,7 +12,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MovimentacaoDao{
+public class MovimentacaoDao implements InterfaceDao{
     
     ProdutoDao pd = new ProdutoDao();
     UsuarioDao ud = new UsuarioDao();
@@ -65,10 +65,11 @@ public class MovimentacaoDao{
         }
     }
     
-    public int cadastrarMovimentação(Movimentacao mov, Connection conn) throws SQLException {
+    private int cadastrarMovimentação(Movimentacao mov, Connection conn) throws SQLException {
         String sql = "INSERT INTO movimentacao (data_hora, tipo,  id_usuario, id_requisitante, id_fornecedor) VALUES (?, ?, ?, ?, ?);";
         
         try (PreparedStatement pstm = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) { 
+            
             pstm.setTimestamp(1, java.sql.Timestamp.valueOf(mov.getDataHora()));
             pstm.setString(2, mov.getTipo());
             pstm.setInt(3, mov.getUsuario().getId());
@@ -84,7 +85,7 @@ public class MovimentacaoDao{
                 if(rs.next()){
                     return rs.getInt(1);
                 }else{
-                    throw new SQLException("Falanha ao cadastrar movimentação, não retornou o novo id gerado");
+                    throw new SQLException("Falha ao cadastrar movimentação, não retornou o novo id gerado");
                 }
             }
             
@@ -141,5 +142,20 @@ public class MovimentacaoDao{
             }
         }
         return mov;
+    }
+
+    @Override
+    public void cadastrar(Object Entidade) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void atualizar(Object Entidade) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void deletar(Object Entidade) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
