@@ -1,28 +1,34 @@
-
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
 package com.siga.view.cadastros.Dialog;
 
-import com.siga.model.Categoria;
+import com.siga.controller.Entidades.MovimentacaoController;
+import com.siga.model.Entidade;
 import com.siga.model.Fornecedor;
+import com.siga.model.Requisitante;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.List;
-import javax.swing.JCheckBox;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComboBox;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
+
 
 /**
  *
- * @author Julio
+ * @author franc
  */
 public class DialogMovimentacao extends javax.swing.JFrame implements DialogEntidade{
 
     /**
-     * Creates new form Categoria
+     * Creates new form DialogMovimentacao
      */
     public DialogMovimentacao() {
         initComponents();
-        getjComboBoxCategoria().setVisible(false);
-        getjComboBoxFornecedor().setVisible(false);
+        
+        
     }
 
     /**
@@ -34,70 +40,15 @@ public class DialogMovimentacao extends javax.swing.JFrame implements DialogEnti
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jDialog1 = new javax.swing.JDialog();
-        jLabelNome = new javax.swing.JLabel();
-        jTextFieldNome = new javax.swing.JTextField();
-        buttonCadastrar = new javax.swing.JButton();
-        jTextFieldDescricao = new javax.swing.JTextField();
-        jLabelDescricao = new javax.swing.JLabel();
-        jComboBoxFornecedor = new javax.swing.JComboBox<>();
-        jComboBoxCategoria = new javax.swing.JComboBox<>();
-        jCheckBoxFonecedor = new javax.swing.JCheckBox();
-        jCheckBoxCategoria = new javax.swing.JCheckBox();
+        tipoMovimentacao = new javax.swing.JComboBox<>();
+        terceirosCB = new javax.swing.JComboBox<>();
 
-        javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
-        jDialog1.getContentPane().setLayout(jDialog1Layout);
-        jDialog1Layout.setHorizontalGroup(
-            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        jDialog1Layout.setVerticalGroup(
-            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabelNome.setText("Nome do produto:");
-
-        jTextFieldNome.addActionListener(new java.awt.event.ActionListener() {
+        tipoMovimentacao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {"ENTRADA", "SAIDA"}));
+        tipoMovimentacao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldNomeActionPerformed(evt);
-            }
-        });
-
-        buttonCadastrar.setText("Salvar");
-        buttonCadastrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonCadastrarActionPerformed(evt);
-            }
-        });
-
-        jTextFieldDescricao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldDescricaoActionPerformed(evt);
-            }
-        });
-
-        jLabelDescricao.setText("Descrição:");
-
-        jComboBoxFornecedor.setToolTipText("");
-
-        jComboBoxCategoria.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBoxCategoriaActionPerformed(evt);
-            }
-        });
-
-        jCheckBoxFonecedor.setText("Fornecedor");
-        jCheckBoxFonecedor.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBoxFonecedorActionPerformed(evt);
-            }
-        });
-
-        jCheckBoxCategoria.setText("Categoria");
-        jCheckBoxCategoria.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBoxCategoriaActionPerformed(evt);
+                tipoMovimentacaoActionPerformed(evt);
             }
         });
 
@@ -106,80 +57,34 @@ public class DialogMovimentacao extends javax.swing.JFrame implements DialogEnti
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(91, 91, 91)
+                .addGap(118, 118, 118)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jCheckBoxCategoria)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(buttonCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabelNome)
-                            .addComponent(jTextFieldNome, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
-                            .addComponent(jLabelDescricao)
-                            .addComponent(jTextFieldDescricao, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
-                            .addComponent(jCheckBoxFonecedor)
-                            .addComponent(jComboBoxFornecedor, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jComboBoxCategoria, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addGap(0, 91, Short.MAX_VALUE))
+                    .addComponent(terceirosCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tipoMovimentacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(210, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(jLabelNome)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabelDescricao)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextFieldDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCheckBoxCategoria)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBoxCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(jCheckBoxFonecedor)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBoxFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(buttonCadastrar)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addGap(141, 141, 141)
+                .addComponent(tipoMovimentacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
+                .addComponent(terceirosCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(86, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextFieldNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNomeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldNomeActionPerformed
-
-    private void buttonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCadastrarActionPerformed
-        
-        
-    }//GEN-LAST:event_buttonCadastrarActionPerformed
-
-    private void jTextFieldDescricaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldDescricaoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldDescricaoActionPerformed
-
-    private void jCheckBoxFonecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxFonecedorActionPerformed
-        // TODO add your handling code here:
-        getjComboBoxFornecedor().setVisible(jCheckBoxFonecedor.isSelected());
-    }//GEN-LAST:event_jCheckBoxFonecedorActionPerformed
-
-    private void jCheckBoxCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxCategoriaActionPerformed
-        // TODO add your handling code here:
-
-        getjComboBoxCategoria().setVisible(jCheckBoxCategoria.isSelected());
-    }//GEN-LAST:event_jCheckBoxCategoriaActionPerformed
-
-    private void jComboBoxCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCategoriaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBoxCategoriaActionPerformed
+    private void tipoMovimentacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoMovimentacaoActionPerformed
+      
+        commitComboBox();
+    }//GEN-LAST:event_tipoMovimentacaoActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void iniciar() {
+    public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -202,192 +107,85 @@ public class DialogMovimentacao extends javax.swing.JFrame implements DialogEnti
             java.util.logging.Logger.getLogger(DialogMovimentacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new DialogMovimentacao().setVisible(true);
-                
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonCadastrar;
-    private javax.swing.JCheckBox jCheckBoxCategoria;
-    private javax.swing.JCheckBox jCheckBoxFonecedor;
-    private javax.swing.JComboBox<Categoria> jComboBoxCategoria;
-    private javax.swing.JComboBox<Fornecedor> jComboBoxFornecedor;
-    private javax.swing.JDialog jDialog1;
-    private javax.swing.JLabel jLabelDescricao;
-    private javax.swing.JLabel jLabelNome;
-    private javax.swing.JTextField jTextFieldDescricao;
-    private javax.swing.JTextField jTextFieldNome;
+    private javax.swing.JComboBox<Entidade> terceirosCB;
+    private javax.swing.JComboBox<String> tipoMovimentacao;
     // End of variables declaration//GEN-END:variables
-
+    private MovimentacaoController controller;
     
-        //Metodo para abrir um pop-up com uma mensagem
-    @Override
-    public void showMessage(String message){
-        JOptionPane.showMessageDialog(jDialog1, message);     }
-        //Adicionar um "ouvidor" de eventos no botão de cadastrar
-    @Override
-    public void addEntidadeListener(ActionListener listener){
-        for(ActionListener al : buttonCadastrar.getActionListeners()){
-            buttonCadastrar.removeActionListener(al);
+    
+    public void commitComboBox(){
+        String valorSelecionado = tipoMovimentacao.getSelectedItem().toString();
+        System.out.println(valorSelecionado);
+        try {
+           controller.carregarComboBox(valorSelecionado);
+        } catch (SQLException ex) {
+            Logger.getLogger(DialogMovimentacao.class.getName()).log(Level.SEVERE, null, ex);
         }
-        buttonCadastrar.addActionListener(listener);
+    
+    }
+    public void carregarRequisitate(List<Requisitante> requisitantes){
+        terceirosCB.removeAllItems();
+        for(Requisitante r: requisitantes){
+            terceirosCB.addItem(r);
+        }
+        System.out.println("carregando");
     }
     
+    public void carregarFornecedor(List<Fornecedor> fornecedores){
+        terceirosCB.removeAllItems();
+        for(Fornecedor f: fornecedores){
+            terceirosCB.addItem(f);
+        }
+        System.out.println("carregando");
+    }
+
     @Override
-    public void limparInputs(){
-        setNome("");
-        setDescricao("");
-        jCheckBoxCategoria.setSelected(false);
-        jCheckBoxFonecedor.setSelected(false);
-        jComboBoxCategoria.setSelectedItem(null);
-        jComboBoxFornecedor.setSelectedItem(null);
-        jComboBoxCategoria.setVisible(false);
-        jComboBoxFornecedor.setVisible(false);
-    }
-    
-    @Override
-    public void setVisible(boolean b){
-        super.setVisible(b);
-    }
-    
-    public String getNome(){
+    public void addEntidadeListener(ActionListener listener) {
         
-        return jTextFieldNome.getText();
-    }
-    
-    public void setNome(String nome){
-        jTextFieldNome.setText(nome);
-    }
-    
-    public String getDescricao(){
-        return jTextFieldDescricao.getText();
-    }
-    
-    public void setDescricao(String descricao){
-        jTextFieldDescricao.setText(descricao);
     }
 
-    public void carregarComboBoxCategoria(List<Categoria> categorias) {
-    jComboBoxCategoria.removeAllItems();
+    @Override
+    public void showMessage(String message) {
+        
+    }
 
-    if (categorias != null && !categorias.isEmpty()) {
-        for (Categoria c : categorias) {
-            jComboBoxCategoria.addItem(c);
-        }
-        jComboBoxCategoria.setEnabled(true);
-    }else{
-        jComboBoxCategoria.setEnabled(false);
-        }
+    @Override
+    public void limparInputs() {
+        
+    }
+
+    public MovimentacaoController getController() {
+        return controller;
+    }
+
+    public void setController(MovimentacaoController controller) {
+        this.controller = controller;
+    }
+
+    public Entidade getTerceiros() {
+        return (Entidade) terceirosCB.getSelectedItem();
+    }
+
+    public JComboBox<Entidade> getTerceirosCB() {
+        return terceirosCB;
+    }
+
+    
+
+   
+    
+    
+    
+    
 }
 
-    
-    public void carregarComboBoxFornecedor(List<Fornecedor> fornecedores) {
-        jComboBoxFornecedor.removeAllItems();
-
-        if (fornecedores != null && !fornecedores.isEmpty()) {
-            for (Fornecedor f : fornecedores) {
-                jComboBoxFornecedor.addItem(f);
-            }
-            jComboBoxFornecedor.setEnabled(true);
-        } else {
-            jComboBoxFornecedor.setEnabled(false);
-        }
-    }
-
-    public Categoria getSelectedCategoria(){
-        return jComboBoxCategoria.getItemAt(jComboBoxCategoria.getSelectedIndex());
-    }
-    
-    public void setSelectedCategoria(Categoria c){
-        jComboBoxCategoria.setSelectedItem(c);
-    }
-    
-    public Fornecedor getSelectedFornecedor(){
-        return jComboBoxFornecedor.getItemAt(jComboBoxFornecedor.getSelectedIndex());
-    }
-    
-    public void setSelectedFornecedor(Fornecedor f){
-        jComboBoxFornecedor.setSelectedItem(f);
-    }
-
-    public JComboBox<Categoria> getjComboBoxCategoria() {
-        return jComboBoxCategoria;
-    }
-
-    public JComboBox<Fornecedor> getjComboBoxFornecedor() {
-        return jComboBoxFornecedor;
-    }  
-
-    public boolean getjCheckBoxCategoria() {
-        return jCheckBoxCategoria.isSelected();
-    }
-
-    public boolean getjCheckBoxFonecedor() {
-        return jCheckBoxFonecedor.isSelected();
-    }
-
-    
-    
-    public void setVisibleComboBox(JComboBox box, boolean b){
-        box.setVisible(b);
-    }
-
-    public void setCheckBoxCategoriaVisible(boolean b) {
-        this.jCheckBoxCategoria.setVisible(b);
-    }
-    
-    public void setCheckBoxCategoriaSelected(boolean b){
-        jCheckBoxCategoria.setSelected(b);
-    }
-    
-    public void setCheckBoxFornecedorSelected(boolean b){
-        jCheckBoxFonecedor.setSelected(b);
-    }
-
-    public void setCheckBoxFonecedorVisible(boolean b) {
-        this.jCheckBoxFonecedor.setVisible(b);
-    }
-    
-    
-    
-
-    
-
-}
