@@ -30,13 +30,12 @@ public abstract class EntidadeView extends javax.swing.JPanel{
 
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
-        jPanel2 = new javax.swing.JPanel();
         jLabelEntidade = new javax.swing.JLabel();
         ButtonCadastrar = new javax.swing.JButton();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        tabelaEntidade = new javax.swing.JTable();
         jButtonEditar = new javax.swing.JButton();
         jButtonExcluir = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tabelaEntidade = new javax.swing.JTable();
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -55,49 +54,10 @@ public abstract class EntidadeView extends javax.swing.JPanel{
         jLabelEntidade.setText("Entidade");
 
         ButtonCadastrar.setText("CADASTRAR");
-
-        tabelaEntidade.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "ID", "NOME", "DESCRIÇÃO", "AÇÃO"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tabelaEntidade.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        tabelaEntidade.setEditingColumn(0);
-        tabelaEntidade.setEditingRow(0);
-        tabelaEntidade.setFocusable(false);
-        tabelaEntidade.setMaximumSize(new java.awt.Dimension(727, 0));
-        tabelaEntidade.setRequestFocusEnabled(false);
-        tabelaEntidade.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        tabelaEntidade.setShowGrid(true);
-        tabelaEntidade.getTableHeader().setResizingAllowed(false);
-        tabelaEntidade.getTableHeader().setReorderingAllowed(false);
-        jScrollPane3.setViewportView(tabelaEntidade);
-        if (tabelaEntidade.getColumnModel().getColumnCount() > 0) {
-            tabelaEntidade.getColumnModel().getColumn(0).setResizable(false);
-            tabelaEntidade.getColumnModel().getColumn(1).setResizable(false);
-            tabelaEntidade.getColumnModel().getColumn(2).setResizable(false);
-            tabelaEntidade.getColumnModel().getColumn(3).setResizable(false);
-        }
+        ButtonCadastrar.setAlignmentY(0.0F);
 
         jButtonEditar.setText("EDITAR");
+        jButtonEditar.setAlignmentY(0.0F);
         jButtonEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonEditarActionPerformed(evt);
@@ -105,65 +65,84 @@ public abstract class EntidadeView extends javax.swing.JPanel{
         });
 
         jButtonExcluir.setText("EXCLUIR");
+        jButtonExcluir.setAlignmentY(0.0F);
         jButtonExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonExcluirActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jScrollPane3)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButtonExcluir)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonEditar))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabelEntidade)
-                        .addGap(505, 505, 505)
-                        .addComponent(ButtonCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelEntidade)
-                    .addComponent(ButtonCadastrar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonEditar)
-                    .addComponent(jButtonExcluir))
-                .addContainerGap(11, Short.MAX_VALUE))
-        );
+        jScrollPane4.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        jScrollPane4.setToolTipText("");
+        jScrollPane4.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        jScrollPane4.setAutoscrolls(true);
+        jScrollPane4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        tabelaEntidade.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        tabelaEntidade.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tabelaEntidade.setRowHeight(30);
+        tabelaEntidade.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tabelaEntidade.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tabelaEntidade.setShowGrid(true);
+        tabelaEntidade.setShowHorizontalLines(true);
+        tabelaEntidade.setShowVerticalLines(true);
+        tabelaEntidade.setUpdateSelectionOnSort(false);
+        tabelaEntidade.setVerifyInputWhenFocusTarget(false);
+        jScrollPane4.setViewportView(tabelaEntidade);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabelEntidade)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(ButtonCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jButtonExcluir)
+                            .addGap(22, 22, 22)
+                            .addComponent(jButtonEditar))
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 753, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(128, 128, 128))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelEntidade)
+                    .addComponent(ButtonCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonExcluir)
+                    .addComponent(jButtonEditar))
+                .addGap(14, 14, 14))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonEditarActionPerformed
 
     private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonExcluirActionPerformed
+
+    private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonEditarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -171,9 +150,8 @@ public abstract class EntidadeView extends javax.swing.JPanel{
     private javax.swing.JButton jButtonEditar;
     private javax.swing.JButton jButtonExcluir;
     private javax.swing.JLabel jLabelEntidade;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTable jTable2;
     private javax.swing.JTable tabelaEntidade;
     // End of variables declaration//GEN-END:variables
@@ -218,11 +196,12 @@ public abstract class EntidadeView extends javax.swing.JPanel{
     //Define a quantidade e os nomes da coluna da tabela
     public void setColunasTabela(String[] colunas){
         DefaultTableModel tableModel = new DefaultTableModel(colunas, 0);
+        tabelaEntidade.getColumnModel().getColumn(0).setMaxWidth(10);
         tabelaEntidade.setModel(tableModel);
     }
     
     public void showMessage(String message){
-        JOptionPane.showMessageDialog(jPanel2, message);
+        JOptionPane.showMessageDialog(null, message);
     }
     
     

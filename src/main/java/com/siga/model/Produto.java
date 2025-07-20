@@ -12,15 +12,18 @@ public class Produto extends Entidade{
         super();
     }
 
-    public Produto(String nomeProduto, String descricao, int quantidade, Fornecedor fornecedor, Categoria categoria) {
-        super();
-        this.nomeProduto = nomeProduto;
-        this.descricao = descricao;
-        this.quantidade = quantidade;
-        this.fornecedor = fornecedor;
-        this.categoria = categoria;
-    }
 
+
+
+    public Produto(Produto outro) {
+        super(); // se necessário (se Produto estende outra classe)
+        this.nomeProduto = outro.nomeProduto;
+        this.descricao = outro.descricao;
+        this.quantidade = outro.quantidade;
+        this.fornecedor = outro.fornecedor; // atenção: ainda é a mesma referência!
+        this.categoria = outro.categoria;
+        this.setId(outro.getId());// idem
+    }
 
     public String getNomeProduto() {
         return nomeProduto;

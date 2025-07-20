@@ -1,12 +1,13 @@
 
 package com.siga.model;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 
 //Herdando da superclasse Entidade
 public class Movimentacao extends Entidade{
-    private LocalDateTime dataHora;
+    private Timestamp dataHora;
     private String tipo;
     private Usuario usuario;
     private List<ItemMovimentacao> itemMovimentacao;
@@ -14,7 +15,7 @@ public class Movimentacao extends Entidade{
     private Fornecedor fornecedor;
     
     
-    public Movimentacao(LocalDateTime dataHora, String tipo, Usuario usuario, Requisitante requisitante, Fornecedor fornecedor, List<ItemMovimentacao> itemMovimentacao) {
+    public Movimentacao(Timestamp dataHora, String tipo, Usuario usuario, Requisitante requisitante, Fornecedor fornecedor, List<ItemMovimentacao> itemMovimentacao) {
         super();
         this.dataHora = dataHora;
         this.tipo = tipo;
@@ -46,11 +47,11 @@ public class Movimentacao extends Entidade{
         this.usuario = usuario;
     }
 
-    public LocalDateTime getDataHora() {
+    public Timestamp getDataHora() {
         return dataHora;
     }
 
-    public void setData_hora(LocalDateTime dataHora) {
+    public void setData_hora(Timestamp dataHora) {
         this.dataHora = dataHora;
     }
 

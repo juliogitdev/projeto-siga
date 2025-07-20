@@ -50,7 +50,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         MenuItemSobre = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(800, 600));
         setResizable(false);
 
         PanelSiga.setBackground(new java.awt.Color(153, 153, 153));
@@ -77,6 +76,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addComponent(textSiga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        PanelConteudo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        PanelConteudo.setMaximumSize(new java.awt.Dimension(800, 375));
+        PanelConteudo.setMinimumSize(new java.awt.Dimension(800, 375));
 
         javax.swing.GroupLayout PanelConteudoLayout = new javax.swing.GroupLayout(PanelConteudo);
         PanelConteudo.setLayout(PanelConteudoLayout);

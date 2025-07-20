@@ -20,7 +20,7 @@ public class MovimentacaoDao implements InterfaceDao{
     FornecedorDao fd = new FornecedorDao();
 
 
-    public void realizarMovimentacaoCompleta(Movimentacao mov) throws Exception{
+    public boolean realizarMovimentacaoCompleta(Movimentacao mov) throws Exception{
         Connection conn = null;
         
         //Daos
@@ -35,8 +35,10 @@ public class MovimentacaoDao implements InterfaceDao{
             conn.setAutoCommit(false);
             
             //Cadastra nova movimentação retornando o id novo da movimentação
+            System.out.println("Cadastrando movimentação");
             int idNovoMovimentacao = cadastrarMovimentação(mov, conn);
             
+            System.out.println("Cadastrando itens movimentação");
             //Percorre por cada itemMovimentação
             for(ItemMovimentacao im : mov.getItemMovimentacao()){
                 //Cadastra ItemMovimentação
@@ -46,6 +48,7 @@ public class MovimentacaoDao implements InterfaceDao{
 
                 Produto pItemMovimentacao = pd.buscarPorId(im.getIdProduto());
 
+                System.out.println("Atualizando estoque");
                 //Atualiza estoque
                 switch(mov.getTipo().toUpperCase()){
                     case "ENTRADA":
@@ -58,10 +61,12 @@ public class MovimentacaoDao implements InterfaceDao{
             }
             
             conn.commit();
+            return true;
             
         }catch(Exception e){
             conn.rollback();
             System.out.println("Falha ao cadastrar movimentação, nada foi inserido");;
+            return false;
         }
     }
     
@@ -70,11 +75,16 @@ public class MovimentacaoDao implements InterfaceDao{
         
         try (PreparedStatement pstm = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) { 
             
-            pstm.setTimestamp(1, java.sql.Timestamp.valueOf(mov.getDataHora()));
+            pstm.setTimestamp(1, mov.getDataHora());
             pstm.setString(2, mov.getTipo());
             pstm.setInt(3, mov.getUsuario().getId());
-            pstm.setInt(4, mov.getRequisitante().getId());
-            pstm.setInt(5, mov.getFornecedor().getId());
+            if(mov.getTipo().equals("ENTRADA")){
+                pstm.setNull(4, java.sql.Types.INTEGER);
+                pstm.setInt(5, mov.getFornecedor().getId());
+            }else{
+                pstm.setInt(4, mov.getRequisitante().getId());
+                pstm.setNull(5, java.sql.Types.INTEGER);
+            }
             
             int linhasAfetada = pstm.executeUpdate();
             
@@ -106,7 +116,7 @@ public class MovimentacaoDao implements InterfaceDao{
             while (rs.next()) {
                 Movimentacao mov = new Movimentacao();
                 mov.setId(rs.getInt("id_movimentacao"));
-                mov.setData_hora(rs.getTimestamp("data_hora").toLocalDateTime());
+                mov.setData_hora(rs.getTimestamp("data_hora"));
                 mov.setTipo(rs.getString("tipo"));
                 mov.setUsuario(ud.buscarPorId(rs.getInt("id_usuario")));
                 mov.setRequisitante(rd.buscarPorId(rs.getInt("id_requisitante")));
@@ -132,7 +142,7 @@ public class MovimentacaoDao implements InterfaceDao{
                 if (rs.next()) {
                     mov = new Movimentacao();
                     mov.setId(rs.getInt("id_movimentacao"));
-                    mov.setData_hora(rs.getTimestamp("data_hora").toLocalDateTime());
+                    mov.setData_hora(rs.getTimestamp("data_hora"));
                     mov.setTipo(rs.getString("tipo"));
                     mov.setUsuario(ud.buscarPorId(rs.getInt("id_usuario")));
                     mov.setRequisitante(rd.buscarPorId(rs.getInt("id_requisitante")));

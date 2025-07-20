@@ -1,12 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package com.siga.view.cadastros.Dialog;
 
 import com.siga.controller.Entidades.MovimentacaoController;
 import com.siga.model.Entidade;
 import com.siga.model.Fornecedor;
+import com.siga.model.Produto;
 import com.siga.model.Requisitante;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -14,6 +11,10 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 
 /**
@@ -25,6 +26,8 @@ public class DialogMovimentacao extends javax.swing.JFrame implements DialogEnti
     /**
      * Creates new form DialogMovimentacao
      */
+    private String tipoMovimentacaoString = "ENTRADA";
+    
     public DialogMovimentacao() {
         initComponents();
         
@@ -40,10 +43,31 @@ public class DialogMovimentacao extends javax.swing.JFrame implements DialogEnti
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jDialog1 = new javax.swing.JDialog();
         tipoMovimentacao = new javax.swing.JComboBox<>();
         terceirosCB = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
+        labelEntidade = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tableProdutos = new javax.swing.JTable();
+        jLabel3 = new javax.swing.JLabel();
+        buttonExcluirProduto = new javax.swing.JButton();
+        buttonSalvarMovimentacao = new javax.swing.JButton();
+        buttonAddProduto = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
+        jDialog1.getContentPane().setLayout(jDialog1Layout);
+        jDialog1Layout.setHorizontalGroup(
+            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        jDialog1Layout.setVerticalGroup(
+            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         tipoMovimentacao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {"ENTRADA", "SAIDA"}));
         tipoMovimentacao.addActionListener(new java.awt.event.ActionListener() {
@@ -52,25 +76,112 @@ public class DialogMovimentacao extends javax.swing.JFrame implements DialogEnti
             }
         });
 
+        jLabel1.setText("Tipo de movimentação: ");
+
+        labelEntidade.setText("Entidade:");
+
+        tableProdutos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Produto", "Descrição", "Quantidade"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tableProdutos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tableProdutos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane1.setViewportView(tableProdutos);
+        if (tableProdutos.getColumnModel().getColumnCount() > 0) {
+            tableProdutos.getColumnModel().getColumn(0).setResizable(false);
+            tableProdutos.getColumnModel().getColumn(1).setResizable(false);
+            tableProdutos.getColumnModel().getColumn(2).setResizable(false);
+        }
+
+        jLabel3.setText("Produtos:");
+
+        buttonExcluirProduto.setText("Excluir Produto");
+        buttonExcluirProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonExcluirProdutoActionPerformed(evt);
+            }
+        });
+
+        buttonSalvarMovimentacao.setText("Salvar movimentação");
+        buttonSalvarMovimentacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSalvarMovimentacaoActionPerformed(evt);
+            }
+        });
+
+        buttonAddProduto.setText("Adicionar Produto");
+        buttonAddProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonAddProdutoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(118, 118, 118)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(terceirosCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tipoMovimentacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(210, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(tipoMovimentacao, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(37, 37, 37)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(terceirosCB, 0, 293, Short.MAX_VALUE)
+                            .addComponent(labelEntidade, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(buttonSalvarMovimentacao)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(buttonExcluirProduto)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(buttonAddProduto))
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 655, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(141, 141, 141)
-                .addComponent(tipoMovimentacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(49, 49, 49)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(28, 28, 28))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(labelEntidade)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tipoMovimentacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(terceirosCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(29, 29, 29)
-                .addComponent(terceirosCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(86, Short.MAX_VALUE))
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonExcluirProduto)
+                    .addComponent(buttonAddProduto))
+                .addGap(34, 34, 34)
+                .addComponent(buttonSalvarMovimentacao)
+                .addGap(18, 18, 18))
         );
 
         pack();
@@ -81,10 +192,22 @@ public class DialogMovimentacao extends javax.swing.JFrame implements DialogEnti
         commitComboBox();
     }//GEN-LAST:event_tipoMovimentacaoActionPerformed
 
+    private void buttonExcluirProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExcluirProdutoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buttonExcluirProdutoActionPerformed
+
+    private void buttonSalvarMovimentacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSalvarMovimentacaoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buttonSalvarMovimentacaoActionPerformed
+
+    private void buttonAddProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddProdutoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buttonAddProdutoActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public void iniciar() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -98,14 +221,21 @@ public class DialogMovimentacao extends javax.swing.JFrame implements DialogEnti
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DialogMovimentacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DialogItemMovimentacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DialogMovimentacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DialogItemMovimentacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DialogMovimentacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DialogItemMovimentacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DialogMovimentacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DialogItemMovimentacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
@@ -117,28 +247,50 @@ public class DialogMovimentacao extends javax.swing.JFrame implements DialogEnti
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonAddProduto;
+    private javax.swing.JButton buttonExcluirProduto;
+    private javax.swing.JButton buttonSalvarMovimentacao;
+    private javax.swing.JDialog jDialog1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel labelEntidade;
+    private javax.swing.JTable tableProdutos;
     private javax.swing.JComboBox<Entidade> terceirosCB;
     private javax.swing.JComboBox<String> tipoMovimentacao;
     // End of variables declaration//GEN-END:variables
     private MovimentacaoController controller;
     
+    public String getTipoMovimentacao(){
+        return tipoMovimentacao.getSelectedItem().toString();
+    }
+    
+    public void setTipoMovimentacao(String item){
+        tipoMovimentacao.setSelectedItem(item);
+    }
     
     public void commitComboBox(){
-        String valorSelecionado = tipoMovimentacao.getSelectedItem().toString();
-        System.out.println(valorSelecionado);
+        String valorSelecionado = getTipoMovimentacao();
+        if(valorSelecionado.toString().equals(tipoMovimentacaoString)){
+            return;
+        }
+        
+        tipoMovimentacaoString = valorSelecionado;
         try {
            controller.carregarComboBox(valorSelecionado);
+           limparTabela();
+           controller.limparProdutosMovimentacao();
         } catch (SQLException ex) {
             Logger.getLogger(DialogMovimentacao.class.getName()).log(Level.SEVERE, null, ex);
         }
     
     }
-    public void carregarRequisitate(List<Requisitante> requisitantes){
+    public void carregarRequisitante(List<Requisitante> requisitantes){
         terceirosCB.removeAllItems();
         for(Requisitante r: requisitantes){
             terceirosCB.addItem(r);
         }
-        System.out.println("carregando");
+        setLabelEntidade("Requisitante:");
     }
     
     public void carregarFornecedor(List<Fornecedor> fornecedores){
@@ -146,17 +298,22 @@ public class DialogMovimentacao extends javax.swing.JFrame implements DialogEnti
         for(Fornecedor f: fornecedores){
             terceirosCB.addItem(f);
         }
-        System.out.println("carregando");
+        setLabelEntidade("Fornecedor:");
     }
 
     @Override
     public void addEntidadeListener(ActionListener listener) {
+        for(ActionListener ac : buttonSalvarMovimentacao.getActionListeners()){
+            buttonSalvarMovimentacao.removeActionListener(ac);
+        }
         
+        buttonSalvarMovimentacao.addActionListener(listener);
     }
 
     @Override
     public void showMessage(String message) {
-        
+        JOptionPane.showMessageDialog(null, message);
+
     }
 
     @Override
@@ -179,13 +336,55 @@ public class DialogMovimentacao extends javax.swing.JFrame implements DialogEnti
     public JComboBox<Entidade> getTerceirosCB() {
         return terceirosCB;
     }
-
     
+    public void addProdutoActionListener(ActionListener listener){
+        for(ActionListener ac : buttonAddProduto.getActionListeners()){
+            buttonAddProduto.removeActionListener(ac);
+        }
+        
+        buttonAddProduto.addActionListener(listener);
+    }
 
+    public JTable getTable(){
+        return tableProdutos;
+    }
+    
+    public void atualizarTabela(List<Produto> produtos){
+        DefaultTableModel tableModel = (DefaultTableModel) getTable().getModel();
+        
+        tableModel.setRowCount(0);
+        
+        for(Produto p: produtos){
+            tableModel.addRow(new Object[]{
+                p.getNomeProduto(),
+                p.getDescricao(),
+                p.getQuantidade()
+            });
+        }
+    }
+
+   public void limparTabela(){
+        DefaultTableModel tableModel = (DefaultTableModel) getTable().getModel();
+        
+        tableModel.setRowCount(0);
+   }
+    
+   public int getIdProdutoSelected(){
+       return tableProdutos.getSelectedRow();
+      
+   }
    
-    
-    
-    
+   public void excluirProdutoActionListener(ActionListener listener){
+        for(ActionListener ac : buttonExcluirProduto.getActionListeners()){
+            buttonExcluirProduto.removeActionListener(ac);
+        }
+        
+        buttonExcluirProduto.addActionListener(listener);
+    }
+   
+   public void setLabelEntidade(String entidade){
+       labelEntidade.setText(entidade);
+   }
     
 }
 

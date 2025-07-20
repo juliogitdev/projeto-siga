@@ -108,6 +108,7 @@ public class ProdutoDao implements InterfaceDao<Produto>{
                 novoProduto.setId(rs.getInt("id_produto"));
                 novoProduto.setNomeProduto(rs.getString("nome_produto"));
                 novoProduto.setDescricao(rs.getString("descricao"));
+                novoProduto.setQuantidade(rs.getInt("quantidade"));
                 novoProduto.setFornecedor(fDao.buscarPorId(rs.getInt("id_fornecedor")));
                 novoProduto.setCategoria(cDao.buscarPorId(rs.getInt("id_categoria")));
                 

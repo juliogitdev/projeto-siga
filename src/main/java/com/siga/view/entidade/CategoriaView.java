@@ -15,7 +15,6 @@ public class CategoriaView extends EntidadeView{
     public void atualizarTabela(List<? extends Entidade> entidades){
         DefaultTableModel tableModel = (DefaultTableModel) this.getTabelaEntidade().getModel();
         tableModel.setRowCount(0);
-                
         for(Entidade entidade: entidades){
             if(entidade instanceof Categoria){
                 Categoria c = (Categoria) entidade;

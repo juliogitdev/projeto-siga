@@ -1,5 +1,6 @@
 package com.siga.controller.Entidades;
 
+import com.siga.controller.PrincipalController;
 import com.siga.dao.InterfaceDao;
 import com.siga.dao.MainDao;
 import com.siga.dao.RequisitanteDao;
@@ -27,6 +28,7 @@ public abstract class EntidadeController {
     private EntidadeView entidadeView;
     private InterfaceDao entidadeDao;
     private DialogEntidade dialogEntidade;
+    private PrincipalController principalController;
 
     public EntidadeController(EntidadeView entidadeView, InterfaceDao entidadeDao, DialogEntidade dial) {
         this.entidadeView = entidadeView;

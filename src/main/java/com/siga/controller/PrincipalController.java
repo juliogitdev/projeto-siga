@@ -44,8 +44,8 @@ public class PrincipalController {
         this.fornecedorController = new FornecedorController();
         this.requisitanteController = new RequisitanteController();
         this.produtoController = new ProdutoController();
-        this.movimentacaoController = new MovimentacaoController();
         this.usuario = usuario;
+        this.movimentacaoController = new MovimentacaoController(usuario);
         
         //Adicionando listeners nas entidades do menu
         telaPrincipal.CategoriaListener(new CategoriaListener());
@@ -57,7 +57,10 @@ public class PrincipalController {
     }
     
     
-
+    public Usuario getUsuario(){
+        return usuario;
+    }
+    
     class CategoriaListener implements ActionListener{
 
         @Override
