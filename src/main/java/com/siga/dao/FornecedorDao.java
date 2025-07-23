@@ -22,7 +22,7 @@ public class FornecedorDao implements InterfaceDao<Fornecedor> {
     @Override
     @SuppressWarnings("empty-statement")
     public void cadastrar(Fornecedor f) throws SQLException {
-        String sql = "INSERT INTO Fornecedor(razao_social, cnpj, telefone, endereco, email) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Fornecedor(razao_social, cnpj, telefone, endereco, email, ativo) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection conn = ConnectionFactory.getConnection()) {
             PreparedStatement pstm = conn.prepareStatement(sql);
             pstm.setString(1, f.getRazaoSocial());
@@ -30,6 +30,7 @@ public class FornecedorDao implements InterfaceDao<Fornecedor> {
             pstm.setString(3, f.getTelefone());
             pstm.setString(4, f.getEndereco());
             pstm.setString(5, f.getEmail());
+            pstm.setBoolean(6, f.isEnabled());
             pstm.execute();
         };
     }
@@ -37,7 +38,7 @@ public class FornecedorDao implements InterfaceDao<Fornecedor> {
     @Override
     @SuppressWarnings("empty-statement")
     public void atualizar(Fornecedor f) throws SQLException {
-        String sql = "UPDATE fornecedor SET razao_social = ?, cnpj = ?, telefone = ?, endereco = ?, email = ? where id_fornecedor = ?;";
+        String sql = "UPDATE fornecedor SET razao_social = ?, cnpj = ?, telefone = ?, endereco = ?, email = ?, ativo = ? where id_fornecedor = ?;";
 
         try (Connection conn = ConnectionFactory.getConnection()) {
             PreparedStatement pstm = conn.prepareStatement(sql);
@@ -46,7 +47,8 @@ public class FornecedorDao implements InterfaceDao<Fornecedor> {
             pstm.setString(3, f.getTelefone());
             pstm.setString(4, f.getEndereco());
             pstm.setString(5, f.getEmail());
-            pstm.setInt(6, f.getId());
+            pstm.setBoolean(6, f.isEnabled());
+            pstm.setInt(7, f.getId());
             pstm.execute();
         };
     }
@@ -76,6 +78,7 @@ public class FornecedorDao implements InterfaceDao<Fornecedor> {
                 f.setTelefone(rs.getString("telefone"));
                 f.setEndereco(rs.getString("endereco"));
                 f.setEmail(rs.getString("email"));
+                f.setEnabled(rs.getBoolean("ativo"));
                 listaFornecedor.add(f);
             }
         }
@@ -106,6 +109,7 @@ public class FornecedorDao implements InterfaceDao<Fornecedor> {
                     f.setEndereco(rs.getString("endereco"));
                     f.setTelefone(rs.getString("telefone"));
                     f.setEmail(rs.getString("email"));
+                    f.setEnabled(rs.getBoolean("ativo"));
                 }
             }
         }
@@ -137,12 +141,36 @@ public class FornecedorDao implements InterfaceDao<Fornecedor> {
                     f.setEndereco(rs.getString("endereco"));
                     f.setTelefone(rs.getString("telefone"));
                     f.setEmail(rs.getString("email"));
+                    f.setEnabled(rs.getBoolean("ativo"));
                 }
             }
         }
     
         // Retorna o fornecedor encontrado ou null se não achou
         return f;
+    }
+
+    @Override
+    public List<Fornecedor> listarAtivos(boolean bool) throws SQLException {
+        String sql = "SELECT * FROM fornecedor";
+        List<Fornecedor> listaFornecedor = new ArrayList<>();
+
+        try (Connection conn = ConnectionFactory.getConnection(); PreparedStatement pstm = conn.prepareStatement(sql)) {
+            ResultSet rs = pstm.executeQuery();
+            while (rs.next()) {
+                if(rs.getBoolean("Ativo") == bool){
+                Fornecedor f = new Fornecedor();
+                f.setId(rs.getInt("id_fornecedor"));
+                f.setRazaoSocial(rs.getString("razao_social"));
+                f.setCnpj(rs.getString("cnpj"));
+                f.setTelefone(rs.getString("telefone"));
+                f.setEndereco(rs.getString("endereco"));
+                f.setEmail(rs.getString("email"));
+                f.setEnabled(rs.getBoolean("ativo"));
+                listaFornecedor.add(f);
+            }}
+        }
+        return listaFornecedor;
     }
         
 }

@@ -8,11 +8,21 @@ import java.util.Objects;
 public abstract class Entidade{
     
     private int id;
+    private boolean ativo;
     
     public Entidade(){
         this.id = -1;
+        this.ativo = true;
     }
     
+    public void setEnabled(boolean bool){
+        this.ativo = bool;
+    }
+    
+    public boolean isEnabled(){
+        return this.ativo;
+    
+    }
     public int getId(){
         return this.id;
     }

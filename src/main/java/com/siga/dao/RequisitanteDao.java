@@ -14,7 +14,7 @@ public class RequisitanteDao implements InterfaceDao<Requisitante>{
 
     @Override
     public void cadastrar(Requisitante re) throws SQLException {
-        String sql = "INSERT INTO requisitante(nome_requisitante, setor, endereco) VALUES(?, ?, ?);";
+        String sql = "INSERT INTO requisitante(nome_requisitante, setor, endereco, ativo) VALUES(?, ?, ?, ?);";
         try(Connection conn = ConnectionFactory.getConnection();
                 PreparedStatement pstm = conn.prepareStatement(sql);){
             pstm.setString(1, re.getNome());
@@ -23,6 +23,7 @@ public class RequisitanteDao implements InterfaceDao<Requisitante>{
             System.out.println("get setor");
             pstm.setString(3, re.getEndereco());
             System.out.println("get endereco");
+            pstm.setBoolean(4, re.isEnabled());
             pstm.execute();
             System.out.println("executado");
         }
@@ -30,14 +31,16 @@ public class RequisitanteDao implements InterfaceDao<Requisitante>{
     
     @Override
     public void atualizar(Requisitante re) throws SQLException {
-        String sql = "UPDATE requisitante SET nome_requisitante = ?, setor = ?, endereco = ? where id_requisitante = ?;";
+        String sql = "UPDATE requisitante SET nome_requisitante = ?, setor = ?, endereco = ?, ativo = ? where id_requisitante = ?;";
         
         
         try(Connection conn = ConnectionFactory.getConnection(); PreparedStatement pstm = conn.prepareStatement(sql)){
             pstm.setString(1, re.getNome());
             pstm.setString(2, re.getSetor());
             pstm.setString(3, re.getEndereco());
-            pstm.setInt(4, re.getId());
+            pstm.setBoolean(4, re.isEnabled());
+            pstm.setInt(5, re.getId());
+            
             
             pstm.execute();
         }
@@ -69,6 +72,7 @@ public class RequisitanteDao implements InterfaceDao<Requisitante>{
                 re.setNome(rs.getString("nome_requisitante"));
                 re.setSetor(rs.getString("setor"));
                 re.setEndereco(rs.getString("endereco"));
+                re.setEnabled(rs.getBoolean("ativo"));
                 listaRequisitante.add(re);
             }
             
@@ -94,6 +98,7 @@ public class RequisitanteDao implements InterfaceDao<Requisitante>{
                     novoRequisitante.setEndereco(rs.getString("endereco"));
                     novoRequisitante.setSetor(rs.getString("setor"));
                     novoRequisitante.setId(rs.getInt("id_requisitante"));
+                    novoRequisitante.setEnabled(rs.getBoolean("ativo"));
                 }
             }
         
@@ -117,11 +122,38 @@ public class RequisitanteDao implements InterfaceDao<Requisitante>{
                     r.setNome(rs.getString("nome_requisitante"));
                     r.setSetor(rs.getString("setor"));
                     r.setEndereco(rs.getString("endereco"));
+                    r.setEnabled(rs.getBoolean("ativo"));
                 }
             }
         }
         
         return r;
+    }
+
+    @Override
+    public List<Requisitante> listarAtivos(boolean bool) throws SQLException {
+        String sql = "SELECT * FROM requisitante;";
+        List<Requisitante> listaRequisitante = new ArrayList<>();
+        
+        try(Connection conn = ConnectionFactory.getConnection();
+            PreparedStatement pstm = conn.prepareStatement(sql);
+            ResultSet rs = pstm.executeQuery();){
+            
+            while(rs.next()){
+                
+                if(rs.getBoolean("Ativo")){
+                    Requisitante re = new Requisitante();
+                    re.setId(rs.getInt("id_requisitante"));
+                    re.setNome(rs.getString("nome_requisitante"));
+                    re.setSetor(rs.getString("setor"));
+                    re.setEndereco(rs.getString("endereco"));
+                    re.setEnabled(rs.getBoolean("ativo"));
+                    listaRequisitante.add(re);
+                }
+            }
+            
+        }
+        return listaRequisitante;
     }
     
 }

@@ -1,9 +1,14 @@
 package com.siga.view.entidade;
 import com.siga.model.Entidade;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -36,6 +41,7 @@ public abstract class EntidadeView extends javax.swing.JPanel{
         jButtonExcluir = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         tabelaEntidade = new javax.swing.JTable();
+        viewCombobox = new javax.swing.JComboBox<>();
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -94,11 +100,16 @@ public abstract class EntidadeView extends javax.swing.JPanel{
         tabelaEntidade.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tabelaEntidade.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tabelaEntidade.setShowGrid(true);
-        tabelaEntidade.setShowHorizontalLines(true);
-        tabelaEntidade.setShowVerticalLines(true);
         tabelaEntidade.setUpdateSelectionOnSort(false);
         tabelaEntidade.setVerifyInputWhenFocusTarget(false);
         jScrollPane4.setViewportView(tabelaEntidade);
+
+        viewCombobox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {"Todos", "Ativos", "Inativos"}));
+        viewCombobox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewComboboxActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -110,6 +121,8 @@ public abstract class EntidadeView extends javax.swing.JPanel{
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabelEntidade)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(viewCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(100, 100, 100)
                         .addComponent(ButtonCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(layout.createSequentialGroup()
@@ -125,7 +138,8 @@ public abstract class EntidadeView extends javax.swing.JPanel{
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelEntidade)
-                    .addComponent(ButtonCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ButtonCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(viewCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -144,6 +158,10 @@ public abstract class EntidadeView extends javax.swing.JPanel{
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
+    private void viewComboboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewComboboxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_viewComboboxActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ButtonCadastrar;
@@ -154,6 +172,7 @@ public abstract class EntidadeView extends javax.swing.JPanel{
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTable jTable2;
     private javax.swing.JTable tabelaEntidade;
+    private javax.swing.JComboBox<String> viewCombobox;
     // End of variables declaration//GEN-END:variables
     
     //Define um contrato para ter o método "atualizarTabela" em todas as views que herdar dessa!
@@ -194,22 +213,82 @@ public abstract class EntidadeView extends javax.swing.JPanel{
     }
     
     //Define a quantidade e os nomes da coluna da tabela
-    public void setColunasTabela(String[] colunas){
-        DefaultTableModel tableModel = new DefaultTableModel(colunas, 0);
-        tabelaEntidade.getColumnModel().getColumn(0).setMaxWidth(10);
-        tabelaEntidade.setModel(tableModel);
-    }
+    public void setColunasTabela(String[] colunas) {
+    DefaultTableModel tableModel = new DefaultTableModel(colunas, 0) {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false; // Todas as células não editáveis
+        }
+    };
+    
+    tabelaEntidade.setModel(tableModel);
+    tabelaEntidade.getColumnModel().getColumn(0).setMaxWidth(10);
+}
     
     public void showMessage(String message){
         JOptionPane.showMessageDialog(null, message);
     }
     
     
+    public String getComboView(){
+        return (String) viewCombobox.getSelectedItem();
     
+    }
+    
+    public void addFiltroComboboxListener(ActionListener listener) {
+        viewCombobox.addActionListener(listener);
+    }
         
-        
-        
+    
+    
+    
+    private final Map<Integer, Color> linhasColoridas = new HashMap<>();
+
+    public void adicionarLinhasColoridas(int[] linhas, Color cor) {
+        for (int linha : linhas) {
+            linhasColoridas.put(linha, cor);
+        }
+
+        DefaultTableCellRenderer renderer = new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value,
+                    boolean isSelected, boolean hasFocus, int row, int column) {
+
+                Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+                if (!isSelected && linhasColoridas.containsKey(row)) {
+                    c.setBackground(linhasColoridas.get(row));
+                } else if (!isSelected) {
+                    c.setBackground(Color.WHITE); // ou table.getBackground()
+                } else {
+                    c.setBackground(table.getSelectionBackground());
+                }
+
+                return c;
+            }
+        };
+
+        for (int i = 0; i < tabelaEntidade.getColumnCount(); i++) {
+            tabelaEntidade.getColumnModel().getColumn(i).setCellRenderer(renderer);
+        }
+
+        tabelaEntidade.repaint();
+    }
+};
+
+    
+    
+    
+    
+    
+    
+   
+
+
+    
     
 
     
-}
+
+    
+

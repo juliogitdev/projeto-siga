@@ -9,6 +9,7 @@ import com.siga.model.Requisitante;
 import com.siga.view.cadastros.Dialog.DialogEntidade;
 import com.siga.view.cadastros.Dialog.DialogRequisitante;
 import com.siga.view.entidade.EntidadeView;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -32,13 +33,15 @@ public abstract class EntidadeController {
 
     public EntidadeController(EntidadeView entidadeView, InterfaceDao entidadeDao, DialogEntidade dial) {
         this.entidadeView = entidadeView;
-        this.entidadeDao = (InterfaceDao) entidadeDao;
+        this.entidadeDao = entidadeDao;
         this.dialogEntidade = dial;
 
         entidadeView.addEntidadeListenner(new AddEntidadeListener());
         entidadeView.editarEntidadeListener(new EditarEntidadeListener());
         entidadeView.excluirEntidadeListener(new ExcluirEntidadeListener());
+        entidadeView.addFiltroComboboxListener(new FiltroComboboxListener()); // 🔥 Aqui é o novo listener
     }
+
 
     public List<InterfaceDao> getTodasEntidades() throws SQLException {
         return getEntidadeDao().listarTodos();
@@ -81,7 +84,40 @@ public abstract class EntidadeController {
     }
 
     public void listarEntidadesTabela() throws SQLException {
-        getView().atualizarTabela(getEntidadeDao().listarTodos());
+        String comboBoxSelect = getView().getComboView();
+        
+        switch (comboBoxSelect){
+            case "Todos":
+                
+                getView().atualizarTabela(getEntidadeDao().listarTodos());
+                break;
+            
+            case "Ativos":
+                
+                getView().atualizarTabela(getEntidadeDao().listarAtivos(true));
+                break;
+                
+            case "Inativos":
+                getView().atualizarTabela(getEntidadeDao().listarAtivos(false));
+                break;
+        }
+        
+        pintarTabela();
+        
+        
+    }
+    
+    public void pintarTabela() throws SQLException{
+        List<Entidade> entidades = getEntidadeDao().listarTodos();
+
+        for (int i = 0; i < entidades.size(); i++) {
+            if (entidades.get(i).isEnabled()) {
+                getView().adicionarLinhasColoridas(new int[]{i}, new Color(144, 238, 144));
+            } else {
+                getView().adicionarLinhasColoridas(new int[]{i}, new Color(255, 105, 97));
+            }
+        }
+    
     }
 
     public void setVisibleDialog() {
@@ -203,4 +239,16 @@ public abstract class EntidadeController {
         }
 
     }
+    
+    class FiltroComboboxListener implements ActionListener {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        try {
+            listarEntidadesTabela();
+        } catch (SQLException ex) {
+            Logger.getLogger(EntidadeController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+}
+
 }
