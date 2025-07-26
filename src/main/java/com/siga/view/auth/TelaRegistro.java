@@ -226,7 +226,7 @@ public class TelaRegistro extends javax.swing.JFrame {
     //Metodo para chamar a view de login
     private void buttonViewCadastroUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonViewCadastroUserActionPerformed
         dispose();
-        new LoginController(new TelaLogin(), new UsuarioDao());
+        new LoginController();
     }//GEN-LAST:event_buttonViewCadastroUserActionPerformed
     
     

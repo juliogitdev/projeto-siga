@@ -16,10 +16,10 @@ public class LoginController{
     private TelaLogin telaLogin;
     private UsuarioDao usuarioDao;
 
-    public LoginController(TelaLogin tl, UsuarioDao ud) {
-        this.telaLogin = tl;
-        this.usuarioDao = ud;
-        tl.setVisible(true);
+    public LoginController() {
+        this.telaLogin = new TelaLogin();
+        this.usuarioDao = new UsuarioDao();
+        this.telaLogin.setVisible(true);
         this.telaLogin.addLoginListener(new LoginListener());
     }
 

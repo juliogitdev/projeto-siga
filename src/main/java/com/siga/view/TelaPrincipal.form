@@ -4,9 +4,14 @@
   <NonVisualComponents>
     <Menu class="javax.swing.JMenuBar" name="Menu">
       <SubComponents>
+        <Menu class="javax.swing.JMenu" name="AjudaMenu3">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Inicio"/>
+          </Properties>
+        </Menu>
         <Menu class="javax.swing.JMenu" name="EntidadesMenu">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Entidades"/>
+            <Property name="text" type="java.lang.String" value="Gerenciar"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="MenuItemFornecedor">
@@ -37,21 +42,9 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuItemMovimentacacaoActionPerformed"/>
               </Events>
             </MenuItem>
-          </SubComponents>
-        </Menu>
-        <Menu class="javax.swing.JMenu" name="MovimentacoesMenu">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Movimenta&#xe7;&#xf5;es"/>
-          </Properties>
-          <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="MenuItemEntrada">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Entrada de Itens"/>
-              </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="MenuItemSaida">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Sa&#xed;da de Itens"/>
+                <Property name="text" type="java.lang.String" value="Itens Movimentados"/>
               </Properties>
             </MenuItem>
           </SubComponents>
@@ -66,37 +59,63 @@
                 <Property name="text" type="java.lang.String" value="Estoque Atual"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="MenuItemHistoricoMov">
+            <MenuItem class="javax.swing.JMenuItem" name="gerarRelatorio">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Hist&#xf3;rico de Movimenta&#xe7;&#xf5;es"/>
-              </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="MenuItemItensCategoria">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Itens por Categoria"/>
-              </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="MenuItemItensFornecedor">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Itens por Fornecedor"/>
+                <Property name="text" type="java.lang.String" value="Gerar Relat&#xf3;rio"/>
               </Properties>
             </MenuItem>
           </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="gerenciarUsuarioMenu">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Gerenciar Usuarios"/>
+          </Properties>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="almoxarifadoMenu">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Almoxarifado"/>
+          </Properties>
         </Menu>
         <Menu class="javax.swing.JMenu" name="AjudaMenu">
           <Properties>
             <Property name="text" type="java.lang.String" value="Ajuda"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="MenuItemManual">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Manual de Usu&#xe1;rio"/>
-              </Properties>
-            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="MenuItemSobre">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Sobre"/>
               </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="MenuItemManual">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Manual de Usu&#xe1;rio"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuItemManualActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="AjudaMenu4">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Meu Perfil"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="editarPerfilMenu">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Editar Perfil"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="editarPerfilMenuActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="logout">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Desconectar"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="logoutActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>

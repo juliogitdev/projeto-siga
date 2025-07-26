@@ -1,5 +1,6 @@
 package com.siga.view;
 
+import com.siga.controller.auth.LoginController;
 import java.awt.BorderLayout;
 import java.awt.Panel;
 import java.awt.event.ActionListener;
@@ -31,23 +32,25 @@ public class TelaPrincipal extends javax.swing.JFrame {
         PanelConteudo = new javax.swing.JPanel();
         LabelUsuario = new javax.swing.JLabel();
         Menu = new javax.swing.JMenuBar();
+        AjudaMenu3 = new javax.swing.JMenu();
         EntidadesMenu = new javax.swing.JMenu();
         MenuItemFornecedor = new javax.swing.JMenuItem();
         MenuItemCategoria = new javax.swing.JMenuItem();
         MenuItemProduto = new javax.swing.JMenuItem();
         MenuItemRequisitante = new javax.swing.JMenuItem();
         MenuItemMovimentacacao = new javax.swing.JMenuItem();
-        MovimentacoesMenu = new javax.swing.JMenu();
         MenuItemEntrada = new javax.swing.JMenuItem();
-        MenuItemSaida = new javax.swing.JMenuItem();
         RelatoriosMenu = new javax.swing.JMenu();
         MenuItemEstoque = new javax.swing.JMenuItem();
-        MenuItemHistoricoMov = new javax.swing.JMenuItem();
-        MenuItemItensCategoria = new javax.swing.JMenuItem();
-        MenuItemItensFornecedor = new javax.swing.JMenuItem();
+        gerarRelatorio = new javax.swing.JMenuItem();
+        gerenciarUsuarioMenu = new javax.swing.JMenu();
+        almoxarifadoMenu = new javax.swing.JMenu();
         AjudaMenu = new javax.swing.JMenu();
-        MenuItemManual = new javax.swing.JMenuItem();
         MenuItemSobre = new javax.swing.JMenuItem();
+        MenuItemManual = new javax.swing.JMenuItem();
+        AjudaMenu4 = new javax.swing.JMenu();
+        editarPerfilMenu = new javax.swing.JMenuItem();
+        logout = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -94,7 +97,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         LabelUsuario.setText("Usuário:");
 
-        EntidadesMenu.setText("Entidades");
+        AjudaMenu3.setText("Inicio");
+        Menu.add(AjudaMenu3);
+
+        EntidadesMenu.setText("Gerenciar");
 
         MenuItemFornecedor.setText("Fornecedor");
         EntidadesMenu.add(MenuItemFornecedor);
@@ -116,43 +122,61 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         EntidadesMenu.add(MenuItemMovimentacacao);
 
+        MenuItemEntrada.setText("Itens Movimentados");
+        EntidadesMenu.add(MenuItemEntrada);
+
         Menu.add(EntidadesMenu);
-
-        MovimentacoesMenu.setText("Movimentações");
-
-        MenuItemEntrada.setText("Entrada de Itens");
-        MovimentacoesMenu.add(MenuItemEntrada);
-
-        MenuItemSaida.setText("Saída de Itens");
-        MovimentacoesMenu.add(MenuItemSaida);
-
-        Menu.add(MovimentacoesMenu);
 
         RelatoriosMenu.setText("Relatórios");
 
         MenuItemEstoque.setText("Estoque Atual");
         RelatoriosMenu.add(MenuItemEstoque);
 
-        MenuItemHistoricoMov.setText("Histórico de Movimentações");
-        RelatoriosMenu.add(MenuItemHistoricoMov);
-
-        MenuItemItensCategoria.setText("Itens por Categoria");
-        RelatoriosMenu.add(MenuItemItensCategoria);
-
-        MenuItemItensFornecedor.setText("Itens por Fornecedor");
-        RelatoriosMenu.add(MenuItemItensFornecedor);
+        gerarRelatorio.setText("Gerar Relatório");
+        RelatoriosMenu.add(gerarRelatorio);
 
         Menu.add(RelatoriosMenu);
 
-        AjudaMenu.setText("Ajuda");
+        gerenciarUsuarioMenu.setText("Gerenciar Usuarios");
+        Menu.add(gerenciarUsuarioMenu);
 
-        MenuItemManual.setText("Manual de Usuário");
-        AjudaMenu.add(MenuItemManual);
+        almoxarifadoMenu.setText("Almoxarifado");
+        Menu.add(almoxarifadoMenu);
+
+        AjudaMenu.setText("Ajuda");
 
         MenuItemSobre.setText("Sobre");
         AjudaMenu.add(MenuItemSobre);
 
+        MenuItemManual.setText("Manual de Usuário");
+        MenuItemManual.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuItemManualActionPerformed(evt);
+            }
+        });
+        AjudaMenu.add(MenuItemManual);
+
         Menu.add(AjudaMenu);
+
+        AjudaMenu4.setText("Meu Perfil");
+
+        editarPerfilMenu.setText("Editar Perfil");
+        editarPerfilMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editarPerfilMenuActionPerformed(evt);
+            }
+        });
+        AjudaMenu4.add(editarPerfilMenu);
+
+        logout.setText("Desconectar");
+        logout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutActionPerformed(evt);
+            }
+        });
+        AjudaMenu4.add(logout);
+
+        Menu.add(AjudaMenu4);
 
         setJMenuBar(Menu);
 
@@ -184,6 +208,23 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         // TODO add your handling code here:
     }//GEN-LAST:event_MenuItemMovimentacacaoActionPerformed
+
+    private void MenuItemManualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemManualActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MenuItemManualActionPerformed
+
+    private void editarPerfilMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarPerfilMenuActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_editarPerfilMenuActionPerformed
+
+    private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutActionPerformed
+
+        // TODO add your handling code here:
+        
+        this.dispose();
+        new LoginController();
+        
+    }//GEN-LAST:event_logoutActionPerformed
 
     
     /**
@@ -224,6 +265,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu AjudaMenu;
+    private javax.swing.JMenu AjudaMenu3;
+    private javax.swing.JMenu AjudaMenu4;
     private javax.swing.JMenu EntidadesMenu;
     private javax.swing.JLabel LabelUsuario;
     private javax.swing.JMenuBar Menu;
@@ -231,19 +274,19 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem MenuItemEntrada;
     private javax.swing.JMenuItem MenuItemEstoque;
     private javax.swing.JMenuItem MenuItemFornecedor;
-    private javax.swing.JMenuItem MenuItemHistoricoMov;
-    private javax.swing.JMenuItem MenuItemItensCategoria;
-    private javax.swing.JMenuItem MenuItemItensFornecedor;
     private javax.swing.JMenuItem MenuItemManual;
     private javax.swing.JMenuItem MenuItemMovimentacacao;
     private javax.swing.JMenuItem MenuItemProduto;
     private javax.swing.JMenuItem MenuItemRequisitante;
-    private javax.swing.JMenuItem MenuItemSaida;
     private javax.swing.JMenuItem MenuItemSobre;
-    private javax.swing.JMenu MovimentacoesMenu;
     private javax.swing.JPanel PanelConteudo;
     private javax.swing.JPanel PanelSiga;
     private javax.swing.JMenu RelatoriosMenu;
+    private javax.swing.JMenu almoxarifadoMenu;
+    private javax.swing.JMenuItem editarPerfilMenu;
+    private javax.swing.JMenuItem gerarRelatorio;
+    private javax.swing.JMenu gerenciarUsuarioMenu;
+    private javax.swing.JMenuItem logout;
     private javax.swing.JLabel textSiga;
     // End of variables declaration//GEN-END:variables
 
@@ -280,8 +323,25 @@ public class TelaPrincipal extends javax.swing.JFrame {
         MenuItemMovimentacacao.addActionListener(listener);
     }
     
+    public void perfilListener(ActionListener listener){
+        editarPerfilMenu.addActionListener(listener);
+    }
+    
     //Coloca o nome do usuario no canto inferior esquerdo da programa
     public void setLabelUsuario(String nome){
         LabelUsuario.setText("Usuario: " + nome);
+    }
+    
+    public void setVisibleAlmoxarifadoMenu(boolean b){
+        almoxarifadoMenu.setVisible(b);
+    }
+    
+    public void setVisibleGerenciarUsuariosMenu(boolean b){
+        gerenciarUsuarioMenu.setVisible(b);
+    }
+    
+    public void setVisibleViewAdmin(boolean b){
+        setVisibleAlmoxarifadoMenu(b);
+        setVisibleGerenciarUsuariosMenu(b);
     }
 }
