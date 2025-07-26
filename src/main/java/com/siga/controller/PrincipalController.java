@@ -31,20 +31,18 @@ public class PrincipalController {
     private RequisitanteController requisitanteController;
     private ProdutoController produtoController;
     private MovimentacaoController movimentacaoController;
+    private PerfilController perfilController;
     private Usuario usuario;
    
     public PrincipalController(TelaPrincipal telaPrincipal, Usuario usuario) {
         this.telaPrincipal = telaPrincipal;
-        
-        //Deixa a tela principal visivel
-        telaPrincipal.setVisible(true);
-        telaPrincipal.setLabelUsuario(usuario.getNome());
-        
+        this.usuario = usuario;
+        this.perfilController = new PerfilController(telaPrincipal, usuario);
         this.categoriaController = new CategoriaController();
         this.fornecedorController = new FornecedorController();
         this.requisitanteController = new RequisitanteController();
         this.produtoController = new ProdutoController();
-        this.usuario = usuario;
+        
         this.movimentacaoController = new MovimentacaoController(usuario);
         
         //Adicionando listeners nas entidades do menu
@@ -53,9 +51,25 @@ public class PrincipalController {
         telaPrincipal.RequisitanteListener(new RequisitanteListener());
         telaPrincipal.ProdutoListener(new ProdutoListener());
         telaPrincipal.MovimentacaoListener(new MovimentacaoListener());
+        telaPrincipal.perfilListener(new EditarPerfilListener());
+        viewAdmin();
+        
+        //Deixa a tela principal visivel
+        telaPrincipal.setLabelUsuario(usuario.getNome());
+        telaPrincipal.setVisible(true);
         
     }
     
+    public void viewAdmin(){
+        Usuario u = getUsuario();
+        System.out.println(u.getNivelAcesso());
+        if(u.getNivelAcesso() == 1){
+            telaPrincipal.setVisibleViewAdmin(true);
+            return;
+        }
+        
+        telaPrincipal.setVisibleViewAdmin(false);
+    }
     
     public Usuario getUsuario(){
         return usuario;
@@ -135,6 +149,16 @@ public class PrincipalController {
             }catch(SQLException ex){
                 System.out.println(ex);
             }
+        }
+        
+    }
+    
+    class EditarPerfilListener implements ActionListener{
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            perfilController.iniciar();
+            telaPrincipal.setLabelUsuario(perfilController.getUsuario().getNome());
         }
         
     }

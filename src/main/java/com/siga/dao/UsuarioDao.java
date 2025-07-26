@@ -65,6 +65,7 @@ public class UsuarioDao implements InterfaceDao<Usuario>{
                 u.setSenha(resultset.getString("senha"));
                 u.setId(resultset.getInt("id_usuario"));
                 u.setEnabled(resultset.getBoolean("ativo"));
+                u.setNivelAcesso(resultset.getInt("nivel_acesso"));
                 listaUsuario.add(u);
             }
             
@@ -94,6 +95,7 @@ public class UsuarioDao implements InterfaceDao<Usuario>{
                     u.setNome(rs.getString("nome_completo"));
                     u.setSenha(rs.getString("senha"));
                     u.setEnabled(rs.getBoolean("ativo"));
+                    u.setNivelAcesso(rs.getInt("nivel_acesso"));
                 }
             }
             
@@ -119,6 +121,8 @@ public class UsuarioDao implements InterfaceDao<Usuario>{
                     u.setNome(rs.getString("nome_completo"));
                     u.setSenha(rs.getString("senha"));
                     u.setEnabled(rs.getBoolean("ativo"));
+                    u.setNivelAcesso(rs.getInt("nivel_acesso"));
+
                 }
             }
         }
@@ -144,6 +148,7 @@ public class UsuarioDao implements InterfaceDao<Usuario>{
                     u.setSenha(resultset.getString("senha"));
                     u.setId(resultset.getInt("id_usuario"));
                     u.setEnabled(resultset.getBoolean("ativo"));
+                    u.setNivelAcesso(resultset.getInt("nivel_acesso"));
                     listaUsuario.add(u);
                 }
             }
@@ -152,6 +157,26 @@ public class UsuarioDao implements InterfaceDao<Usuario>{
         
         }
         return listaUsuario;
+    }
+    
+    public void alterNivelUsuario(Usuario user, int nivelNovo){
+        String sql = "UPDATE usuario SET nivel_acesso = ? where id_usuario = ?;";
+        
+        try(Connection connection  = ConnectionFactory.getConnection(); PreparedStatement pstm = connection.prepareStatement(sql)){
+            pstm.setInt(1, nivelNovo);
+            pstm.setInt(2, user.getId());
+            
+            pstm.executeQuery();
+            
+            
+            
+            
+        }catch(SQLException ex){
+            System.out.println("Falha ao atualizar nível de acesso!");
+            System.out.println("Error: " + ex);
+        }
+        
+        
     }
 }
     

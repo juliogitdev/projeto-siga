@@ -6,6 +6,7 @@ public class Usuario extends Entidade{
     private String nome;
     private String email;
     private String senha;
+    private int nivelAcesso;
 
     public Usuario() {
         super();
@@ -40,6 +41,14 @@ public class Usuario extends Entidade{
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public int getNivelAcesso() {
+        return nivelAcesso;
+    }
+
+    public void setNivelAcesso(int nivelAcesso) {
+        this.nivelAcesso = nivelAcesso;
     }
     
     
