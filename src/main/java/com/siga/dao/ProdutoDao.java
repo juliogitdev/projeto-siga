@@ -84,14 +84,7 @@ public class ProdutoDao implements InterfaceDao<Produto>{
 
     @Override
     public void deletar(Produto p) throws SQLException {
-        String sql = "DELETE FROM produto WHERE id_produto = ?;";
-        
-        try(Connection conn = ConnectionFactory.getConnection();
-            PreparedStatement pstm = conn.prepareStatement(sql);){
-            
-            pstm.setInt(1, p.getId());
-            
-        }
+        MainDao.deletarPermanentemente("produto", p);
         
     }
 

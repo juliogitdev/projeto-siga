@@ -3,6 +3,7 @@ import com.siga.model.Entidade;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -96,12 +97,18 @@ public abstract class EntidadeView extends javax.swing.JPanel{
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tabelaEntidade.getTableHeader().setReorderingAllowed(false);
         tabelaEntidade.setRowHeight(30);
         tabelaEntidade.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tabelaEntidade.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tabelaEntidade.setShowGrid(true);
         tabelaEntidade.setUpdateSelectionOnSort(false);
         tabelaEntidade.setVerifyInputWhenFocusTarget(false);
+        tabelaEntidade.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaEntidadeMouseClicked(evt);
+            }
+        });
         jScrollPane4.setViewportView(tabelaEntidade);
 
         viewCombobox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {"Todos", "Ativos", "Inativos"}));
@@ -124,12 +131,12 @@ public abstract class EntidadeView extends javax.swing.JPanel{
                         .addComponent(viewCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(100, 100, 100)
                         .addComponent(ButtonCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jButtonExcluir)
-                            .addGap(22, 22, 22)
-                            .addComponent(jButtonEditar))
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 753, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(571, 571, 571)
+                        .addComponent(jButtonExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonEditar))
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 753, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(128, 128, 128))
         );
         layout.setVerticalGroup(
@@ -161,6 +168,10 @@ public abstract class EntidadeView extends javax.swing.JPanel{
     private void viewComboboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewComboboxActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_viewComboboxActionPerformed
+
+    private void tabelaEntidadeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaEntidadeMouseClicked
+        
+    }//GEN-LAST:event_tabelaEntidadeMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -274,6 +285,15 @@ public abstract class EntidadeView extends javax.swing.JPanel{
 
         tabelaEntidade.repaint();
     }
+    
+    public void setButExcluirText(String str){
+        jButtonExcluir.setText(str);
+    }
+    
+    public void tabelaEntidadeMouseListener(MouseListener listener) {
+    tabelaEntidade.addMouseListener(listener);
+}
+
 };
 
     

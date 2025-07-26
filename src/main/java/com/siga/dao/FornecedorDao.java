@@ -55,12 +55,7 @@ public class FornecedorDao implements InterfaceDao<Fornecedor> {
 
     @Override
     public void deletar(Fornecedor f) throws SQLException {
-        String sql = "DELETE FROM fornecedor WHERE id_fornecedor = ?;";
-
-        try (Connection connection = ConnectionFactory.getConnection(); PreparedStatement pstm = connection.prepareStatement(sql)) {
-            pstm.setInt(1, f.getId());
-            pstm.execute();
-        }
+        MainDao.deletarPermanentemente("fornecedor", f);
     }
 
     @Override

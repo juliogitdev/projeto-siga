@@ -45,17 +45,10 @@ public class CategoriaDao implements InterfaceDao<Categoria>{
     }
     @Override
     public void deletar(Categoria categoria) throws SQLException{
-        String sql = "DELETE FROM categoria WHERE id_categoria = ?;";
-        
-        try(Connection conn = ConnectionFactory.getConnection();
-            PreparedStatement pstm = conn.prepareStatement(sql);){
-            
-            pstm.setInt(1, categoria.getId());
-            pstm.execute();
-            
-        }
-        
+        MainDao.deletarPermanentemente("categoria", categoria);
     }
+    
+    
     @Override
     public List<Categoria> listarTodos()throws SQLException{
         String sql = "SELECT * FROM categoria;";

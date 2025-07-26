@@ -48,13 +48,7 @@ public class RequisitanteDao implements InterfaceDao<Requisitante>{
         
     @Override
     public void deletar(Requisitante re) throws SQLException {
-        String sql = "DELETE FROM requisitante WHERE id_requisitante = ?;";
-        
-        try(Connection conn = ConnectionFactory.getConnection(); PreparedStatement pstm = conn.prepareStatement(sql);){
-            pstm.setInt(1, re.getId());
-            
-            pstm.execute();
-        }
+        MainDao.deletarPermanentemente("requisitante", re);
     }
 
     @Override

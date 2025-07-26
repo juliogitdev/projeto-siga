@@ -5,6 +5,8 @@ import com.siga.dao.InterfaceDao;
 import com.siga.dao.MainDao;
 import com.siga.dao.RequisitanteDao;
 import com.siga.model.Entidade;
+import com.siga.model.Fornecedor;
+import com.siga.model.Produto;
 import com.siga.model.Requisitante;
 import com.siga.view.cadastros.Dialog.DialogEntidade;
 import com.siga.view.cadastros.Dialog.DialogRequisitante;
@@ -12,12 +14,16 @@ import com.siga.view.entidade.EntidadeView;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -40,6 +46,7 @@ public abstract class EntidadeController {
         entidadeView.editarEntidadeListener(new EditarEntidadeListener());
         entidadeView.excluirEntidadeListener(new ExcluirEntidadeListener());
         entidadeView.addFiltroComboboxListener(new FiltroComboboxListener()); // 🔥 Aqui é o novo listener
+        configurarButExcluir();
     }
 
 
@@ -90,6 +97,7 @@ public abstract class EntidadeController {
             case "Todos":
                 
                 getView().atualizarTabela(getEntidadeDao().listarTodos());
+                
                 break;
             
             case "Ativos":
@@ -109,15 +117,24 @@ public abstract class EntidadeController {
     
     public void pintarTabela() throws SQLException{
         List<Entidade> entidades = getEntidadeDao().listarTodos();
+        List<Integer> idsAtivos = new ArrayList<>();
+        DefaultTableModel model = (DefaultTableModel) entidadeView.getTabelaEntidade().getModel();
+       
 
         for (int i = 0; i < entidades.size(); i++) {
             if (entidades.get(i).isEnabled()) {
-                getView().adicionarLinhasColoridas(new int[]{i}, new Color(144, 238, 144));
-            } else {
-                getView().adicionarLinhasColoridas(new int[]{i}, new Color(255, 105, 97));
+                idsAtivos.add(entidades.get(i).getId());
             }
         }
-    
+        
+        for (int linha = 0;linha< model.getRowCount(); linha++){
+            int id = (Integer) model.getValueAt(linha, 0);
+            if(idsAtivos.contains(id)){
+               getView().adicionarLinhasColoridas(new int[]{linha}, new Color(144, 238, 144));
+            }else{
+                getView().adicionarLinhasColoridas(new int[]{linha}, new Color(255, 105, 97));
+            }
+        }
     }
 
     public void setVisibleDialog() {
@@ -219,25 +236,75 @@ public abstract class EntidadeController {
 
             if (isRowSelected()) {
                 int id = getIdSelected();
-
+                String palavraAcao = null;
+                
+                Entidade entidade = null;
+                Boolean entidadeAtivavel;
+                
+                
                 try {
-                    //Exibe uma mensagem solicitando confirmação e retorna uma CONSTANTE indicando a resposta do usuario
-                    int resposta = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir?", "Excluir", JOptionPane.YES_OPTION);
-
-                    if (resposta == JOptionPane.YES_OPTION) {
-                        entidadeDao.deletar(entidadeDao.buscarPorId(id));
-                        listarEntidadesTabela();
-                        getView().showMessage("Entidade excluido com sucesso");
-
-                        return;
-                    }
-
+                    entidade = (Entidade) entidadeDao.buscarPorId(id);
                 } catch (SQLException ex) {
-                    System.out.println("Falha ao buscar Entidade para excluir");
+                    Logger.getLogger(EntidadeController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                entidadeAtivavel = isAtivavel(entidade)
+                        ;
+                if(entidadeAtivavel){
+                    if(entidade.isEnabled()){
+                        palavraAcao = "inativar?";
+                    }else{
+                        palavraAcao = "ativar?";
+                    }
+                }else{
+                    palavraAcao = "excluir?";
+                }
+                
+                int resposta = confirmarAcao(palavraAcao);
+                
+                
+                if(resposta == JOptionPane.YES_OPTION){
+                    if(entidadeAtivavel){
+                        if(entidade.isEnabled()){
+                            entidade.setEnabled(false);
+                        }else{
+                            entidade.setEnabled(true);
+                        }
+                        
+                        try {
+                            entidadeDao.atualizar(entidade);
+                        } catch (SQLException ex) {
+                            Logger.getLogger(EntidadeController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }else{
+                        try {
+                            entidadeDao.deletar(entidade);
+                        } catch (SQLException ex) {
+                            Logger.getLogger(EntidadeController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                }
+                
+                try {
+                    listarEntidadesTabela();
+                } catch (SQLException ex) {
+                    Logger.getLogger(EntidadeController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
 
+    }
+    
+    private boolean isAtivavel(Entidade ent){
+        return(ent instanceof Produto|| ent instanceof Fornecedor || ent instanceof Requisitante);
+    }
+    
+    private int confirmarAcao(String str){
+        String frase = "Tem certeza que deseja ";
+        String fraseCompleta = frase + str;
+        
+        int resposta = JOptionPane.showConfirmDialog(null, fraseCompleta, "Confirmar alteração", JOptionPane.YES_OPTION);
+        return resposta;
     }
     
     class FiltroComboboxListener implements ActionListener {
@@ -250,5 +317,39 @@ public abstract class EntidadeController {
         }
     }
 }
+    
+     private void configurarButExcluir() {
+        entidadeView.tabelaEntidadeMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int id = getIdSelected();
+                Entidade entidade= null;
+                
+                try {
+                    entidade = (Entidade) getEntidadeDao().buscarPorId(id);
+                } catch (SQLException ex) {
+                    Logger.getLogger(EntidadeController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                if(isAtivavel(entidade)){
+                    if(entidade.isEnabled()){
+                        entidadeView.setButExcluirText("INATIVAR");
+                    }else{
+                        entidadeView.setButExcluirText("ATIVAR");
+                    }
+                
+                }else{
+                    entidadeView.setButExcluirText("EXCLUIR");
+                }
+               
+            }
+             
+        
+        });
+    }
+            
+            
+    
+  
 
 }

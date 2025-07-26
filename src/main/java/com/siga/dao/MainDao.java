@@ -1,6 +1,7 @@
 
 package com.siga.dao;
 
+import com.siga.model.Entidade;
 import com.siga.util.ConnectionFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -80,6 +81,19 @@ public abstract class MainDao implements InterfaceDao{
         }
         
         return listaAtributos;
+    }
+    
+    public static void deletarPermanentemente(String tipoEntidade, Entidade ent) throws SQLException{
+        String sql = "DELETE FROM " + tipoEntidade + " WHERE id_categoria = ?;";
+        
+        try(Connection conn = ConnectionFactory.getConnection();
+            PreparedStatement pstm = conn.prepareStatement(sql);){
+            
+            pstm.setInt(1, ent.getId());
+            pstm.execute();
+            
+        }
+    
     }
 
     @Override

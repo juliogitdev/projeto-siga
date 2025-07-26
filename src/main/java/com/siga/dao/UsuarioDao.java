@@ -44,12 +44,8 @@ public class UsuarioDao implements InterfaceDao<Usuario>{
     }
     @Override
     public void deletar(Usuario usuario) throws SQLException{
-        String sql = "DELETE FROM usuario WHERE id_usuario = ?;";
-        
-        try(Connection connection = ConnectionFactory.getConnection(); PreparedStatement pstm = connection.prepareStatement(sql)){
-            pstm.setInt(1, usuario.getId());
-            pstm.execute();
-        }}
+        MainDao.deletarPermanentemente("usuario", usuario);
+    }
         
     @Override
     public List<Usuario> listarTodos() throws SQLException{
