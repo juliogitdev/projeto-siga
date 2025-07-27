@@ -1,6 +1,7 @@
 package com.siga.dto;
 
 
+import com.siga.dto.classesAbstratas.RelatorioMovimentacaoEntidade;
 import com.siga.model.Entidade;
 import com.siga.model.Produto;
 import com.siga.model.Requisitante;
@@ -16,12 +17,11 @@ public class RelatorioMovimentacaoRequisitante extends RelatorioMovimentacaoEnti
         
     }
     
-    @Override
-    public Entidade getEntidade() {
+    
+    public Requisitante getEntidade() {
         return requisitante;
     }
 
-    @Override
     public void setEntidade(Entidade entidade) {
         this.requisitante = (Requisitante) entidade;
     }

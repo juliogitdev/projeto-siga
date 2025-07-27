@@ -49,20 +49,21 @@
             </MenuItem>
           </SubComponents>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="RelatoriosMenu">
+        <Menu class="javax.swing.JMenu" name="RelatoriosButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Relat&#xf3;rios"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="RelatoriosButtonActionPerformed"/>
+          </Events>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="MenuItemEstoque">
+            <MenuItem class="javax.swing.JMenuItem" name="ConsultarRelatorioButton">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Estoque Atual"/>
+                <Property name="text" type="java.lang.String" value="Consultar Rel&#xe1;torio"/>
               </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="gerarRelatorio">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Gerar Relat&#xf3;rio"/>
-              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ConsultarRelatorioButtonActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>

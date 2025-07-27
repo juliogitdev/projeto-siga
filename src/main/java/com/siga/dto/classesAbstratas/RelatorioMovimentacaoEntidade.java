@@ -1,4 +1,4 @@
-package com.siga.dto;
+package com.siga.dto.classesAbstratas;
 
 
 import com.siga.model.Entidade;
@@ -51,7 +51,5 @@ public abstract class RelatorioMovimentacaoEntidade {
         return produto;
     }
 
-    public abstract Entidade getEntidade();
-    public abstract void setEntidade(Entidade entidade);
     
 }

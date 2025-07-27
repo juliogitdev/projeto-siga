@@ -1,5 +1,6 @@
 package com.siga.dto;
 
+import com.siga.dto.classesAbstratas.RelatorioMovimentacaoEntidade;
 import com.siga.model.Entidade;
 import com.siga.model.Produto;
 import com.siga.model.Fornecedor;
@@ -15,13 +16,15 @@ public class RelatorioMovimentacaoFornecedor extends RelatorioMovimentacaoEntida
         this.fornecedor = fornecedor;
     }
 
-    @Override
-    public Entidade getEntidade() {
+
+    public Fornecedor getEntidade() {
         return fornecedor;
     }
 
-    @Override
+
     public void setEntidade(Entidade entidade) {
         this.fornecedor = (Fornecedor) entidade;
     }
+
+    
 }

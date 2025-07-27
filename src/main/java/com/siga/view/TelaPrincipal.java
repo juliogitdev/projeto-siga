@@ -40,9 +40,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         MenuItemRequisitante = new javax.swing.JMenuItem();
         MenuItemMovimentacacao = new javax.swing.JMenuItem();
         MenuItemEntrada = new javax.swing.JMenuItem();
-        RelatoriosMenu = new javax.swing.JMenu();
-        MenuItemEstoque = new javax.swing.JMenuItem();
-        gerarRelatorio = new javax.swing.JMenuItem();
+        RelatoriosButton = new javax.swing.JMenu();
+        ConsultarRelatorioButton = new javax.swing.JMenuItem();
         gerenciarUsuarioMenu = new javax.swing.JMenu();
         almoxarifadoMenu = new javax.swing.JMenu();
         AjudaMenu = new javax.swing.JMenu();
@@ -127,15 +126,22 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         Menu.add(EntidadesMenu);
 
-        RelatoriosMenu.setText("Relatórios");
+        RelatoriosButton.setText("Relatórios");
+        RelatoriosButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RelatoriosButtonActionPerformed(evt);
+            }
+        });
 
-        MenuItemEstoque.setText("Estoque Atual");
-        RelatoriosMenu.add(MenuItemEstoque);
+        ConsultarRelatorioButton.setText("Consultar Relátorio");
+        ConsultarRelatorioButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ConsultarRelatorioButtonActionPerformed(evt);
+            }
+        });
+        RelatoriosButton.add(ConsultarRelatorioButton);
 
-        gerarRelatorio.setText("Gerar Relatório");
-        RelatoriosMenu.add(gerarRelatorio);
-
-        Menu.add(RelatoriosMenu);
+        Menu.add(RelatoriosButton);
 
         gerenciarUsuarioMenu.setText("Gerenciar Usuarios");
         Menu.add(gerenciarUsuarioMenu);
@@ -226,6 +232,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_logoutActionPerformed
 
+    private void RelatoriosButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RelatoriosButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_RelatoriosButtonActionPerformed
+
+    private void ConsultarRelatorioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConsultarRelatorioButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ConsultarRelatorioButtonActionPerformed
+
     
     /**
      * @param args the command line arguments
@@ -267,12 +281,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu AjudaMenu;
     private javax.swing.JMenu AjudaMenu3;
     private javax.swing.JMenu AjudaMenu4;
+    private javax.swing.JMenuItem ConsultarRelatorioButton;
     private javax.swing.JMenu EntidadesMenu;
     private javax.swing.JLabel LabelUsuario;
     private javax.swing.JMenuBar Menu;
     private javax.swing.JMenuItem MenuItemCategoria;
     private javax.swing.JMenuItem MenuItemEntrada;
-    private javax.swing.JMenuItem MenuItemEstoque;
     private javax.swing.JMenuItem MenuItemFornecedor;
     private javax.swing.JMenuItem MenuItemManual;
     private javax.swing.JMenuItem MenuItemMovimentacacao;
@@ -281,10 +295,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem MenuItemSobre;
     private javax.swing.JPanel PanelConteudo;
     private javax.swing.JPanel PanelSiga;
-    private javax.swing.JMenu RelatoriosMenu;
+    private javax.swing.JMenu RelatoriosButton;
     private javax.swing.JMenu almoxarifadoMenu;
     private javax.swing.JMenuItem editarPerfilMenu;
-    private javax.swing.JMenuItem gerarRelatorio;
     private javax.swing.JMenu gerenciarUsuarioMenu;
     private javax.swing.JMenuItem logout;
     private javax.swing.JLabel textSiga;
@@ -343,5 +356,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
     public void setVisibleViewAdmin(boolean b){
         setVisibleAlmoxarifadoMenu(b);
         setVisibleGerenciarUsuariosMenu(b);
+    }
+    
+    public void relatorioButtonListener(ActionListener listener){
+        for(ActionListener al : ConsultarRelatorioButton.getActionListeners()){
+            ConsultarRelatorioButton.removeActionListener(al);
+        }
+        
+        ConsultarRelatorioButton.addActionListener(listener);
     }
 }

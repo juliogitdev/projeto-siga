@@ -7,14 +7,13 @@ package com.siga.controller;
  */
 
 import com.siga.controller.Entidades.CategoriaController;
-import com.siga.controller.Entidades.EntidadeController;
 import com.siga.controller.Entidades.FornecedorController;
 import com.siga.controller.Entidades.MovimentacaoController;
 import com.siga.controller.Entidades.ProdutoController;
 import com.siga.controller.Entidades.RequisitanteController;
+import com.siga.controller.RelatorioController;
 import com.siga.view.TelaPrincipal;
 import com.siga.model.Usuario;
-
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -32,7 +31,9 @@ public class PrincipalController {
     private ProdutoController produtoController;
     private MovimentacaoController movimentacaoController;
     private PerfilController perfilController;
+    private RelatorioController relatorioController;
     private Usuario usuario;
+
    
     public PrincipalController(TelaPrincipal telaPrincipal, Usuario usuario) {
         this.telaPrincipal = telaPrincipal;
@@ -42,7 +43,7 @@ public class PrincipalController {
         this.fornecedorController = new FornecedorController();
         this.requisitanteController = new RequisitanteController();
         this.produtoController = new ProdutoController();
-        
+        this.relatorioController = new RelatorioController();
         this.movimentacaoController = new MovimentacaoController(usuario);
         
         //Adicionando listeners nas entidades do menu
@@ -52,6 +53,7 @@ public class PrincipalController {
         telaPrincipal.ProdutoListener(new ProdutoListener());
         telaPrincipal.MovimentacaoListener(new MovimentacaoListener());
         telaPrincipal.perfilListener(new EditarPerfilListener());
+        telaPrincipal.relatorioButtonListener(new RelatorioListener());
         viewAdmin();
         
         //Deixa a tela principal visivel
@@ -163,5 +165,13 @@ public class PrincipalController {
         
     }
     
+    class RelatorioListener implements ActionListener{
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            relatorioController.setVisible(true);
+        }
+        
+    }
     
 }
