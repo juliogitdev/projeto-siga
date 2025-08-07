@@ -100,6 +100,8 @@ public class ProdutoController extends EntidadeController{
             } else if (acao.equals("Update")) {
                 atualizar();
             }
+            
+            getDialogEntidade().setVisible(false);
 
         } catch (SQLException ex) {
             System.out.println(ex);

@@ -20,7 +20,7 @@ public class CategoriaDao implements InterfaceDao<Categoria>{
         { 
             pstm.setString(1, categoria.getNome_categoria());
             pstm.setString(2, categoria.getDescricao());
-            pstm.setBoolean(3, categoria.isEnabled());
+            //pstm.setBoolean(3, categoria.isEnabled());
             pstm.execute();
             
         }
@@ -34,7 +34,7 @@ public class CategoriaDao implements InterfaceDao<Categoria>{
             
             pstm.setString(1, categoria.getNome_categoria());
             pstm.setString(2, categoria.getDescricao());
-            pstm.setBoolean(3, categoria.isEnabled());
+            //pstm.setBoolean(3, categoria.isEnabled());
             pstm.setInt(4, categoria.getId());
             pstm.execute();
             
@@ -63,7 +63,7 @@ public class CategoriaDao implements InterfaceDao<Categoria>{
                 novaCategoria.setId(rs.getInt("id_categoria"));
                 novaCategoria.setNome_categoria(rs.getString("nome"));
                 novaCategoria.setDescricao(rs.getString("descricao"));
-                novaCategoria.setEnabled(rs.getBoolean("ativo"));
+                //novaCategoria.setEnabled(rs.getBoolean("ativo"));
                 
                 lista.add(novaCategoria);
             }
@@ -92,7 +92,7 @@ public class CategoriaDao implements InterfaceDao<Categoria>{
                     c.setId(rs.getInt("id_categoria"));
                     c.setNome_categoria(rs.getString("nome"));
                     c.setDescricao(rs.getString("descricao"));
-                    c.setEnabled(rs.getBoolean("ativo"));
+                    //c.setEnabled(rs.getBoolean("ativo"));
                 }
             }
             
@@ -116,7 +116,7 @@ public class CategoriaDao implements InterfaceDao<Categoria>{
                     c.setId(rs.getInt("id_categoria"));
                     c.setNome_categoria(rs.getString("nome"));
                     c.setDescricao(rs.getString("descricao"));
-                    c.setEnabled(rs.getBoolean("ativo"));
+                    //c.setEnabled(rs.getBoolean("ativo"));
                 }
             }
         }
@@ -139,7 +139,7 @@ public class CategoriaDao implements InterfaceDao<Categoria>{
                 novaCategoria.setId(rs.getInt("id_categoria"));
                 novaCategoria.setNome_categoria(rs.getString("nome"));
                 novaCategoria.setDescricao(rs.getString("descricao"));
-                novaCategoria.setEnabled(rs.getBoolean("ativo"));
+                //novaCategoria.setEnabled(rs.getBoolean("ativo"));
                 
                 lista.add(novaCategoria);}
             }

@@ -4,7 +4,6 @@ import com.siga.controller.auth.RegistroController;
 import com.siga.dao.UsuarioDao;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
-import org.mindrot.jbcrypt.BCrypt;
 /**
  *
  * @author Julio
@@ -13,6 +12,7 @@ public class TelaLogin extends javax.swing.JFrame {
 
     public TelaLogin() {
         initComponents();
+        setVisible(true);
     }
 
     @SuppressWarnings("unchecked")

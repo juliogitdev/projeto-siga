@@ -5,8 +5,11 @@ package com.siga.controller.auth;
  * @author Julio
  */
 
+import com.siga.controller.PrincipalController;
 import com.siga.view.auth.TelaLogin;
 import com.siga.dao.UsuarioDao;
+import com.siga.model.Usuario;
+import com.siga.util.AuthUtils;
 
 
 import java.awt.event.ActionEvent;
@@ -38,7 +41,30 @@ public class LoginController{
                 telaLogin.showMessage("Por favor digite um e-mail válido");
                 return;
             }
-        
+            
+            Usuario user = usuarioDao.buscarPorEmail(email);
+            
+            if(user == null){
+                telaLogin.showMessage("E-mail não cadastrado");
+            }
+            
+            
+
+            if(!AuthUtils.verificarSenha(senha, user.getSenha())){
+                System.out.println("Senha da view: " + senha);
+                System.out.println("Senha do banco " + user.getSenha());
+                telaLogin.showMessage("Senha incorreta");
+                return;
+            }
+            
+            if(!user.isEnabled()){
+                telaLogin.showMessage("Usuario desativado, contate um administrador ");
+                return;
+            }
+            telaLogin.dispose();
+            new PrincipalController(user);
+
+            
         }
     }
 }

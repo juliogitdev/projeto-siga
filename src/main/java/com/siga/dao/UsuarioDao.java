@@ -106,7 +106,7 @@ public class UsuarioDao implements InterfaceDao<Usuario>{
         return u;
     }
     
-    public Usuario buscarPorEmail(String email) throws SQLException{
+    public Usuario buscarPorEmail(String email){
         Usuario u = null;
         String sql = "SELECT * FROM usuario WHERE email = ?;";
         
@@ -125,6 +125,9 @@ public class UsuarioDao implements InterfaceDao<Usuario>{
 
                 }
             }
+        }catch(SQLException ex){
+            System.out.println("Falha ao buscar por e-mail!");
+            System.out.println(ex);
         }
         
         return u;

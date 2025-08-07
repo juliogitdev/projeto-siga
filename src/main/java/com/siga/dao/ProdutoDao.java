@@ -93,10 +93,12 @@ public class ProdutoDao implements InterfaceDao<Produto>{
         List<Produto> listaProdutos = new ArrayList<>();
         String sql = "SELECT * FROM produto";
         
+        System.out.println("Executando comando sql de listartodos produtos");
+        
         try(Connection conn = ConnectionFactory.getConnection();
             PreparedStatement pstm = conn.prepareStatement(sql);
             ResultSet rs = pstm.executeQuery();){
-            
+            System.out.println("Dentro do try");
             while(rs.next()){
                 Produto novoProduto = new Produto();
                 FornecedorDao fDao = new FornecedorDao();
@@ -109,7 +111,7 @@ public class ProdutoDao implements InterfaceDao<Produto>{
                 novoProduto.setFornecedor(fDao.buscarPorId(rs.getInt("id_fornecedor")));
                 novoProduto.setCategoria(cDao.buscarPorId(rs.getInt("id_categoria")));
                 novoProduto.setEnabled(rs.getBoolean("ativo"));
-                
+                System.out.println("Adicicionando produto na lista");
                 listaProdutos.add(novoProduto);
             }
         };

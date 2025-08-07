@@ -97,9 +97,9 @@ public class RelatorioDao {
              ResultSet rs = pstm.executeQuery()) {
 
             while (rs.next()) {
-                Produto produto = new Produto();
-                produto.setId(rs.getInt("id_produto"));
-                produto.setNomeProduto(rs.getString("nome_produto"));
+                ProdutoDao pd = new ProdutoDao();
+                Produto produto = pd.buscarPorId(rs.getInt("id_produto"));
+                
 
                 Requisitante req = new Requisitante();
                 req.setId(rs.getInt("id_requisitante"));
@@ -134,9 +134,9 @@ public class RelatorioDao {
              ResultSet rs = pstm.executeQuery()) {
 
             while (rs.next()) {
-                Produto produto = new Produto();
-                produto.setId(rs.getInt("id_produto"));
-                produto.setNomeProduto(rs.getString("nome_produto"));
+                ProdutoDao pd = new ProdutoDao();
+                Produto produto = pd.buscarPorId(rs.getInt("id_produto"));
+
 
                 Fornecedor fornecedor = new Fornecedor();
                 fornecedor.setId(rs.getInt("id_fornecedor"));
@@ -213,7 +213,7 @@ public class RelatorioDao {
     public List<RelatorioEstoqueProduto> buscarProdutosMaisEstoque() throws SQLException {
         List<RelatorioEstoqueProduto> lista = new ArrayList<>();
         String sql = """
-        SELECT id_produto, nome_produto, descricao, quantidade
+        SELECT id_produto, nome_produto, descricao, quantidade, ativo
         FROM produto
         WHERE ativo = true
         ORDER BY quantidade DESC
@@ -225,11 +225,9 @@ public class RelatorioDao {
              ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
-                Produto p = new Produto();
-                p.setId(rs.getInt("id_produto"));
-                p.setNomeProduto(rs.getString("nome_produto"));
-                p.setDescricao(rs.getString("descricao"));
-                p.setQuantidade(rs.getInt("quantidade"));
+                ProdutoDao pd = new ProdutoDao();
+                Produto p = pd.buscarPorId(rs.getInt("id_produto"));
+
 
                 lista.add(new RelatorioEstoqueProduto(p, p.getQuantidade()));
             }
@@ -241,7 +239,7 @@ public class RelatorioDao {
     public List<RelatorioEstoqueProduto> buscarProdutosMenosEstoque() throws SQLException {
         List<RelatorioEstoqueProduto> lista = new ArrayList<>();
         String sql = """
-        SELECT id_produto, nome_produto, descricao, quantidade
+        SELECT id_produto, nome_produto, descricao, quantidade, ativo
         FROM produto
         WHERE ativo = true
         ORDER BY quantidade ASC
@@ -253,11 +251,8 @@ public class RelatorioDao {
              ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
-                Produto p = new Produto();
-                p.setId(rs.getInt("id_produto"));
-                p.setNomeProduto(rs.getString("nome_produto"));
-                p.setDescricao(rs.getString("descricao"));
-                p.setQuantidade(rs.getInt("quantidade"));
+                ProdutoDao pd = new ProdutoDao();
+                Produto p = pd.buscarPorId(rs.getInt("id_produto"));
 
                 lista.add(new RelatorioEstoqueProduto(p, p.getQuantidade()));
             }

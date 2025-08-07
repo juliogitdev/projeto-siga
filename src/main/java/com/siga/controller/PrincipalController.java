@@ -35,8 +35,8 @@ public class PrincipalController {
     private Usuario usuario;
 
    
-    public PrincipalController(TelaPrincipal telaPrincipal, Usuario usuario) {
-        this.telaPrincipal = telaPrincipal;
+    public PrincipalController(Usuario usuario) {
+        this.telaPrincipal = new TelaPrincipal();
         this.usuario = usuario;
         this.perfilController = new PerfilController(telaPrincipal, usuario);
         this.categoriaController = new CategoriaController();

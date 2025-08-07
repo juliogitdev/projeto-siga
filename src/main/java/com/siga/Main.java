@@ -1,8 +1,10 @@
 package com.siga;
 
+
 import com.siga.controller.Entidades.CategoriaController;
 import com.siga.controller.auth.LoginController;
 import com.siga.controller.PrincipalController;
+import com.siga.dao.ProdutoDao;
 import com.siga.dao.UsuarioDao;
 import com.siga.model.Usuario;
 import com.siga.view.TelaPrincipal;
@@ -12,10 +14,7 @@ import java.sql.SQLException;
 
 public class Main {
     public static void main (String args[]) throws SQLException{
-        UsuarioDao ud = new UsuarioDao();
-        TelaPrincipal tp = new TelaPrincipal();
-        Usuario u = ud.buscarPorEmail("FRAN@GMAIL.COM");
-        PrincipalController pc = new PrincipalController(tp, u);
+        new LoginController();
 
-}
+    }
 }

@@ -14,7 +14,6 @@ import java.util.List;
 
 public class MovimentacaoDao implements InterfaceDao{
     
-    ProdutoDao pd = new ProdutoDao();
     UsuarioDao ud = new UsuarioDao();
     RequisitanteDao rd = new RequisitanteDao();
     FornecedorDao fd = new FornecedorDao();
