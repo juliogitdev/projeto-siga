@@ -42,11 +42,6 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuItemMovimentacacaoActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="MenuItemEntrada">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Itens Movimentados"/>
-              </Properties>
-            </MenuItem>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="RelatoriosButton">
@@ -70,11 +65,6 @@
         <Menu class="javax.swing.JMenu" name="gerenciarUsuarioMenu">
           <Properties>
             <Property name="text" type="java.lang.String" value="Gerenciar Usuarios"/>
-          </Properties>
-        </Menu>
-        <Menu class="javax.swing.JMenu" name="almoxarifadoMenu">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Almoxarifado"/>
           </Properties>
         </Menu>
         <Menu class="javax.swing.JMenu" name="AjudaMenu">

@@ -39,11 +39,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         MenuItemProduto = new javax.swing.JMenuItem();
         MenuItemRequisitante = new javax.swing.JMenuItem();
         MenuItemMovimentacacao = new javax.swing.JMenuItem();
-        MenuItemEntrada = new javax.swing.JMenuItem();
         RelatoriosButton = new javax.swing.JMenu();
         ConsultarRelatorioButton = new javax.swing.JMenuItem();
         gerenciarUsuarioMenu = new javax.swing.JMenu();
-        almoxarifadoMenu = new javax.swing.JMenu();
         AjudaMenu = new javax.swing.JMenu();
         MenuItemSobre = new javax.swing.JMenuItem();
         MenuItemManual = new javax.swing.JMenuItem();
@@ -121,9 +119,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         EntidadesMenu.add(MenuItemMovimentacacao);
 
-        MenuItemEntrada.setText("Itens Movimentados");
-        EntidadesMenu.add(MenuItemEntrada);
-
         Menu.add(EntidadesMenu);
 
         RelatoriosButton.setText("Relatórios");
@@ -145,9 +140,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         gerenciarUsuarioMenu.setText("Gerenciar Usuarios");
         Menu.add(gerenciarUsuarioMenu);
-
-        almoxarifadoMenu.setText("Almoxarifado");
-        Menu.add(almoxarifadoMenu);
 
         AjudaMenu.setText("Ajuda");
 
@@ -286,7 +278,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel LabelUsuario;
     private javax.swing.JMenuBar Menu;
     private javax.swing.JMenuItem MenuItemCategoria;
-    private javax.swing.JMenuItem MenuItemEntrada;
     private javax.swing.JMenuItem MenuItemFornecedor;
     private javax.swing.JMenuItem MenuItemManual;
     private javax.swing.JMenuItem MenuItemMovimentacacao;
@@ -296,7 +287,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel PanelConteudo;
     private javax.swing.JPanel PanelSiga;
     private javax.swing.JMenu RelatoriosButton;
-    private javax.swing.JMenu almoxarifadoMenu;
     private javax.swing.JMenuItem editarPerfilMenu;
     private javax.swing.JMenu gerenciarUsuarioMenu;
     private javax.swing.JMenuItem logout;
@@ -344,17 +334,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
     public void setLabelUsuario(String nome){
         LabelUsuario.setText("Usuario: " + nome);
     }
-    
-    public void setVisibleAlmoxarifadoMenu(boolean b){
-        almoxarifadoMenu.setVisible(b);
-    }
+
     
     public void setVisibleGerenciarUsuariosMenu(boolean b){
         gerenciarUsuarioMenu.setVisible(b);
     }
     
     public void setVisibleViewAdmin(boolean b){
-        setVisibleAlmoxarifadoMenu(b);
         setVisibleGerenciarUsuariosMenu(b);
     }
     

@@ -111,7 +111,7 @@ public abstract class EntidadeView extends javax.swing.JPanel{
         });
         jScrollPane4.setViewportView(tabelaEntidade);
 
-        viewCombobox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {"Todos", "Ativos", "Inativos"}));
+        viewCombobox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {"Ativos", "Inativos"}));
         viewCombobox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 viewComboboxActionPerformed(evt);
@@ -253,38 +253,9 @@ public abstract class EntidadeView extends javax.swing.JPanel{
     
     
     
-    private final Map<Integer, Color> linhasColoridas = new HashMap<>();
 
-    public void adicionarLinhasColoridas(int[] linhas, Color cor) {
-        for (int linha : linhas) {
-            linhasColoridas.put(linha, cor);
-        }
 
-        DefaultTableCellRenderer renderer = new DefaultTableCellRenderer() {
-            @Override
-            public Component getTableCellRendererComponent(JTable table, Object value,
-                    boolean isSelected, boolean hasFocus, int row, int column) {
-
-                Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-
-                if (!isSelected && linhasColoridas.containsKey(row)) {
-                    c.setBackground(linhasColoridas.get(row));
-                } else if (!isSelected) {
-                    c.setBackground(Color.WHITE); // ou table.getBackground()
-                } else {
-                    c.setBackground(table.getSelectionBackground());
-                }
-
-                return c;
-            }
-        };
-
-        for (int i = 0; i < tabelaEntidade.getColumnCount(); i++) {
-            tabelaEntidade.getColumnModel().getColumn(i).setCellRenderer(renderer);
-        }
-
-        tabelaEntidade.repaint();
-    }
+    
     
     public void setButExcluirText(String str){
         jButtonExcluir.setText(str);
